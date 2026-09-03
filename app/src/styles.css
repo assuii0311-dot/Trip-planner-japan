@@ -418,6 +418,14 @@ button.ghost { border: 1px solid var(--line); background: var(--surface); color:
 .base-switch select { min-height: 40px; }
 
 .return-leg { color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+/* 구간 머리줄 — 하루에 도시(지역)가 둘 이상일 때 어디서 어디로 넘어가는지. */
+.seg-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+  padding: 7px 14px; font-size: 12.5px; font-weight: 700;
+  background: var(--accent-soft); color: var(--accent); border-bottom: 1px solid var(--line);
+}
+.seg-head .seg-move { font-weight: 500; color: var(--muted); font-size: 12px; }
+.seg-head.is-home { background: transparent; border-top: 1px dashed var(--line); }
 
 /* 아이템 설명 — 요약 한 줄, 펼치면 왜 가는가 / 실무 정보 / 주의점 */
 .item .more { margin-top: 8px; }

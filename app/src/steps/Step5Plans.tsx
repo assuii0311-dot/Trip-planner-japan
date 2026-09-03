@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import type { City, Item, Plan, PlanDay, PlanStyle, PlanTravel, Preferences } from '../types';
+import { Fragment, useMemo } from 'react';
+import type { City, Item, Plan, PlanDay, PlanEntry, PlanStyle, PlanTravel, Preferences } from '../types';
 import type { Itinerary } from '../lib/itinerary';
 import { carNotes, carPlanOf } from '../lib/car';
 import { lodgingLinks, lodgingPlan } from '../lib/lodging';
@@ -322,7 +322,18 @@ function Day({
                   : '이 날에 넣을 항목이 부족합니다. 3단계에서 더 담아주세요.'}
               </div>
             ) : (
-              day.entries.map((e, i) => (
+              /*
+                하루를 구간별로 그린다.
+
+                데이터에는 구간(segments)이 있었는데 화면은 평평한 목록이었다.
+                지역이 바뀌어도 아이템 사이에 '🚇 지하철·버스 약 18분' 한 줄뿐이라
+                아사쿠사에서 우에노로 넘어간 자리가 안 보였다. 구간이 둘 이상인
+                날만 머리줄을 세운다 — 한 도시에서 보내는 날은 예전 그대로다.
+              */
+              groupEntries(day).map((g, gi, groups) => (
+                <Fragment key={`seg-${g.seg}-${gi}`}>
+                  {segHeadsFor(day, groups) && <SegHead day={day} group={g} first={gi === 0} cityName={cityName} />}
+                  {g.entries.map(({ e, i }) => (
                 <div className="entry" key={`${e.item.id}-${i}`}>
                   <div>
                     <div className="time">{formatTime(e.startMin)}</div>
@@ -348,7 +359,8 @@ function Day({
                         할 수 있는 판단이 없다. 걷는 18분과 지하철 18분은 다른 일이다.
                       */
                       const prev = day.entries[i - 1]?.item;
-                      if (!prev) return null;
+                      // 지역·도시를 넘어가는 이동은 구간 머리줄이 적는다. 여기는 같은 곳 안에서만.
+                      if (!prev || prev.city !== e.item.city) return null;
                       const mv = cityMove(prev, e.item, e.travelMin, cities.find((c) => c.slug === e.item.city));
                       const tip = transitTip(cities.find((c) => c.slug === e.item.city), mv.mode);
                       return (
@@ -394,6 +406,8 @@ function Day({
                   </div>
                   <Alternatives alts={altsByItem.get(e.item.id) ?? []} target={e.item} onSwap={onSwap} />
                 </div>
+                  ))}
+                </Fragment>
               ))
             )}
           </div>
@@ -407,6 +421,65 @@ function Day({
             </div>
           )}
         </div>
+  );
+}
+
+/** 하루의 일정을 구간 번호가 이어지는 묶음으로 나눈다. 원래 순서를 그대로 둔다. */
+function groupEntries(day: PlanDay): { seg: number; entries: { e: PlanEntry; i: number }[] }[] {
+  const out: { seg: number; entries: { e: PlanEntry; i: number }[] }[] = [];
+  day.entries.forEach((e, i) => {
+    const seg = e.seg ?? 0;
+    const last = out[out.length - 1];
+    if (last && last.seg === seg) last.entries.push({ e, i });
+    else out.push({ seg, entries: [{ e, i }] });
+  });
+  return out;
+}
+
+/** 이 묶음이 어느 도시인가. 구간 밖(-1)은 자는 도시다. */
+const segCityOf = (day: PlanDay, seg: number): string =>
+  (seg < 0 ? day.sleepAt ?? day.city : day.segments?.[seg]?.city ?? day.city);
+
+/** 머리줄을 세울 날인가 — 하루에 도시(지역)가 둘 이상일 때만. */
+const segHeadsFor = (day: PlanDay, groups: { seg: number }[]): boolean =>
+  new Set(groups.map((g) => segCityOf(day, g.seg))).size >= 2;
+
+/**
+ * 구간 머리줄 — 이 구간이 어디이고, 여기로 어떻게 들어오는가.
+ *
+ * 도시 간 이동(도쿄→하코네)은 위의 큰 이동 블록이 맡고, 같은 지역 안의
+ * 이동(센소지→나카미세)은 일정 사이의 한 줄이 맡는다. 그 사이 — 지역에서
+ * 지역으로(아사쿠사→우에노), 근교에서 자는 도시로 저녁을 먹으러 — 가
+ * 이 줄이다.
+ */
+function SegHead({
+  day, group, first, cityName,
+}: {
+  day: PlanDay;
+  group: { seg: number; entries: { e: PlanEntry; i: number }[] };
+  first: boolean;
+  cityName: (slug: string) => string;
+}) {
+  if (group.seg < 0) {
+    const back = group.entries[0]?.e.returnLeg;
+    return (
+      <div className="seg-head is-home">
+        <span className="seg-city">↳ 저녁은 {cityName(day.sleepAt ?? day.city)}에서</span>
+        {back && <span className="seg-move">{day.dayTripMode?.icon ?? '🚆'} {fmtDur(back.minutes)}</span>}
+      </div>
+    );
+  }
+  const seg = day.segments?.[group.seg];
+  const inbound = seg?.inboundMin ?? 0;
+  const how = seg?.district ? '🚇 지하철·전철'
+    : day.dayTripMode ? `${day.dayTripMode.icon} ${day.dayTripMode.label}` : '🚆 이동';
+  return (
+    <div className="seg-head">
+      <span className="seg-city">📍 {cityName(segCityOf(day, group.seg))}</span>
+      {inbound > 0 && (
+        <span className="seg-move">{first ? '숙소에서 ' : ''}{how} · 문앞~문앞 {fmtDur(inbound)}</span>
+      )}
+    </div>
   );
 }
 

@@ -1676,6 +1676,63 @@ console.log('\n■ 12. 이동 안내 — 타는 것은 모두 같은 모양으�
 }
 
 // ─────────────────────────────────────────────────────────────────────────
+console.log('\n■ 13. 구간별 화면 — 하루에 도시가 둘이면 어디서 넘어가는지 보인다');
+{
+  /*
+   * 데이터에는 구간(segments)이 있었는데 화면은 평평한 목록이었다. 근교를
+   * 다녀오는 날은 '톨레도 오전 → 마드리드 저녁' 인데 아이템 사이에 이동 한
+   * 줄뿐이라 어디서 도시가 바뀌는지 안 보였다. 일본(도쿄)에서는 하루에
+   * 지역이 둘셋이라 이것이 없으면 계획을 읽을 수 없다.
+   *
+   * 스페인도 같이 좋아진다 — 근교 날에는 머리줄이 서고, 한 도시에서 보내는
+   * 날은 예전 그대로다(머리줄 없음). 그 둘을 본다.
+   */
+  const ctx = await browser.newContext({ viewport: { width: 430, height: 1000 } });
+  const page = await ctx.newPage();
+  watch(page, allErrors, '[구간]');
+  const next = await build(page, {
+    cities: [['마드리드·중부', '마드리드'], ['마드리드·중부', '톨레도'], ['마드리드·중부', '세고비아']],
+    from: '2026-10-05', to: '2026-10-11',
+  });
+  await next();
+  await page.waitForTimeout(1600);
+
+  const days = page.locator('.day');
+  const total = await days.count();
+  let multi = 0, single = 0, headedMulti = 0, headedSingle = 0;
+  const sample = [];
+  for (let i = 0; i < total; i++) {
+    const d = days.nth(i);
+    const cities = new Set(await d.locator('.seg-head .seg-city').allInnerTexts());
+    const heads = await d.locator('.seg-head').count();
+    const trip = (await d.locator('.badge', { hasText: '근교' }).count()) > 0;
+    if (trip) { multi++; if (heads >= 2) headedMulti++; if (sample.length < 2) sample.push([...cities].join(' | ')); }
+    else { single++; if (heads > 0) headedSingle++; }
+  }
+  check('근교를 다녀오는 날이 있다', multi > 0, `${multi}일`);
+  check('근교 날에는 구간 머리줄이 둘 이상 선다(근교 · 저녁은 거점에서)', multi > 0 && headedMulti === multi,
+    sample.join(' / '));
+  check('한 도시에서 보내는 날에는 머리줄이 없다(예전 그대로)', headedSingle === 0, `${single}일 중 ${headedSingle}일에 머리줄`);
+  const home = page.locator('.seg-head.is-home').first();
+  if (await home.count()) {
+    const t = await home.innerText();
+    check('저녁 머리줄에 자는 도시와 돌아오는 시간이 적힌다', /저녁은 .+에서/.test(t) && /\d+분|\d+시간/.test(t),
+      t.replace(/\n/g, ' '));
+  }
+  // 구간을 넘어가는 자리에는 '약 N분 이동' 한 줄이 따로 붙지 않는다 — 머리줄이 그 일을 한다.
+  const dup = await page.evaluate(() => {
+    let n = 0;
+    for (const head of document.querySelectorAll('.seg-head')) {
+      const first = head.nextElementSibling;
+      if (first?.querySelector('.travel:not(.return-leg)')) n++;
+    }
+    return n;
+  });
+  check('머리줄 바로 아래 일정에 이동 한 줄이 겹치지 않는다', dup === 0, `${dup}건`);
+  await ctx.close();
+}
+
+// ─────────────────────────────────────────────────────────────────────────
 console.log('\n■ 10. 아이패드 — 골라도 계속 고를 수 있는가');
 {
   const ctx = await browser.newContext({ viewport: { width: 1024, height: 1366 }, hasTouch: true });
