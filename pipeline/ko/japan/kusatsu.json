@@ -1,0 +1,121 @@
+{
+  "kusatsu-matsumoto": {
+    "name": "마쓰모토",
+    "summary": "넓적한 히모카와 우동"
+  },
+  "kusatsu-aoyama": {
+    "name": "아오야마",
+    "summary": "사이노카와라 길의 수타 소바"
+  },
+  "kusatsu-makoto-sushi": {
+    "name": "마코토 스시",
+    "summary": "동네 사람이 가는 스시집"
+  },
+  "kusatsu-tsuki-ya": {
+    "name": "쓰키야",
+    "summary": "샤부샤부 전문"
+  },
+  "kusatsu-donguri": {
+    "name": "돈구리",
+    "summary": "TV 에 나온 양식당"
+  },
+  "kusatsu-kusatsu-plateau-beer": {
+    "name": "구사쓰 고원 맥주",
+    "summary": "온천수로 빚는 지역 맥주",
+    "theme": "nightlife"
+  },
+  "kusatsu-ramen-ichiban": {
+    "name": "라멘 이치반",
+    "summary": "라멘 여덟 가지"
+  },
+  "kusatsu-kataoka-tsurutaro-art-museum": {
+    "name": "가타오카 쓰루타로 미술관",
+    "summary": "배우이자 화가 가타오카의 미술관. 옆에 온천 호텔",
+    "durationMin": 45
+  },
+  "kusatsu-netsu-no-yu": {
+    "name": "네쓰노유 · 유모미 공연",
+    "summary": "긴 판자로 온천물을 식히는 유모미. 노래와 춤",
+    "why": "뜨거운 온천물에 물을 타지 않고 긴 판자로 저어 식히는 '유모미' 를 노래와 함께 보여 주는 공연장입니다. 하루 몇 회이고 관객이 직접 해 보는 순서가 있습니다. 유바타케 바로 옆입니다.",
+    "booking": "공연 시각을 먼저 확인하세요. 하루 6회 안팎",
+    "durationMin": 40
+  },
+  "kusatsu-kusatsu-balz-memorial-hall": {
+    "name": "벨츠 기념관",
+    "summary": "구사쓰 온천을 세계에 알린 독일 의사",
+    "durationMin": 20
+  },
+  "kusatsu-yubatake": {
+    "name": "유바타케",
+    "summary": "마을 한가운데서 분당 4천 리터가 솟는 온천의 밭",
+    "why": "마을 중심에서 분당 4,000리터의 온천물이 솟아 나무 홈통을 따라 흐르며 식는 곳입니다. 유황 냄새와 김 속에 둘레 산책로와 족탕이 있고, 밤 조명이 켜지면 구사쓰의 대표 장면입니다. 구사쓰에 온 이유입니다.",
+    "durationMin": 45
+  },
+  "kusatsu-kusatsu-shirane-mountain": {
+    "name": "구사쓰 시라네산",
+    "summary": "에메랄드빛 화구호 유가마. 활화산이라 접근 제한",
+    "caution": "화산 활동으로 화구 접근이 제한되는 기간이 깁니다. 출발 전 확인하세요.",
+    "durationMin": 120
+  },
+  "kusatsu-joshinetu-kogen-national-park": {
+    "name": "조신에쓰 고원 국립공원",
+    "summary": "일본에서 두 번째로 큰 국립공원. 시라네산이 그 안",
+    "durationMin": 120
+  },
+  "kusatsu-sainokawara-park": {
+    "name": "사이노카와라 공원",
+    "summary": "온천이 흐르는 계곡 공원. 끝에 노천탕",
+    "why": "온천물이 개울로 흐르는 계곡 공원으로 곳곳에서 김이 오릅니다. 끝에 사이노카와라 노천탕이 있고, 유바타케에서 걸어 10분입니다.",
+    "durationMin": 40
+  },
+  "kusatsu-therme-therme": {
+    "name": "테르메 테르메",
+    "summary": "수영복 입는 온천 풀. 가족용",
+    "theme": "onsen",
+    "durationMin": 120
+  },
+  "kusatsu-sainokawara-open-air-bath": {
+    "name": "사이노카와라 노천탕",
+    "summary": "500㎡ 의 거대 노천탕. 눈 내리는 겨울이 절정",
+    "theme": "onsen",
+    "why": "구사쓰에서 가장 큰 노천탕으로 계곡 끝에 500㎡ 의 탕이 숲에 둘러싸여 있습니다. 눈 내리는 겨울 밤이 절정이고 4월~11월에는 밤 20시까지 엽니다.",
+    "caution": "문신 입장 불가. 씻는 곳이 없어 몸만 헹구고 들어갑니다.",
+    "durationMin": 90
+  },
+  "kusatsu-yoritomo": {
+    "name": "요리토모",
+    "summary": "기념품 가게",
+    "durationMin": 15
+  },
+  "kusatsu-yamagataya-souvenir-shop": {
+    "name": "야마가타야",
+    "summary": "마네키네코(복고양이) 수천 개의 가게",
+    "durationMin": 15
+  },
+  "kusatsu-otaki-hot-spring": {
+    "name": "오타키노유",
+    "summary": "온도가 다른 탕에 차례로 들어가는 '아와세유'",
+    "theme": "onsen",
+    "why": "온도가 다른 탕 넷에 차례로 들어가는 전통 입욕법 '아와세유' 를 지금도 하는 큰 온천입니다. 유바타케에서 걸어 5분이고 식당이 있어 반나절을 씁니다.",
+    "caution": "문신 입장 불가.",
+    "durationMin": 120
+  },
+  "kusatsu-goza-hot-spring": {
+    "name": "고자노유",
+    "summary": "유바타케 앞의 목조 대중탕. 에도·메이지 양식",
+    "theme": "onsen",
+    "why": "유바타케 바로 앞에 에도·메이지 시대 목욕탕 양식으로 지은 대중탕입니다. 나무 탕과 돌 탕이 있고 값이 ¥700 이라 마을 산책 중 가볍게 들어갑니다.",
+    "durationMin": 60
+  },
+  "kusatsu-craft-and-folk-craft": {
+    "name": "공예 체험",
+    "summary": "구사쓰 공예 만들기 체험",
+    "theme": "activity",
+    "durationMin": 60
+  },
+  "kusatsu-center-yutaka": {
+    "name": "센터 유타카",
+    "summary": "기념품 가게",
+    "durationMin": 15
+  }
+}

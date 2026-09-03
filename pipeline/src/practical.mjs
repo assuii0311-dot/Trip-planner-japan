@@ -44,8 +44,9 @@ export function durationText(min) {
   return rest ? `약 ${h}시간 ${rest}분` : `약 ${h}시간`;
 }
 
-/** 유로 → '무료' / '€14' / null(정보 없음). */
-export function priceText(eur) {
+/** 유로 → '무료' / '€14' / null(정보 없음). 엔이 있으면 '¥1,200' 로 적는다. */
+export function priceText(eur, jpy = null) {
+  if (jpy !== null && jpy !== undefined) return jpy === 0 ? '무료' : `¥${jpy.toLocaleString('en-US')}`;
   if (eur === null || eur === undefined) return null;
   if (eur === 0) return '무료';
   return `€${eur}`;
@@ -71,7 +72,7 @@ export function describe(item, override = {}) {
     closed: override.closed ?? closedDays(item.hours),
     busy: override.busy ?? null,
     duration: durationText(item.durationMin),
-    price: priceText(item.priceEur),
+    price: priceText(item.priceEur, item.priceJpy ?? null),
     hours: item.hours ?? null,
   };
   return { summary, why, practical, caution: override.caution ?? null };

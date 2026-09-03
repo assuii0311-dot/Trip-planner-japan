@@ -21,6 +21,32 @@ const S = (slot: Slot, earliest: number, latest: number): SlotSpec => ({ slot, e
 
 const MEAL_SLOTS = new Set<Slot>(['lunch', 'dinner']);
 
+/**
+ * 식사 시간은 나라마다 다르다.
+ *
+ * 아래 STYLES 의 자리 시각은 스페인 리듬(점심 13~15시 반, 저녁 20시 반)이다.
+ * 일본은 점심 12시, 저녁 19시라 두 시간 가까이 이르고, 그대로 두면 도쿄
+ * 계획이 21시에 저녁을 먹으러 간다 — 그때 문을 닫는 가게가 많다.
+ * 나라 데이터의 `meals` 로 점심·저녁 자리를 통째로 당긴다. 점심을 당기면
+ * 오후 자리도, 저녁을 당기면 저녁 무렵·밤 자리도 같이 당겨진다.
+ */
+const SPAIN_MEALS = { lunch: 13 * 60, dinner: 20 * 60 + 30 };
+const MEAL_SHIFT = { lunch: 0, dinner: 0 };
+const hhmm = (s: string | undefined, fallback: number) => {
+  const m = s?.match(/^(\d{1,2}):(\d{2})$/);
+  return m ? Number(m[1]) * 60 + Number(m[2]) : fallback;
+};
+export function setMealTimes(meals: { lunch?: string; dinner?: string }): void {
+  MEAL_SHIFT.lunch = hhmm(meals.lunch, SPAIN_MEALS.lunch) - SPAIN_MEALS.lunch;
+  MEAL_SHIFT.dinner = hhmm(meals.dinner, SPAIN_MEALS.dinner) - SPAIN_MEALS.dinner;
+}
+/** 나라의 식사 시간에 맞춰 자리 하나를 옮긴다. 오전은 그대로다. */
+function shiftSpec(s: SlotSpec): SlotSpec {
+  const d = s.slot === 'lunch' || s.slot === 'afternoon' ? MEAL_SHIFT.lunch
+    : s.slot === 'evening' || s.slot === 'dinner' || s.slot === 'night' ? MEAL_SHIFT.dinner : 0;
+  return d ? { ...s, earliest: s.earliest + d, latest: s.latest + d } : s;
+}
+
 interface StyleSpec {
   style: PlanStyle;
   title: string;
@@ -213,6 +239,7 @@ function buildDay(
   const start = Math.max(base, arrival ?? 0, tripArrive ?? 0, startAtMin ?? 0);
 
   const specs = spec.slots(start)
+    .map(shiftSpec)
     // 장거리 비행으로 내린 날은 밤 일정을 넣지 않는다.
     .filter((s) => !(longHaulArrival && s.slot === 'night'));
 
@@ -747,11 +774,13 @@ function reorderDay(
 /** 시각에 맞는 시간대 이름. 순서를 바꾼 뒤 라벨을 다시 붙이는 데 쓴다. */
 function slotAt(min: number, prefs: Preferences): Slot {
   const start = DAY_START[prefs.dayStart];
-  if (min >= 22 * 60) return 'night';
-  if (min >= 20 * 60 + 15) return 'dinner';
-  if (min >= 18 * 60) return 'evening';
-  if (min >= 15 * 60) return 'afternoon';
-  if (min >= 13 * 60) return 'lunch';
+  const L = MEAL_SHIFT.lunch;
+  const D = MEAL_SHIFT.dinner;
+  if (min >= 22 * 60 + D) return 'night';
+  if (min >= 20 * 60 + 15 + D) return 'dinner';
+  if (min >= 18 * 60 + D) return 'evening';
+  if (min >= 15 * 60 + L) return 'afternoon';
+  if (min >= 13 * 60 + L) return 'lunch';
   return min >= start ? 'morning' : 'morning';
 }
 

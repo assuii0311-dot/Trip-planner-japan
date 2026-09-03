@@ -1,0 +1,154 @@
+{
+  "yokohama-daidai-ya": {
+    "name": "다이다이야",
+    "summary": "일본식과 서양식을 섞은 창작 요리"
+  },
+  "yokohama-shabu-shabu-buffet-syabu-yo": {
+    "name": "샤부요",
+    "summary": "샤부샤부 뷔페 체인. 가족에게 편하다"
+  },
+  "yokohama-the-tavern": {
+    "name": "더 태번",
+    "summary": "요코하마 최초의 영국식 펍",
+    "theme": "nightlife"
+  },
+  "yokohama-bunnosuke-chaya": {
+    "name": "분노스케차야",
+    "summary": "교토식 단것. 와라비모치와 젠자이"
+  },
+  "yokohama-tori-dori": {
+    "name": "도리도리",
+    "summary": "야키토리 이자카야 체인"
+  },
+  "yokohama-yokohama-history-museum": {
+    "name": "요코하마시 역사박물관",
+    "summary": "선사에서 근대까지. 옆에 유적 공원",
+    "durationMin": 60
+  },
+  "yokohama-cup-noodles-museum-yokohama": {
+    "name": "컵누들 뮤지엄",
+    "summary": "나만의 컵라면을 만든다. 예약 없이 오면 못 만들 수도",
+    "why": "닛신 창업자 안도 모모후쿠의 발명을 다루는 체험형 박물관입니다. 용기에 그림을 그리고 재료를 골라 세상에 하나뿐인 컵라면을 만드는 코너가 핵심이고, 미나토미라이에 있습니다.",
+    "booking": "컵라면 만들기는 온라인 사전 예약이 안전합니다",
+    "closed": "화요일 휴관",
+    "durationMin": 90
+  },
+  "yokohama-anpanman-children-s-museum": {
+    "name": "호빵맨 어린이 뮤지엄",
+    "summary": "미취학 아이를 위한 호빵맨 세상",
+    "why": "호빵맨(앙팡맨) 캐릭터의 체험형 박물관입니다. 미취학 아이가 있으면 요코하마에서 첫 번째 목적지이고, 아니면 갈 이유가 없습니다.",
+    "booking": "날짜 지정 예매",
+    "durationMin": 120
+  },
+  "yokohama-landmark-tower": {
+    "name": "랜드마크 타워 스카이가든",
+    "summary": "69층 전망대. 일본에서 가장 빠른 엘리베이터",
+    "why": "296m 의 69층 전망대로 엘리베이터가 40초에 오릅니다. 미나토미라이·베이브리지·맑은 날 후지산까지 보이고, 해 질 무렵이 정석입니다.",
+    "durationMin": 45
+  },
+  "yokohama-yokohama-bay-bridge": {
+    "name": "요코하마 베이브리지",
+    "summary": "항구를 가로지르는 860m 현수교. 야경의 배경",
+    "durationMin": 15
+  },
+  "yokohama-hikawa-maru": {
+    "name": "히카와마루",
+    "summary": "1930년 태평양 정기선. 야마시타 공원 앞에 정박",
+    "why": "시애틀 항로를 238번 오간 1930년의 여객선이 야마시타 공원 앞에 정박해 있습니다. 찰리 채플린이 탔던 1등 객실과 기관실을 봅니다.",
+    "closed": "월요일 휴관",
+    "durationMin": 45
+  },
+  "yokohama-osanbashi-pier": {
+    "name": "오산바시 부두",
+    "summary": "나무 갑판이 물결치는 국제 여객 터미널. 야경 자리",
+    "why": "크루즈선이 닿는 국제 여객 터미널로 옥상이 나무 갑판의 언덕입니다. 여기서 보는 미나토미라이와 아카렌가 야경이 요코하마에서 가장 좋습니다. 무료이고 24시간 엽니다.",
+    "durationMin": 40
+  },
+  "yokohama-sankei-en-park": {
+    "name": "산케이엔",
+    "summary": "교토·가마쿠라의 옛 건물을 옮겨 놓은 정원",
+    "why": "생사 무역상 하라 산케이가 교토·가마쿠라의 옛 건물을 옮겨 지은 17만㎡ 정원입니다. 삼층탑과 연못, 계절 꽃이 있고 시내에서 버스 35분이라 반나절이 듭니다.",
+    "durationMin": 90
+  },
+  "yokohama-yamashita-park": {
+    "name": "야마시타 공원",
+    "summary": "1930년의 해안 공원. 히카와마루와 장미원",
+    "why": "관동대지진 잔해를 매립해 만든 해안 공원입니다. 히카와마루가 정박해 있고 5월 장미원이 유명합니다. 차이나타운에서 아카렌가로 걸어가는 길입니다.",
+    "durationMin": 40
+  },
+  "yokohama-windjammer": {
+    "name": "윈드재머",
+    "summary": "차이나타운 옆 재즈 바"
+  },
+  "yokohama-manyou-club": {
+    "name": "만요클럽 미나토미라이",
+    "summary": "야경을 보며 온천. 24시간 스파",
+    "theme": "onsen",
+    "why": "미나토미라이의 대형 스파로 아타미에서 실어 온 온천수를 씁니다. 옥상 족탕에서 관람차와 야경을 보고, 24시간이라 밤늦게 가도 됩니다.",
+    "durationMin": 120
+  },
+  "yokohama-minato-mirai-21": {
+    "name": "미나토미라이",
+    "summary": "항구 매립지의 신도심. 관람차와 랜드마크타워",
+    "theme": "landmark",
+    "why": "1980년대부터 매립해 만든 신도심으로 랜드마크타워, 대관람차, 아카렌가 창고, 컵누들 뮤지엄이 모여 있습니다. 해 진 뒤 조명이 켜지면 요코하마의 대표 야경이 됩니다.",
+    "durationMin": 90
+  },
+  "yokohama-joinus-yokohama": {
+    "name": "조이너스",
+    "summary": "요코하마역 서쪽의 지하 상점가",
+    "durationMin": 30
+  },
+  "yokohama-chinatown": {
+    "name": "요코하마 차이나타운",
+    "summary": "일본 최대 차이나타운. 가게 600곳과 만두 먹기",
+    "theme": "food",
+    "why": "가게 600여 곳이 모인 일본 최대의 중화가입니다. 문 열 개를 지나며 만두·소룡포·중화 과자를 사 먹고, 관제묘와 마조묘의 화려한 건물을 봅니다. 저녁 코스 요리는 예약이 편합니다.",
+    "busy": "주말 점심",
+    "durationMin": 90
+  },
+  "yokohama-yokohama-cosmo-world": {
+    "name": "요코하마 코스모월드",
+    "summary": "입장 무료 놀이공원. 112m 관람차",
+    "why": "입장이 무료이고 탈 것마다 요금을 내는 놀이공원입니다. 112m 관람차 '코스모클락' 이 미나토미라이 야경의 중심이고, 15분 한 바퀴입니다.",
+    "durationMin": 60
+  },
+  "yokohama-marine-tower": {
+    "name": "요코하마 마린타워",
+    "summary": "1961년의 등대 겸 전망탑. 2022년 재개관",
+    "durationMin": 40
+  },
+  "yokohama-soujiji": {
+    "name": "소지지",
+    "summary": "조동종 대본산. 쓰루미의 넓은 절",
+    "theme": "history",
+    "durationMin": 45
+  },
+  "yokohama-yokohama-port-opening-memorial-hall": {
+    "name": "개항기념회관(잭의 탑)",
+    "summary": "1917년의 붉은 벽돌 시계탑",
+    "durationMin": 20
+  },
+  "yokohama-landmark-plaza-queen-s-square": {
+    "name": "랜드마크 플라자·퀸즈스퀘어",
+    "summary": "랜드마크타워 아래 이어진 쇼핑몰",
+    "theme": "shopping",
+    "durationMin": 45
+  },
+  "yokohama-yokohama-bay-quarter": {
+    "name": "요코하마 베이쿼터",
+    "summary": "역 동쪽 강변의 쇼핑몰. 시버스 선착장",
+    "durationMin": 30
+  },
+  "yokohama-yokohama-world-porters": {
+    "name": "월드포터스",
+    "summary": "코스모월드 옆 쇼핑몰. 하와이 층",
+    "durationMin": 30
+  },
+  "yokohama-zoo-nogeyama": {
+    "name": "노게야마 동물원",
+    "summary": "무료 동물원. 언덕 위",
+    "theme": "activity",
+    "durationMin": 60
+  }
+}

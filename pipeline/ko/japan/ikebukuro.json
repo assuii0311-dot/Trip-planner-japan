@@ -1,0 +1,89 @@
+{
+  "ikebukuro-souten": {
+    "name": "소텐",
+    "summary": "고급 야키토리. 다섯 꼬치 세트",
+    "booking": "예약 권장"
+  },
+  "ikebukuro-namja-town": {
+    "name": "난자타운",
+    "summary": "선샤인시티 안 실내 테마파크. 교자 스타디움",
+    "theme": "activity",
+    "why": "선샤인시티 2층의 실내 테마파크로 전국 교자 가게가 모인 '교자 스타디움' 과 디저트 거리가 있습니다. 입장료를 내고 먹거리를 사 먹는 구조라 아이와 함께 두 시간을 씁니다.",
+    "durationMin": 120
+  },
+  "ikebukuro-tobu-and-seibu-basements": {
+    "name": "도부·세이부 지하 식품관",
+    "summary": "역 양쪽 백화점 지하. 도시락과 반찬",
+    "why": "이케부쿠로역 서쪽 도부와 동쪽 세이부 백화점의 지하 식품관입니다. 도시락·화과자·반찬을 사서 숙소에서 먹기 좋습니다."
+  },
+  "ikebukuro-konaya": {
+    "name": "고나야",
+    "summary": "카레 우동의 원조 체인 본점",
+    "why": "진한 카레 국물의 우동으로 알려진 체인의 본점입니다. 스가모에 있습니다."
+  },
+  "ikebukuro-ghiottone": {
+    "name": "기오토네",
+    "summary": "양이 넉넉한 파스타집"
+  },
+  "ikebukuro-kogan-ji-temple": {
+    "name": "고간지(도게누키 지장)",
+    "summary": "할머니들의 하라주쿠 스가모의 절. 물로 씻는 지장",
+    "why": "스가모 상점가의 절로 몸의 아픈 곳과 같은 자리를 물로 씻으면 낫는다는 지장보살상이 있습니다. 4·14·24일 장날에는 노점이 서고 노인들로 붐빕니다.",
+    "durationMin": 30
+  },
+  "ikebukuro-tokyo-metropolitan-theatre": {
+    "name": "도쿄예술극장",
+    "summary": "이케부쿠로 서쪽 출구의 콘서트홀. 유리 아트리움",
+    "durationMin": 20
+  },
+  "ikebukuro-sunshine-60": {
+    "name": "선샤인60 전망대",
+    "summary": "60층의 전망대. 2023년 새로 단장",
+    "why": "선샤인시티 60층 전망대입니다. 2023년 '전망 파크' 로 다시 열어 잔디를 깐 실내에서 도쿄 북쪽 풍경을 봅니다. 스카이트리보다 싸고 줄이 짧습니다.",
+    "durationMin": 45
+  },
+  "ikebukuro-zoshigaya-cemetery": {
+    "name": "조시가야 묘원",
+    "summary": "나쓰메 소세키와 고이즈미 야쿠모가 잠든 묘지",
+    "theme": "history",
+    "why": "나쓰메 소세키, 라프카디오 헌(고이즈미 야쿠모), 나가이 가후 등 문인들이 묻힌 묘원입니다. 근처 기시모진 절과 옛 노면전차(도덴 아라카와선)를 묶으면 이케부쿠로의 조용한 반나절이 됩니다.",
+    "durationMin": 40
+  },
+  "ikebukuro-manten": {
+    "name": "만텐 플라네타리움",
+    "summary": "선샤인시티의 플라네타리움. 잔디 자리에 누워 본다",
+    "why": "선샤인시티 옥상의 플라네타리움으로 잔디 자리나 구름 소파에 누워 봅니다. 수족관과 묶습니다.",
+    "booking": "주말은 시간 지정 예매",
+    "durationMin": 60
+  },
+  "ikebukuro-sugamo": {
+    "name": "스가모 지조도리 상점가",
+    "summary": "할머니들의 하라주쿠. 빨간 속옷과 소금 대복",
+    "why": "노인을 위한 상점가로 '할머니들의 하라주쿠' 라 불립니다. 행운의 빨간 속옷 가게, 소금 대복, 도게누키 지장이 있고 장날(4·14·24일)이 볼 만합니다. 이케부쿠로에서 야마노테선 두 정거장입니다.",
+    "durationMin": 60
+  },
+  "ikebukuro-maruji": {
+    "name": "마루지",
+    "summary": "스가모의 빨간 속옷 가게. 건강 기원",
+    "durationMin": 15
+  },
+  "ikebukuro-malay-chan": {
+    "name": "말레이찬",
+    "summary": "서쪽 출구의 말레이시아 식당"
+  },
+  "ikebukuro-bic-camera": {
+    "name": "빅카메라 이케부쿠로 본점",
+    "summary": "빅카메라의 본점. 동쪽 출구",
+    "durationMin": 45
+  },
+  "ikebukuro-junkudo": {
+    "name": "준쿠도 이케부쿠로",
+    "summary": "9층 대형 서점. 꼭대기에 영어 책",
+    "durationMin": 30
+  },
+  "ikebukuro-wd-ancient-orient-museum": {
+    "name": "고대 오리엔트 박물관",
+    "summary": "선샤인시티 안의 메소포타미아·이란 유물",
+    "durationMin": 45
+  }
+}

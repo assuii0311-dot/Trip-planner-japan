@@ -209,12 +209,20 @@ function take(list: Ranked[], maxDays: number): Ranked[] {
  * @param cityRanked 이 도시 아이템을 순위 순으로. 미식은 미리 빼고 넘긴다 —
  *   식사는 동선이 만드는 기회에 배정할 뿐 코스 분량을 정하지 않는다.
  */
-export function tiersOf(cityRanked: Ranked[]): Tier[] {
+export function tiersOf(
+  cityRanked: Ranked[],
+  /**
+   * 등급 크기의 배율. 도시는 1(꽉찬 4일·보통 2일), 도쿄 안의 지역은 0.25
+   * (꽉찬 1일·보통 반나절). 지역은 서로 6~30분 거리라 하루에 둘셋을 돈다 —
+   * 지역에 도시의 크기를 주면 일곱 곳을 고른 4박 5일이 11일치가 된다.
+   */
+  scale = 1,
+): Tier[] {
   const pool = cityRanked.filter((r) => r.score >= RANK_FLOOR);
   if (pool.length === 0) return [];
 
-  const full = take(pool, TIER_MAX_DAYS.full);
-  const normal = take(full, TIER_MAX_DAYS.normal);
+  const full = take(pool, TIER_MAX_DAYS.full * scale);
+  const normal = take(full, TIER_MAX_DAYS.normal * scale);
 
   /*
    * 찍먹은 대표로 지정된 곳을 먼저 넣는다. 순위가 낮아도 넣는 이유는,

@@ -7,8 +7,9 @@ import BasePlan from '../components/BasePlan';
 import type { Itinerary } from '../lib/itinerary';
 import type { Island } from '../lib/data';
 import { islandAsCity } from '../lib/island';
-import { AIRPORT_GROUPS, airportOf } from '../lib/airports';
-import { withJosa } from '../lib/korean';
+import { airportGroups, airportOf } from '../lib/airports';
+import { countryOf } from '../lib/countries';
+import { josa, withJosa } from '../lib/korean';
 import { mark } from '../lib/diag';
 import { addDays, dayDiff } from '../lib/caldate';
 import { isOff } from '../lib/rendermode';
@@ -73,6 +74,8 @@ export default function Step1Basics({
   const days = tripDays(basics);
   const nights = Math.max(0, days - 1);
   const selected = cities.filter((c) => basics.cities.includes(c.slug));
+  /** 나라 이름. '스페인 첫날' 이라고 못 박아 두면 일본 화면에서 틀린 말이 된다. */
+  const here = countryOf(basics.country)?.name ?? '현지';
   const inAirport = airportOf(basics.startAirport);
   const outAirport = airportOf(basics.endAirport);
   const cityName = (slug: string) => cities.find((c) => c.slug === slug)?.name ?? slug;
@@ -189,13 +192,13 @@ export default function Step1Basics({
           옮긴다. 항공권 사이트들이 하는 방식이고 놀랄 일이 없다.
         */}
         <div className="date-pair">
-          <Field label="스페인 첫날" hint="현지에 도착하는 날">
+          <Field label={`${here} 첫날`} hint="현지에 도착하는 날">
             <input
               type="date" value={basics.startDate}
               onChange={(e) => onChange(moveStart(basics, e.target.value))}
             />
           </Field>
-          <Field label="스페인 마지막 날" hint="현지에서 떠나는 날">
+          <Field label={`${here} 마지막 날`} hint="현지에서 떠나는 날">
             <input
               type="date" value={basics.endDate}
               onChange={(e) => onChange(moveEnd(basics, e.target.value))}
@@ -204,7 +207,7 @@ export default function Step1Basics({
         </div>
         <p className="help">
           현지에서 {days}일 {nights}박입니다.
-          {' '}<b>한국 도착일이 아니라 스페인을 떠나는 날</b>을 넣으세요 —
+          {' '}<b>한국 도착일이 아니라 {here}{josa(here, '을를')} 떠나는 날</b>을 넣으세요 —
           귀국편은 다음 날 한국에 내립니다.
         </p>
 
@@ -219,13 +222,13 @@ export default function Step1Basics({
         help="항공권에 찍힌 공항을 고르세요. 왕복이면 둘을 같은 공항으로 두시면 됩니다."
       >
         <div className="date-pair">
-          <Field label="도착" hint="스페인에 내리는 공항">
+          <Field label="도착" hint={`${here}에 내리는 공항`}>
             <select
               value={basics.startAirport ?? ''}
               onChange={(e) => onChange({ startAirport: e.target.value || null })}
             >
               <option value="">아직 안 정함</option>
-              {AIRPORT_GROUPS.map((g) => (
+              {airportGroups(basics.country).map((g) => (
                 <optgroup key={g.label} label={g.label}>
                   {g.list.map((a) => (
                     <option key={a.iata} value={a.iata}>{a.name} ({a.iata})</option>
@@ -240,7 +243,7 @@ export default function Step1Basics({
               onChange={(e) => onChange({ endAirport: e.target.value || null })}
             >
               <option value="">아직 안 정함</option>
-              {AIRPORT_GROUPS.map((g) => (
+              {airportGroups(basics.country).map((g) => (
                 <optgroup key={g.label} label={g.label}>
                   {g.list.map((a) => (
                     <option key={a.iata} value={a.iata}>{a.name} ({a.iata})</option>
@@ -268,7 +271,7 @@ export default function Step1Basics({
           숨기는 대신 이유를 말한다.
         */}
         <div className="date-pair" style={{ marginTop: 12 }}>
-          <Field label="현지 착륙 시각" hint="스페인에 내리는 시각 (대략)">
+          <Field label="현지 착륙 시각" hint={`${here}에 내리는 시각 (대략)`}>
             <input
               type="time" value={basics.arrivalTime ?? ''}
               onChange={(e) => onChange({ arrivalTime: e.target.value || null })}

@@ -1,6 +1,7 @@
 import type { City, Item, Plan } from '../types';
 import { ItemDetail } from '../components/ItemDetail';
 import { bookingLinks, directionsUrl, intercityLinks, mapsPlaceUrl } from '../lib/deeplinks';
+import { COUNTRY_TIPS, COUNTRY_TIP_TITLE } from '../lib/guide';
 import { formatTime, SLOT_LABEL } from '../lib/planner';
 import { MapExport } from '../components/MapExport';
 import { TripMap, TripMapLegend, mapDataOf } from '../components/TripMap';
@@ -117,7 +118,7 @@ export default function Step6Guide({
                   <ItemDetail item={e.item} />
                   <LinkRow
                     label={prev ? `${prev.name}에서 길찾기` : '이 장소까지 길찾기'}
-                    note="대중교통 기준 경로가 열립니다. 스페인 도시는 지하철·버스가 촘촘합니다."
+                    note="대중교통 기준 경로가 열립니다. 실제 노선과 배차는 여기서 보세요."
                     url={directionsUrl(prev, e.item, city)}
                   />
                   <LinkRow
@@ -173,15 +174,10 @@ export default function Step6Guide({
       ))}
 
       <details className="guide">
-        <summary>💡 스페인 여행 공통 안내</summary>
+        <summary>💡 {COUNTRY_TIP_TITLE[country] ?? ''} 여행 공통 안내</summary>
         <div className="inner" style={{ padding: '12px 14px', fontSize: 13, color: 'var(--muted)' }}>
           <ul style={{ margin: 0, paddingLeft: 18 }}>
-            <li>점심은 14시, 저녁은 21시가 현지 기준입니다. 20시 이전에 문 여는 식당은 관광객용인 경우가 많습니다.</li>
-            <li>인기 명소(사그라다 파밀리아, 알함브라, 프라도)는 <b>날짜 지정 온라인 예매가 사실상 필수</b>입니다. 알함브라는 몇 주 전에 매진됩니다.</li>
-            <li>많은 미술관이 주 1회 무료 개방 시간대를 둡니다. 대신 줄이 깁니다.</li>
-            <li>일요일과 월요일에 문을 닫는 곳이 많습니다. 출발 전 지도 링크로 확인하세요.</li>
-            <li>소매치기는 바르셀로나 람블라스와 마드리드 솔 광장 지하철에서 특히 잦습니다.</li>
-            <li>Renfe 고속열차(AVE)는 예매가 빠를수록 저렴하고, 당일 요금은 3배까지 오릅니다.</li>
+            {(COUNTRY_TIPS[country] ?? []).map((tip) => <li key={tip}>{tip}</li>)}
           </ul>
         </div>
       </details>

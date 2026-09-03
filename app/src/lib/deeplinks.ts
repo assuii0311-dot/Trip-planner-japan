@@ -1,4 +1,5 @@
 import type { City, Item } from '../types';
+import { getCountry } from './data';
 
 /**
  * 지도·예약 정보는 저장하지 않고 링크로 넘긴다.
@@ -44,8 +45,15 @@ export function bookingLinks(item: Item, city?: City): BookingLink[] {
 
   if (item.theme === 'food' || item.theme === 'nightlife') {
     links.push(
-      { label: '구글에서 예약 확인', url: `https://www.google.com/search?q=${q(`${term} reservas`)}`, note: '스페인 인기 식당은 예약이 필수인 곳이 많습니다.' },
-      { label: 'TheFork', url: `https://www.thefork.com/search?cityName=${q(city?.nameEn ?? '')}&searchText=${q(item.nameEn)}`, note: '유럽에서 가장 널리 쓰이는 식당 예약 앱. 할인 좌석이 자주 나옵니다.' },
+      ...(getCountry() === 'japan'
+        ? [
+          { label: '타베로그(食べログ)', url: `https://tabelog.com/rstLst/?sk=${q(item.nameLocal ?? item.nameEn)}`, note: '일본에서 가장 널리 쓰이는 식당 평점. 3.5 이상이면 줄이 섭니다.' },
+          { label: '구글에서 예약 확인', url: `https://www.google.com/search?q=${q(`${term} 予約`)}`, note: '인기 식당은 전화 예약만 받는 곳이 많습니다. 숙소에 부탁하면 됩니다.' },
+        ]
+        : [
+          { label: '구글에서 예약 확인', url: `https://www.google.com/search?q=${q(`${term} reservas`)}`, note: '스페인 인기 식당은 예약이 필수인 곳이 많습니다.' },
+          { label: 'TheFork', url: `https://www.thefork.com/search?cityName=${q(city?.nameEn ?? '')}&searchText=${q(item.nameEn)}`, note: '유럽에서 가장 널리 쓰이는 식당 예약 앱. 할인 좌석이 자주 나옵니다.' },
+        ]),
     );
   } else {
     links.push(
@@ -61,6 +69,14 @@ export function bookingLinks(item: Item, city?: City): BookingLink[] {
 /** 도시 간 이동 — 근교 당일치기와 도시 이동에 쓴다. */
 export function intercityLinks(fromCity: City, toCity: City): BookingLink[] {
   const pair = `${fromCity.nameEn} to ${toCity.nameEn}`;
+  if (getCountry() === 'japan') {
+    return [
+      { label: '구글 지도 경로', url: `https://www.google.com/maps/dir/?api=1&origin=${q(fromCity.nameEn)}&destination=${q(toCity.nameEn)}&travelmode=transit`, note: `${pair} 노선·플랫폼·요금까지 정확합니다. 일본에서는 이것이 곧 시간표입니다.` },
+      { label: 'JR 동일본 예약 (에키넷)', url: 'https://www.eki-net.com/en/jreast-train-reservation/Top/Index', note: '신칸센·특급(닛코·구사쓰 방면) 지정석. 한 달 전부터 예매합니다.' },
+      { label: '오다큐 로망스카 예약', url: 'https://www.odakyu.jp/english/romancecar/', note: '신주쿠→하코네 특급. 주말은 예매하지 않으면 자리가 없습니다.' },
+      { label: '고속버스 (Willer·JR 버스)', url: 'https://willerexpress.com/en/', note: '가와구치코·구사쓰처럼 열차가 불편한 곳은 버스가 편합니다.' },
+    ];
+  }
   return [
     { label: 'Renfe (스페인 철도)', url: `https://www.renfe.com/es/en`, note: 'AVE 고속열차는 90일 전부터 예매하면 가장 쌉니다.' },
     { label: 'Omio 통합 검색', url: `https://www.omio.com/search?departure=${q(fromCity.nameEn)}&arrival=${q(toCity.nameEn)}`, note: '기차·버스·항공을 한 번에 비교합니다.' },

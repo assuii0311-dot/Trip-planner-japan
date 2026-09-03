@@ -1,17 +1,19 @@
 // Wikivoyage / Wikidata / Overpass access layer.
 // No dependencies: Node 22 built-in fetch only.
 
-const UA = 'trip-planner-pipeline/1.0 (https://github.com/assuii0311-dot/0829_kos_basic_001)';
+const UA = 'trip-planner-pipeline/1.0 (https://github.com/assuii0311-dot/Trip-planner-japan)';
 const WV_API = 'https://en.wikivoyage.org/w/api.php';
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /** GET with retry + backoff. Wikimedia asks for a polite crawl rate. */
-export async function getJSON(base, params, { tries = 4, gap = 250 } = {}) {
+export async function getJSON(base, params, { tries = 7, gap = 1200 } = {}) {
   const url = `${base}?${new URLSearchParams({ ...params, format: 'json', formatversion: '2' })}`;
   for (let i = 0; i < tries; i++) {
     try {
       const res = await fetch(url, { headers: { 'User-Agent': UA } });
+      // 429 는 '천천히 오라' 는 뜻이다. JSON 이 아닌 본문으로 오기도 한다.
+      if (res.status === 429) { await sleep(8000 * (i + 1)); throw new Error('HTTP 429'); }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       await sleep(gap);
       return await res.json();

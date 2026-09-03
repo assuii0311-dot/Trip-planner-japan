@@ -83,9 +83,6 @@ export default function Step3Course({
     };
   }), [itinerary, cityDays, items, priorities, prefs]);
 
-  const openCity = ui.openCity === undefined ? (stops[0]?.city.slug ?? null) : ui.openCity;
-  const onlyPicked = ui.onlyPicked ?? false;
-
   const itemsOf = useMemo(() => {
     const m = new Map<string, Item[]>();
     for (const i of items) {
@@ -95,6 +92,17 @@ export default function Step3Course({
     }
     return m;
   }, [items]);
+
+  /*
+   * 처음 열어 둘 도시는 아이템이 있는 첫 도시다.
+   *
+   * 여정의 첫 자리는 거점인데, 도쿄처럼 볼 것이 전부 지역에 있는 껍데기
+   * 도시는 이 화면에 나오지 않는다. 그것을 열어 두면 아무것도 안 열린다.
+   */
+  const openCity = ui.openCity === undefined
+    ? (stops.find((s) => (itemsOf.get(s.city.slug)?.length ?? 0) > 0)?.city.slug ?? null)
+    : ui.openCity;
+  const onlyPicked = ui.onlyPicked ?? false;
 
   const chosen = useMemo(
     () => items.filter((i) => (priorities[i.id] ?? 0) > 0),

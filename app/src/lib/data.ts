@@ -2,6 +2,7 @@ import type { City, Item } from '../types';
 import type { RailTable } from './rail';
 import { setRailTable } from './rail';
 import { setCountryTransit, setIslandRail } from './routing';
+import { setMealTimes } from './planner';
 import { nameIslandHubs } from './island';
 
 export interface CountryIndex {
@@ -21,6 +22,10 @@ export interface CountryIndex {
    * 나라마다 다르다. 오사카는 도쿄보다 작아 나중에 줄일 수 있어야 한다.
    */
   transfer?: { city?: number; district?: number };
+  /** 식사 시간('HH:MM'). 스페인은 점심 13시·저녁 20시 반, 일본은 12시·19시. 안 적으면 스페인. */
+  meals?: { lunch?: string; dinner?: string };
+  /** 요금 통화. 표시에만 쓴다 — 예산 계산은 유로로 환산한 값을 쓴다. */
+  currency?: string;
   /**
    * 조사해 둔 구간표 — 지역↔지역, 지역↔도시의 역~역 시간.
    * `dayTrips` 와 같은 뜻이지만 근교 후보 목록에는 안 올리는 구간이다.
@@ -84,6 +89,8 @@ export async function loadCountry(country: string): Promise<CountryIndex> {
   setIslandRail(idx.islands ?? []);
   // 나라별 문앞~문앞 오버헤드와 지역 간 구간표. 없으면 스페인 값(37분)이다.
   setCountryTransit(idx.transfer ?? {}, idx.links ?? []);
+  // 식사 시간. 일본은 스페인보다 두 시간 가까이 이르다.
+  setMealTimes(idx.meals ?? {});
   // 섬은 도시가 아니라 섬 하나가 여행 단위다. 거점 도시는 섬 이름으로 부른다.
   return { ...idx, cities: nameIslandHubs(idx.cities, idx.islands ?? []) };
 }

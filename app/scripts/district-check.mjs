@@ -199,5 +199,60 @@ console.log('\n■ 근교 — 온천을 담으면 숙박, 아니면 당일치기
   check(inferred.onsen > 0, '하코네를 고르면 온천 관심도가 역산된다', `onsen:${inferred.onsen}`);
 }
 
+/* ── 4. 실제 도쿄 데이터 — 있을 때만 ────────────────────────────────── */
+{
+  const { readFile } = await import('node:fs/promises');
+  const { existsSync } = await import('node:fs');
+  const root = new URL('../public/data/japan/', import.meta.url);
+  if (existsSync(root)) {
+    console.log('\n■ 실제 도쿄 데이터 — 4박 5일');
+    const idx = JSON.parse(await readFile(new URL('index.json', root), 'utf8'));
+    setCountryTransit(idx.transfer ?? {}, idx.links ?? []);
+    const { coursesFor, defaultCityDays } = await import('../src/lib/course.ts');
+    const R = (s) => idx.cities.find((c) => c.slug === s);
+    const slugs = ['asakusa', 'ueno', 'shinjuku', 'shibuya', 'ginza', 'hakone', 'kamakura'];
+    const sel = idx.cities.filter((c) => expandDistrictScope(slugs, idx.cities).includes(c.slug));
+    check(sel.some((c) => c.slug === 'tokyo'), '지역을 고르면 도쿄가 따라온다', sel.map((c) => c.name).join('·'));
+    const themes = inferThemes(sel.filter((c) => c.profile));
+    const p = { ...prefs, themes };
+    // 앱과 같게: 후보는 불러온 아이템 전부, 담은 것(별)은 보통 코스.
+    const picked = [];
+    const all = [];
+    for (const c of sel) {
+      if (c.itemCount === 0) continue;
+      const items = JSON.parse(await readFile(new URL(`cities/${c.slug}.json`, root), 'utf8'));
+      all.push(...items);
+      const cs = coursesFor(c, items, p, sel);
+      const course = cs.find((x) => x.id === 'normal') ?? cs[0];
+      if (course) picked.push(...course.items);
+    }
+    check(picked.length > 20, '보통 코스로 담긴 것이 있다', `${picked.length}곳`);
+    const it = buildItinerary(sel, picked, p, 'tokyo', 'tokyo', idx.cities);
+    const line = it.stops.map((s) => `${s.city.name}${s.sleep ? `🛏${s.nights}` : ''}`).join(' → ');
+    console.log(`    ${line}`);
+    check(it.stops.filter((s) => s.sleep && s.city.tier === 'district').length === 0, '지역은 숙박지가 아니다');
+    const hk = it.stops.find((s) => s.city.slug === 'hakone');
+    check(!!hk && hk.sleep, '온천을 담은 하코네는 거기서 잔다', hk?.why ?? '');
+    const km = it.stops.find((s) => s.city.slug === 'kamakura');
+    check(!!km && !km.sleep, '가마쿠라는 당일치기', km?.why ?? '');
+    const { plans, needDays, overflow } = buildPlans({
+      items: all, itinerary: it, startDate: '2026-10-01', days: 5, prefs: p, priorities: pri(picked),
+    });
+    const plan = plans[1];
+    for (const d of plan.days) {
+      const segs = (d.segments ?? []).map((s) => `${R(s.city)?.name}${s.minutes ? s.minutes : ''}`).join('+');
+      const names = d.entries.map((e) => `${e.startMin >= 0 ? '' : ''}${e.item.name}`).slice(0, 6).join(', ');
+      console.log(`    ${d.dayIndex}일 [${segs || d.city}] 🛏${R(d.sleepAt ?? '')?.name ?? '-'} · ${d.entries.length}곳: ${names}`);
+    }
+    check(needDays <= 6, '4박 5일이 6일로 부풀지 않는다', `일정 ${needDays}일 · 넘침 ${overflow.length}`);
+    const multi = plan.days.filter((d) => new Set((d.segments ?? []).map((s) => s.city)).size >= 2).length;
+    check(multi >= 1, '한 날에 지역 둘 이상이 들어간다', `${multi}일`);
+    check(plan.days.every((d) => d.entries.length > 0), '빈 날이 없다');
+    check(plan.days.some((d) => d.entries.some((e) => e.slot === 'dinner')), '저녁이 있다');
+    const korean = picked.filter((i) => /[가-힣]/.test(i.name)).length;
+    check(korean / picked.length > 0.8, '담긴 것의 이름이 대부분 한국어다', `${korean}/${picked.length}`);
+  }
+}
+
 console.log(fail === 0 ? '\n✓ 지역 등급 정상' : `\n✗ 실패 ${fail}건`);
 process.exit(fail === 0 ? 0 : 1);

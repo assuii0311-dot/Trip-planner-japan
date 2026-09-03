@@ -25,11 +25,11 @@ export const THEMES = [
   },
   {
     id: 'nature', ko: '자연경관',
-    re: /\b((?<!amusement )(?<!theme )(?<!water )parks?|parcs?|parques?|gardens?|jardin(?:es)?|jardins?|beach(?:es)?|playas?|platjas?|mountains?|sierra|montana|viewpoints?|miradors?|lakes?|lagos?|rivers?|forests?|nature reserve|natural park|cliffs?|caves?|cuevas?|islands?|islas?|botanic(?:al)?|dunes?|delta|lagoons?|albufera|hills?)\b/,
+    re: /\b((?<!amusement )(?<!theme )(?<!water )parks?|parcs?|parques?|gardens?|jardin(?:es)?|jardins?|beach(?:es)?|playas?|platjas?|mountains?|sierra|montana|viewpoints?|miradors?|lakes?|lagos?|rivers?|forests?|nature reserve|natural park|cliffs?|caves?|cuevas?|islands?|islas?|botanic(?:al)?|dunes?|delta|lagoons?|albufera|hills?|waterfalls?|falls|gorges?|ponds?|koen|gyoen|mt\.?)\b/,
   },
   {
     id: 'activity', ko: '액티비티',
-    re: /\b(hik(?:e|ing)|trails?|trek(?:king)?|kayak(?:ing)?|surf(?:ing)?|div(?:e|ing)|snorkel(?:ling)?|cycl(?:e|ing)|bikes?|bicycles?|boat trips?|sail(?:ing)?|climb(?:ing)?|zip.?lines?|ski(?:ing)?|guided tours?|walking tours?|bus tours?|cable cars?|funiculars?|paddle|horse riding|zoo\w*|aquarium\w*|amusement parks?|theme parks?|water ?parks?|stadiums?|estadio|camp nou|spas?|hammam|cooking class(?:es)?|workshops?|bullrings?|plaza de toros)\b/,
+    re: /\b(hik(?:e|ing)|trails?|trek(?:king)?|kayak(?:ing)?|surf(?:ing)?|div(?:e|ing)|snorkel(?:ling)?|cycl(?:e|ing)|bikes?|bicycles?|boat trips?|sail(?:ing)?|climb(?:ing)?|zip.?lines?|ski(?:ing)?|guided tours?|walking tours?|bus tours?|cable cars?|funiculars?|paddle|horse riding|zoo\w*|aquarium\w*|amusement parks?|theme parks?|water ?parks?|stadiums?|estadio|camp nou|spas?|hammam|cooking class(?:es)?|workshops?|bullrings?|plaza de toros|teamlab|karaoke|sumo|baseball|arcades?|game cent(?:re|er)s?|go-?karts?|ropeways?|cruises?|animal caf[eé]s?|purikura)\b/,
   },
   {
     id: 'art', ko: '예술·박물관',
@@ -37,23 +37,23 @@ export const THEMES = [
   },
   {
     id: 'history', ko: '역사·유적',
-    re: /\b(cathedrals?|catedrals?|churches|church|iglesias?|esglesias?|basilicas?|chapels?|ermitas?|monaster(?:y|ies)|monasterios?|monestirs?|convents?|abbeys?|castles?|castillos?|castells?|fortress(?:es)?|forts?|citadels?|alcazars?|alcazabas?|palaces?|palacios?|palaus?|roman|ruins?|ruinas?|aqueducts?|acueducto|medieval|mosques?|mezquitas?|synagogues?|sinagogas?|city walls?|murallas?|tombs?|necropolis|archaeolog\w*|old town|casco antiguo|barri gotic|jewish quarter|juderia|world heritage|cloisters?)\b/,
+    re: /\b(cathedrals?|catedrals?|churches|church|iglesias?|esglesias?|basilicas?|chapels?|ermitas?|monaster(?:y|ies)|monasterios?|monestirs?|convents?|abbeys?|castles?|castillos?|castells?|fortress(?:es)?|forts?|citadels?|alcazars?|alcazabas?|palaces?|palacios?|palaus?|roman|ruins?|ruinas?|aqueducts?|acueducto|medieval|mosques?|mezquitas?|synagogues?|sinagogas?|city walls?|murallas?|tombs?|necropolis|archaeolog\w*|old town|casco antiguo|barri gotic|jewish quarter|juderia|world heritage|cloisters?|shrines?|temples?|jinja|jingu|taisha|pagodas?|torii|samurai|edo|shogun\w*|daibutsu|buddha)\b/,
   },
   {
     id: 'landmark', ko: '랜드마크·건축',
-    re: /\b(towers?|torres?|bridges?|puentes?|ponts?|plazas?|placas?|squares?|gates?|puertas?|portas?|modernis(?:m|me|t)|gaudi|architecture|architects?|monuments?|statues?|estatuas?|lighthouses?|faros?|obelisks?|fountains?|fuentes?|promenades?|paseos?|rambla|boulevards?|skyline|observation decks?|panoram\w*|pavilions?)\b/,
+    re: /\b(towers?|torres?|bridges?|puentes?|ponts?|plazas?|placas?|squares?|gates?|puertas?|portas?|modernis(?:m|me|t)|gaudi|architecture|architects?|monuments?|statues?|estatuas?|lighthouses?|faros?|obelisks?|fountains?|fuentes?|promenades?|paseos?|rambla|boulevards?|skyline|observation decks?|panoram\w*|pavilions?|skytree|crossing|scramble|rainbow bridge)\b/,
   },
   {
     id: 'nightlife', ko: '나이트라이프',
-    re: /\b(bars?|pubs?|nightclubs?|clubs?|nightlife|cocktails?|flamenco|tablaos?|breweries|brewery|cervecerias?|wine bars?|bodegas?|discos?|discotecas?|live music|jazz|rooftop)\b/,
+    re: /\b(bars?|pubs?|nightclubs?|clubs?|nightlife|cocktails?|flamenco|tablaos?|breweries|brewery|cervecerias?|wine bars?|bodegas?|discos?|discotecas?|live music|jazz|rooftop|izakayas?|yokocho|golden gai|sake bars?|standing bars?)\b/,
   },
   {
     id: 'shopping', ko: '쇼핑·시장',
-    re: /\b(markets?|mercados?|mercats?|shops?|shopping|boutiques?|stores?|malls?|crafts?|artisans?|souvenirs?|antiques?|flea markets?|bookshops?)\b/,
+    re: /\b(markets?|mercados?|mercats?|shops?|shopping|boutiques?|stores?|malls?|crafts?|artisans?|souvenirs?|antiques?|flea markets?|bookshops?|department stores?|depato|electronics|anime|manga|figures?|otaku|otome|100.?yen|don quijote|donki)\b/,
   },
   {
     id: 'food', ko: '미식',
-    re: /\b(restaurants?|restaurantes?|tapas?|pintxos?|cafes?|cafeterias?|bakeries|bakery|panaderias?|pastr(?:y|ies)|pastelerias?|seafood|paella|cuisine|gastronom\w*|dining|eater(?:y|ies)|bistros?|churros|ice cream|heladerias?|chocolate|taverns?|tabernas?|asadors?|marisquerias?)\b/,
+    re: /\b(restaurants?|restaurantes?|tapas?|pintxos?|cafes?|cafeterias?|bakeries|bakery|panaderias?|pastr(?:y|ies)|pastelerias?|seafood|paella|cuisine|gastronom\w*|dining|eater(?:y|ies)|bistros?|churros|ice cream|heladerias?|chocolate|taverns?|tabernas?|asadors?|marisquerias?|ramen|sushi|tempura|soba|udon|yakitori|okonomiyaki|kaiseki|tonkatsu|unagi|wagashi|depachika|gyoza|curry|tsukemen|monjayaki|yakiniku|wagyu|matcha)\b/,
   },
 ];
 
@@ -116,6 +116,25 @@ function cleanName(s) {
  * 그래서 통화 기호가 붙은 금액만 보고, 그중 첫 번째(성인 정가)를 쓴다.
  * 금액이 하나도 없을 때만 free/gratis 를 0으로 인정한다.
  */
+/**
+ * 엔 요금. "¥1,200", "1200 yen", "￥600" — 통화가 붙은 첫 금액(성인 정가)이다.
+ * 유로와 같은 원칙이다. 금액이 없을 때만 free 를 0 으로 본다.
+ */
+export function parseYen(raw) {
+  if (!raw) return null;
+  const s = plain(raw).toLowerCase().replace(/\b(19|20)\d{2}\b/g, ' ');
+  const re = /(?:[¥￥]\s*(\d{1,3}(?:,\d{3})+|\d+))|(?:(\d{1,3}(?:,\d{3})+|\d+)\s*(?:yen\b|円))/g;
+  for (const m of s.matchAll(re)) {
+    const v = parseInt((m[1] ?? m[2]).replace(/,/g, ''), 10);
+    if (Number.isFinite(v) && v > 0 && v <= 100000) return v;
+  }
+  if (/\b(free|no charge)\b|無料/.test(s)) return 0;
+  return null;
+}
+
+/** 엔 → 유로. 예산 필터가 유로로 되어 있어 대략 환산해 둔다(1유로 ≈ 160엔, 2026년). */
+export const yenToEur = (jpy) => (jpy === null || jpy === undefined ? null : Math.round(jpy / 160));
+
 export function parsePrice(raw) {
   if (!raw) return null;
   const s = plain(raw).toLowerCase().replace(/\b(19|20)\d{2}\b/g, ' ');

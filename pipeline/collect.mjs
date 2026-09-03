@@ -14,7 +14,7 @@
  */
 import { mkdir, readFile, writeFile, readdir } from 'node:fs/promises';
 import { createInterface } from 'node:readline/promises';
-import { collectCity, EVENT_RE, parsePrice } from './src/extract.mjs';
+import { collectCity, EVENT_RE, parsePrice, parseYen, yenToEur } from './src/extract.mjs';
 import { enrichItem, popularityByWikidata } from './src/enrich.mjs';
 import { fetchNearby } from './src/wdnearby.mjs';
 import { selectBalanced } from './src/select.mjs';
@@ -26,6 +26,18 @@ const has = (n) => rest.includes(`--${n}`);
 
 const registry = await import(`./registry/${countrySlug}.mjs`);
 const { COUNTRY, CITIES, ATTRIBUTION } = registry;
+/**
+ * 나라마다 다른 것들 — 없으면 스페인 방식이다.
+ *   LINKS   지역 간 역~역 구간표 (일본)
+ *   DINING  식당이 모자란 도시에 넣는 '구역' 안내를 만드는 함수
+ */
+const LINKS = registry.LINKS ?? [];
+const diningAreas = registry.DINING ?? null;
+/** 손으로 넣는 항목과 빼는 항목. 없는 나라는 빈 값이다. */
+const extrasMod = await import(`./registry/${countrySlug}-extras.mjs`).catch(() => ({}));
+const EXTRAS = extrasMod.EXTRAS ?? [];
+const DROP = extrasMod.DROP ?? new Set();
+const isJpy = COUNTRY.currency === 'JPY';
 
 /** 도시 성격 프로필과 사진. 1단계 카드와 취향 역산에 쓴다. */
 const { CHARACTER, MACRO_REGIONS, ISLANDS, ISLAND_OF } = await import(`./registry/${countrySlug}-character.mjs`);
@@ -176,8 +188,8 @@ function table(cities) {
   console.log('-'.repeat(w + 40));
   for (const c of cities) {
     console.log(
-      `${c.name.padEnd(w)} ${(c.isHub ? '거점' : '근교').padEnd(6)} ${c.region.padEnd(12)} ` +
-      `${c.isHub ? `${c.dayTrips.length}곳` : `← ${CITIES.find((x) => x.slug === c.hub)?.name ?? ''}`}`,
+      `${c.name.padEnd(w)} ${(c.isHub ? '거점' : c.tier === 'district' ? '지역' : '근교').padEnd(6)} ${c.region.padEnd(12)} ` +
+      `${c.isHub ? `${c.dayTrips.length}곳` : `← ${CITIES.find((x) => x.slug === (c.hub ?? c.within))?.name ?? ''}`}`,
     );
   }
   console.log(`\n총 ${cities.length}곳 (거점 ${cities.filter((c) => c.isHub).length} · 근교 ${cities.filter((c) => !c.isHub).length})`);
@@ -216,6 +228,37 @@ if (asked.size) {
 }
 
 const ko = await loadKorean(countrySlug);
+
+/**
+ * 다른 도시가 이미 Wikivoyage 로 갖고 있는 장소.
+ *
+ * 도쿄 지역은 서로 2~3km 라 Wikidata 로 채우면 옆 지역의 명소가 들어온다 —
+ * 우에노를 채우다 센소지를 끌어오는 식이다. 같은 도시(within) 안의 지역끼리는
+ * 서로가 가진 것을 빼고 채운다. 그러려면 채우기 전에 모두의 Wikivoyage
+ * 리스팅을 알아야 하므로, 캐시된 원문을 먼저 한 번 훑는다.
+ */
+const elsewhere = await (async () => {
+  const own = new Map(); // slug → { names:Set, qids:Set }
+  for (const c of selected) {
+    if (!c.within) continue;
+    try {
+      const raw = JSON.parse(await readFile(new URL(`./out/raw/${c.slug}.json`, import.meta.url), 'utf8'));
+      own.set(c.slug, {
+        names: new Set(raw.items.map((it) => it.name)),
+        qids: new Set(raw.items.map((it) => it.wikidata).filter(Boolean)),
+      });
+    } catch { /* 아직 안 긁은 도시. 이번 실행에서 긁힌 뒤 다음 실행부터 반영된다. */ }
+  }
+  const siblings = (slug) => {
+    const me = selected.find((c) => c.slug === slug);
+    return me?.within ? selected.filter((c) => c.within === me.within && c.slug !== slug) : [];
+  };
+  return {
+    names: (slug) => siblings(slug).flatMap((c) => [...(own.get(c.slug)?.names ?? [])]),
+    qids: (slug) => siblings(slug).flatMap((c) => [...(own.get(c.slug)?.qids ?? [])]),
+  };
+})();
+
 const outCities = [];
 const report = [];
 const filled = new Map();
@@ -231,8 +274,26 @@ for (const [i, city] of selected.entries()) {
       ({ items, popularity } = JSON.parse(await readFile(cachePath, 'utf8')));
     } catch { /* 캐시가 없으면 새로 받는다. */ }
   }
+  /*
+   * 문서가 여럿일 수 있다(긴자 + 쓰키지, 시부야 + 하라주쿠). 문서가 하나도
+   * 없는 도시는 껍데기다 — 도쿄처럼 볼 것이 전부 지역에 있고 자기는 숙소
+   * 자리인 곳. 그런 도시는 아무것도 긁지 않고 아이템 0개로 둔다.
+   */
+  const titles = city.titles ?? (city.title ? [city.title] : []);
+  const shell = titles.length === 0;
+  if (!items && shell) { items = []; popularity = {}; }
   if (!items) {
-    ({ items } = await collectCity(city.title, city.slug, city.slug));
+    items = [];
+    const seenKey = new Set();
+    for (const title of titles) {
+      const got = await collectCity(title, city.slug, city.slug);
+      for (const it of got.items) {
+        const key = it.wikidata || it.id;
+        if (seenKey.has(key)) continue;
+        seenKey.add(key);
+        items.push(it);
+      }
+    }
     const ids = [...new Set(items.map((it) => it.wikidata).filter(Boolean))];
     popularity = await popularityByWikidata(ids);
     await mkdir(new URL('./out/raw/', import.meta.url), { recursive: true });
@@ -243,6 +304,11 @@ for (const [i, city] of selected.entries()) {
   // 않으려고, 원문(priceRaw)이 남아 있으면 여기서 다시 읽는다.
   for (const it of items) {
     if (it.priceRaw !== undefined) it.priceEur = parsePrice(it.priceRaw);
+    // 엔 요금은 표시는 엔으로, 예산 계산은 유로로 환산해 둔다.
+    if (isJpy && it.priceRaw !== undefined) {
+      it.priceJpy = parseYen(it.priceRaw);
+      if (it.priceEur === null && it.priceJpy !== null) it.priceEur = yenToEur(it.priceJpy);
+    }
   }
 
   const cap = city.isHub ? CAP.hub : CAP.satellite;
@@ -262,6 +328,7 @@ for (const [i, city] of selected.entries()) {
         lat: it.lat, lon: it.lon,
         durationMin: override.durationMin ?? it.durationMin,
         priceEur: it.priceEur,
+        ...(it.priceJpy !== undefined && it.priceJpy !== null ? { priceJpy: it.priceJpy } : {}),
         hours: it.hours,
         bestSlots: it.bestSlots,
         indoor: it.indoor,
@@ -279,7 +346,7 @@ for (const [i, city] of selected.entries()) {
   // 알함브라는 Wikivoyage 에서 별도 문서라 그라나다 리스팅에 잡히지 않는다.
   // 도시의 가장 유명한 장소가 빠진 목록은 신뢰를 잃으므로, 아이템 수와
   // 무관하게 언어판이 20개 이상인 곳을 한 번 더 확인해 채운다.
-  try {
+  if (!shell) try {
     const headlinePath = new URL(`./out/raw/${city.slug}-headline.json`, import.meta.url);
     let headline;
     if (!has('refresh')) {
@@ -287,10 +354,10 @@ for (const [i, city] of selected.entries()) {
     }
     if (!headline) {
       headline = await fetchNearby(city, {
-        radiusKm: city.isHub ? 6 : 4,
+        radiusKm: city.radiusKm ?? (city.isHub ? 6 : 4),
         minSitelinks: 20,
-        exclude: new Set(enriched.flatMap((e) => [e.nameEn, e.name])),
-        excludeIds: new Set(enriched.map((e) => e.wikidata).filter(Boolean)),
+        exclude: new Set([...enriched.flatMap((e) => [e.nameEn, e.name]), ...elsewhere.names(city.slug)]),
+        excludeIds: new Set([...enriched.map((e) => e.wikidata).filter(Boolean), ...elsewhere.qids(city.slug)]),
         otherCities: cityNames(city.nameEn),
         limit: 12,
       });
@@ -310,7 +377,7 @@ for (const [i, city] of selected.entries()) {
   const target = city.isHub ? FILL_TARGET.hub : FILL_TARGET.satellite;
   const sightTarget = city.isHub ? SIGHT_TARGET.hub : SIGHT_TARGET.satellite;
   const sights = enriched.filter(isSight).length;
-  if (enriched.length < target || sights < sightTarget) {
+  if (!shell && (enriched.length < target || sights < sightTarget)) {
     try {
       const fillPath = new URL(`./out/raw/${city.slug}-fill.json`, import.meta.url);
       let extra;
@@ -319,9 +386,11 @@ for (const [i, city] of selected.entries()) {
       }
       if (!extra) {
         extra = await fetchNearby(city, {
-          radiusKm: city.isHub ? 6 : 5,
+          radiusKm: city.radiusKm ?? (city.isHub ? 6 : 5),
           minSitelinks: 3,
-          exclude: new Set(enriched.flatMap((e) => [e.nameEn, e.name])),
+          exclude: new Set([...enriched.flatMap((e) => [e.nameEn, e.name]), ...elsewhere.names(city.slug)]),
+          excludeIds: new Set(elsewhere.qids(city.slug)),
+          otherCities: cityNames(city.nameEn),
           limit: Math.max(target - enriched.length, sightTarget - sights) + 10,
         });
         await writeFile(fillPath, JSON.stringify(extra));
@@ -334,7 +403,8 @@ for (const [i, city] of selected.entries()) {
 
       // 소도시는 반경 5km 안에 볼거리가 없을 수 있다.
       // 포옌사처럼 여전히 모자라면 근처 마을까지 포함해 한 번 더 넓힌다.
-      if (enriched.filter(isSight).length < sightTarget) {
+      // 지역(반경을 적어 둔 곳)은 넓히지 않는다. 넓히면 옆 지역의 명소를 끌어온다.
+      if (!city.radiusKm && enriched.filter(isSight).length < sightTarget) {
         const wide = await fetchNearby(city, {
           radiusKm: city.isHub ? 20 : 18,
           minSitelinks: 2,
@@ -354,14 +424,36 @@ for (const [i, city] of selected.entries()) {
   }
 
 
-  const finalItems = dedupe(enriched).filter((it) => !DROP_IDS.has(it.id));
+  const finalItems = dedupe(enriched).filter((it) => !DROP_IDS.has(it.id) && !DROP.has(it.id));
+
+  /*
+   * 손으로 넣는 항목. 좌표와 Wikidata id 는 lookup-wd.mjs 로 받은 값이고
+   * 설명은 사람이 쓴 것이라 describe() 를 거치지 않고 그대로 싣는다.
+   */
+  for (const e of EXTRAS.filter((x) => x.city === city.slug)) {
+    if (finalItems.some((it) => it.id === e.id || (e.wikidata && it.wikidata === e.wikidata))) continue;
+    finalItems.push({
+      id: e.id, name: e.name, nameEn: e.nameEn, nameLocal: e.nameLocal ?? null, city: city.slug,
+      district: null, theme: e.theme, lat: e.lat, lon: e.lon,
+      durationMin: e.durationMin,
+      priceEur: e.priceJpy !== undefined ? yenToEur(e.priceJpy) : e.priceEur ?? null,
+      ...(e.priceJpy !== undefined ? { priceJpy: e.priceJpy } : {}),
+      hours: e.practical?.hours ?? null,
+      bestSlots: e.bestSlots, indoor: e.indoor, popularity: e.popularity, energy: e.energy,
+      tags: e.tags ?? [], url: null, wikidata: e.wikidata ?? null,
+      source: 'manual',
+      attribution: e.wikidata ? 'Wikidata, CC0 (좌표) · 설명 직접 작성' : '좌표·설명 직접 작성',
+      summary: e.summary, why: e.why, practical: e.practical, caution: e.caution ?? null,
+      photo: null, manual: true,
+    });
+  }
 
   // Wikidata 는 식당을 거의 담지 않는다. 그대로 두면 근교 당일치기 일정에
   // 점심과 저녁이 통째로 빠져 계획이 망가진 것처럼 보인다.
   // 특정 가게를 지어내지 않고, 어디서 먹으면 되는지 '구역'을 알려준다.
   const foodCount = finalItems.filter((it) => it.theme === 'food').length;
-  if (foodCount < 3) {
-    const areas = [
+  if (foodCount < 3 && !shell) {
+    const areas = diningAreas ? diningAreas(city) : [
       {
         key: 'old-town',
         name: `${city.name} 구시가 식당가`,
@@ -402,7 +494,8 @@ for (const [i, city] of selected.entries()) {
         lat: city.lat,
         lon: city.lon,
         durationMin: 75,
-        priceEur: 15,
+        priceEur: isJpy ? 9 : 15,
+        ...(isJpy ? { priceJpy: 1500 } : {}),
         hours: null,
         bestSlots: area.slots,
         indoor: true,
@@ -421,6 +514,7 @@ for (const [i, city] of selected.entries()) {
   // 자리마다 override 를 섞으면 대표 명소·보강으로 들어온 아이템이 빠지기 쉬워서,
   // 최종 목록을 통째로 한 번 훑는 쪽이 안전하다.
   for (const it of finalItems) {
+    if (it.manual) { delete it.manual; continue; }
     const own = it.source === 'manual' ? { summary: it.summary, busy: it.busy } : {};
     const { summary, why, practical, caution } = describe(it, { ...own, ...(ko[it.id] ?? {}) });
     it.summary = summary;
@@ -455,6 +549,9 @@ for (const [i, city] of selected.entries()) {
     // isHub/hub 는 '보통 이렇게 묵는다'는 참고값이다.
     // 실제 거점은 사용자가 고른 도시 조합을 보고 앱이 다시 정한다.
     isHub: !!city.isHub, hub: city.hub ?? null,
+    // 도시 등급. 지역(district)은 자는 곳이 아니라 within 도시의 숙소를 쓴다. 안 적으면 city.
+    ...(city.tier ? { tier: city.tier } : {}),
+    ...(city.within ? { within: city.within } : {}),
     dayTrips: city.dayTrips ?? [], itemCount: finalItems.length, themes,
     transitGuide: city.transitGuide,
     // 도시 성격 — 취향 역산과 1단계 카드의 재료
@@ -526,6 +623,11 @@ await writeFile(
     attribution: ATTRIBUTION,
     macroRegions: MACRO_REGIONS,
     islands: ISLANDS ?? [],
+    // 나라마다 다른 것 — 문앞~문앞 오버헤드, 식사 시간, 지역 간 구간표, 통화.
+    ...(COUNTRY.transfer ? { transfer: COUNTRY.transfer } : {}),
+    ...(COUNTRY.meals ? { meals: COUNTRY.meals } : {}),
+    ...(COUNTRY.currency ? { currency: COUNTRY.currency } : {}),
+    ...(LINKS.length ? { links: LINKS } : {}),
     cities,
   }),
 );

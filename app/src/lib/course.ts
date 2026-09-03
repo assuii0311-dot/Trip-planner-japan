@@ -89,15 +89,18 @@ export function coursesFor(
   if (cityItems.length < 2) return [];
   const ranked = rankedFor(city, cityItems, prefs, cities);
   const worth = ranked.filter((r) => r.score >= RANK_FLOOR);
+  // 지역은 도시의 4분의 1 크기다 — 꽉찬 1일, 보통 반나절.
+  const scale = city.tier === 'district' ? 0.25 : 1;
+  const daysText = (d: number) => (d < 1 ? '반나절' : `${d}일`);
 
-  return tiersOf(ranked).map((t) => {
+  return tiersOf(ranked, scale).map((t) => {
     const must = t.items.filter((i) => ranked.find((r) => r.item.id === i.id)?.must);
     const basis = t.id === 'full'
       ? worth.length > t.items.length
-        ? `${city.name}에서 볼 만한 곳을 순위대로 ${TIER_MAX_DAYS.full}일치까지 담았습니다.`
-        : `${city.name}에서 볼 만한 곳을 전부 담았습니다. 이 도시는 ${t.days}일이면 충분합니다.`
+        ? `${city.name}에서 볼 만한 곳을 순위대로 ${daysText(TIER_MAX_DAYS.full * scale)}치까지 담았습니다.`
+        : `${city.name}에서 볼 만한 곳을 전부 담았습니다. 이 ${scale < 1 ? '지역' : '도시'}은 ${t.days}일이면 충분합니다.`
       : t.id === 'normal'
-        ? `상위권만 ${TIER_MAX_DAYS.normal}일치로 줄였습니다.`
+        ? `상위권만 ${daysText(TIER_MAX_DAYS.normal * scale)}치로 줄였습니다.`
         : `${city.name}에서 이것만은 보고 가는 구성입니다.`;
     return {
       id: t.id,
@@ -184,5 +187,13 @@ export const daysOf = (items: Item[], prefs: Preferences) => estimateDays(items,
  * 밤 수라 당일치기 도시는 0 이므로 쓰는 날로는 하루다.
  */
 export function defaultCityDays(city: City): number {
+  /*
+   * 지역(아사쿠사·우에노)은 반나절이 기본이다.
+   *
+   * 하루로 두면 지역 일곱 곳을 고른 도쿄 4박 5일이 11일치 코스가 된다.
+   * 지역은 서로 6~30분 거리라 하루에 둘셋을 돈다 — 문서의 예도 아사쿠사
+   * 반나절 + 우에노 반나절이다. 3단계 조절기로 늘릴 수 있다.
+   */
+  if (city.tier === 'district') return 0.5;
   return Math.max(1, city.nights?.[0] ?? 1);
 }

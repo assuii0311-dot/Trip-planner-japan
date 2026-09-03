@@ -1,0 +1,199 @@
+{
+  "shibuya-kujiraya": {
+    "name": "구지라야",
+    "summary": "고래 고기 전문. 1950년부터",
+    "caution": "고래 고기입니다. 윤리적으로 불편하면 피하세요."
+  },
+  "shibuya-restaurant-kinoshita": {
+    "name": "레스토랑 기노시타",
+    "summary": "요요기의 프렌치. 예약이 어렵다",
+    "booking": "예약 필수"
+  },
+  "shibuya-beat-cafe": {
+    "name": "비트 카페",
+    "summary": "록 음악이 흐르는 작은 카페 바",
+    "theme": "nightlife"
+  },
+  "shibuya-arms-burger": {
+    "name": "암스 버거",
+    "summary": "요요기 공원 옆 수제 버거"
+  },
+  "shibuya-murghi": {
+    "name": "무르기",
+    "summary": "1951년부터 산 모양 밥의 카레",
+    "why": "시부야 뒷골목의 카레집으로 밥을 산처럼 쌓아 내는 모양이 유명합니다. 메뉴는 카레 하나이고 점심만 합니다."
+  },
+  "shibuya-fonda-de-la-madrugada": {
+    "name": "폰다 데 라 마드루가다",
+    "summary": "지하의 멕시코 식당. 마리아치 연주"
+  },
+  "shibuya-udon-shin": {
+    "name": "우동 신",
+    "summary": "신주쿠 남쪽 출구의 줄 서는 우동집",
+    "why": "주소는 시부야구지만 신주쿠 남쪽 출구에서 가깝습니다. 쫄깃한 사누키 우동과 튀김으로 늘 줄이 서고, 대기 앱으로 순번을 받습니다.",
+    "busy": "점심·저녁 모두 30분 이상 대기"
+  },
+  "shibuya-meiji-shrine": {
+    "name": "메이지 신궁",
+    "summary": "메이지 천황을 모신 숲속 신사. 도쿄 한복판 70만㎡ 숲",
+    "why": "메이지 천황 부부를 모신 신사로 1920년 전국에서 헌납한 나무 10만 그루가 100년 만에 숲이 됐습니다. 하라주쿠역 옆 큰 도리이에서 본전까지 자갈길 10분이고, 주말 오전에는 전통 혼례 행렬을 자주 봅니다. 새해 참배객이 일본 최다입니다.",
+    "hours": "일출~일몰 (달마다 다릅니다)",
+    "durationMin": 75
+  },
+  "shibuya-togo-jinja": {
+    "name": "도고 신사",
+    "summary": "러일전쟁 제독을 모신 신사. 다케시타 거리 뒤",
+    "why": "러일전쟁의 도고 헤이하치로를 모신 신사입니다. 다케시타 거리 바로 뒤 연못 정원이 조용해 인파를 피해 잠깐 들릅니다.",
+    "durationMin": 20,
+    "caution": "한국 근대사와 얽힌 인물입니다."
+  },
+  "shibuya-yamatane-museum-of-art": {
+    "name": "야마타네 미술관",
+    "summary": "일본화(日本畫) 전문 미술관. 계절 기획전",
+    "why": "근대 일본화만 다루는 미술관으로 벚꽃·단풍 등 계절에 맞춘 기획전을 엽니다. 히로오에 있어 롯폰기와 묶기 좋습니다.",
+    "closed": "월요일 휴관",
+    "durationMin": 60
+  },
+  "shibuya-hachiko": {
+    "name": "하치코 동상",
+    "summary": "주인을 기다린 개의 동상. 시부야의 만남의 장소",
+    "why": "죽은 주인을 9년간 역에서 기다린 개 하치의 동상입니다. 시부야역 하치코 출구 앞에 있어 만남의 장소로 쓰이고, 사진을 찍으려면 잠깐 줄을 섭니다.",
+    "durationMin": 10
+  },
+  "shibuya-shibuya-crossing": {
+    "name": "시부야 스크램블 교차로",
+    "summary": "한 번에 3,000명이 건너는 교차로. 위에서 내려다보기",
+    "why": "신호 한 번에 최대 3,000명이 사방으로 건너는 세계에서 가장 유명한 횡단보도입니다. 건너 보는 것보다 위에서 보는 것이 재미있습니다 — 역 2층 통로, 마그넷 옥상, 시부야 스카이가 자리입니다.",
+    "durationMin": 20
+  },
+  "shibuya-center-gai": {
+    "name": "센터가이",
+    "summary": "교차로 너머 젊은이의 거리. 밤이 본편",
+    "why": "스크램블 교차로 건너편에서 시작하는 보행자 거리입니다. 게임센터·가라오케·패스트푸드가 이어지고 10대~20대가 몰립니다. 낮보다 밤이 볼 만합니다.",
+    "durationMin": 30
+  },
+  "shibuya-omotesando-hills": {
+    "name": "오모테산도 힐즈",
+    "summary": "안도 다다오의 나선형 쇼핑몰",
+    "theme": "shopping",
+    "why": "안도 다다오가 설계한 쇼핑몰로 내부가 700m 의 나선 경사로입니다. 오모테산도를 걷다 건물 안을 한 바퀴 돌아 보는 것으로 충분합니다.",
+    "durationMin": 30
+  },
+  "shibuya-yoyogi-park": {
+    "name": "요요기 공원",
+    "summary": "메이지 신궁 옆 넓은 공원. 주말 거리 공연",
+    "why": "메이지 신궁 숲과 붙은 54만㎡ 공원입니다. 주말이면 로커빌리 댄서, 거리 악사, 벼룩시장이 서고 봄 벚꽃 아래 도시락을 펴는 사람들로 찹니다.",
+    "durationMin": 45
+  },
+  "shibuya-camelot": {
+    "name": "카멜롯",
+    "summary": "힙합·R&B 클럽. 주말 새벽"
+  },
+  "shibuya-womb": {
+    "name": "움",
+    "summary": "도쿄 최대급 테크노 클럽",
+    "why": "4층 규모의 클럽으로 세계 DJ 가 서는 곳입니다. 금·토요일 밤 23시 이후가 본편입니다.",
+    "caution": "신분증 필수. 20세 미만 입장 불가."
+  },
+  "shibuya-oriental-bazaar": {
+    "name": "오리엔탈 바자",
+    "summary": "기모노·도자기·우키요에 기념품 4층",
+    "why": "오모테산도의 기념품 백화점으로 유카타, 도자기, 우키요에 복제화를 한 번에 삽니다. 관광객용이지만 값이 합리적입니다.",
+    "durationMin": 30
+  },
+  "shibuya-laforet-harajuku": {
+    "name": "라포레 하라주쿠",
+    "summary": "하라주쿠 패션의 상징 빌딩",
+    "durationMin": 30
+  },
+  "shibuya-myth-of-tomorrow": {
+    "name": "내일의 신화",
+    "summary": "오카모토 타로의 원폭 벽화. 시부야역 통로에 있다",
+    "why": "오카모토 타로가 그린 길이 30m 의 원폭 벽화가 시부야역과 마크시티를 잇는 통로에 걸려 있습니다. 교차로를 내려다보는 통로에서 지나는 길에 봅니다.",
+    "durationMin": 10
+  },
+  "shibuya-moyai-statues": {
+    "name": "모야이상",
+    "summary": "남쪽 출구의 모아이 닮은 석상. 또 다른 만남의 장소",
+    "durationMin": 5
+  },
+  "shibuya-bunkamura": {
+    "name": "분카무라",
+    "summary": "미술관·극장 복합 시설. 2027년까지 개축",
+    "caution": "본관이 2023년부터 개축 중입니다. 오차드홀만 엽니다.",
+    "durationMin": 30
+  },
+  "shibuya-club-atom-studio-a": {
+    "name": "클럽 아톰",
+    "summary": "세 개 플로어의 대형 클럽"
+  },
+  "shibuya-harlem": {
+    "name": "할렘",
+    "summary": "힙합 전문 클럽"
+  },
+  "shibuya-hikarie": {
+    "name": "히카리에",
+    "summary": "동쪽 출구의 고층 상업 빌딩. 11층 무료 전망",
+    "why": "시부야역 동쪽의 복합 빌딩입니다. 11층 스카이로비가 무료 전망 자리로 교차로 쪽을 내려다봅니다. 지하 식품관이 좋습니다.",
+    "durationMin": 30
+  },
+  "shibuya-109-building": {
+    "name": "시부야 109",
+    "summary": "10대 여성 패션의 상징 원통 빌딩",
+    "why": "교차로 옆 원통형 빌딩으로 10대 여성복 매장 100여 곳이 들어 있습니다. 갸루 문화의 발원지이고 건물 자체가 시부야의 얼굴입니다.",
+    "durationMin": 30
+  },
+  "shibuya-tokyu-food-show": {
+    "name": "도큐 푸드쇼",
+    "summary": "시부야역 지하의 식품관. 시식이 많다",
+    "why": "시부야역 지하의 백화점 식품관입니다. 도시락·반찬·디저트를 사서 요요기 공원에 가져가기 좋습니다."
+  },
+  "shibuya-mikore-sushi": {
+    "name": "미코레 스시",
+    "summary": "신주쿠 쪽의 가성비 스시집"
+  },
+  "shibuya-eggs-n-things": {
+    "name": "에그스앤띵스",
+    "summary": "하와이식 팬케이크. 하라주쿠의 줄",
+    "busy": "주말 브런치 시간 한 시간 대기"
+  },
+  "shibuya-r-o-426": {
+    "name": "R/O-426",
+    "summary": "에어스트림 트레일러 주방의 버거집"
+  },
+  "shibuya-tokyo-anime-center": {
+    "name": "도쿄 아니메센터",
+    "summary": "시부야 파르코 6층의 애니메이션 전시 공간",
+    "durationMin": 30
+  },
+  "shibuya-hands": {
+    "name": "핸즈 시부야",
+    "summary": "생활 잡화·DIY 의 원조 매장",
+    "durationMin": 45
+  },
+  "shibuya-cafe-studio": {
+    "name": "카페 스튜디오",
+    "summary": "이벤트가 자주 있는 카페"
+  },
+  "shibuya-tower-records": {
+    "name": "타워레코드 시부야",
+    "summary": "세계 최대급 음반 매장. 9층",
+    "theme": "shopping",
+    "why": "CD 가 사라진 시대에 9층짜리 음반 매장으로 남은 곳입니다. J-POP 과 케이팝 층이 크고 이벤트가 잦습니다.",
+    "durationMin": 40
+  },
+  "shibuya-rock-west": {
+    "name": "록 웨스트",
+    "summary": "작은 언더그라운드 테크노 클럽"
+  },
+  "shibuya-loft": {
+    "name": "로프트 시부야",
+    "summary": "문구·잡화·인테리어 7층",
+    "durationMin": 40
+  },
+  "shibuya-mandarake": {
+    "name": "만다라케 시부야",
+    "summary": "지하의 중고 만화·피규어 대형 매장",
+    "durationMin": 40
+  }
+}

@@ -17,6 +17,8 @@
 export interface Airport {
   /** IATA 코드. 항공권에 찍히는 그 코드다. */
   iata: string;
+  /** 어느 나라 공항인가. 목록은 나라별로 낸다. 안 적으면 스페인이다. */
+  country?: string;
   name: string;
   /** 이 공항이 서비스하는 도시(레지스트리 slug). 동선 순서 계산에 쓴다. */
   city: string;
@@ -67,16 +69,27 @@ export const AIRPORTS: Airport[] = [
     note: '라라구나·산타크루스에 가깝습니다. 국내선과 제도 안 노선이 주로 뜹니다.' },
   { iata: 'LPA', name: '그란카나리아', city: 'las-palmas', lat: 27.9319, lon: -15.3866,
     note: '라스팔마스까지 약 30분, 마스팔로마스까지도 비슷합니다.' },
+
+  // ── 일본 (도쿄) ──────────────────────────────────────────────────
+  // 도쿄에는 공항이 둘이고 둘 다 인천 직항이 있다. 하네다가 시내에 훨씬 가깝다.
+  { iata: 'HND', name: '도쿄 하네다', city: 'tokyo', country: 'japan', lat: 35.5494, lon: 139.7798, direct: true,
+    note: '시내까지 모노레일·게이큐선으로 30분 안팎. 도쿄역 기준으로 계산합니다.' },
+  { iata: 'NRT', name: '도쿄 나리타', city: 'tokyo', country: 'japan', lat: 35.7720, lon: 140.3929, direct: true,
+    note: '시내까지 나리타 익스프레스 1시간, 스카이라이너는 우에노까지 45분. 도쿄역 기준으로 계산합니다.' },
 ];
 
 export const airportOf = (iata: string | null): Airport | undefined =>
   iata ? AIRPORTS.find((a) => a.iata === iata) : undefined;
 
-/** 목록 표시 순서 — 직항을 맨 위에, 나머지는 이름순. */
-export const AIRPORT_GROUPS: { label: string; list: Airport[] }[] = [
-  { label: '인천 직항', list: AIRPORTS.filter((a) => a.direct) },
-  { label: '그 밖의 공항 (경유)', list: AIRPORTS.filter((a) => !a.direct) },
-];
+/** 그 나라의 공항 목록 — 직항을 맨 위에, 나머지는 그 뒤에. 경유 공항이 없는 나라는 묶음이 하나다. */
+export function airportGroups(country: string): { label: string; list: Airport[] }[] {
+  const mine = AIRPORTS.filter((a) => (a.country ?? 'spain') === country);
+  const groups = [
+    { label: '인천 직항', list: mine.filter((a) => a.direct) },
+    { label: '그 밖의 공항 (경유)', list: mine.filter((a) => !a.direct) },
+  ];
+  return groups.filter((g) => g.list.length > 0);
+}
 
 /**
  * 이 공항으로 들어왔을 때 실제로 첫 도시가 될 곳.
