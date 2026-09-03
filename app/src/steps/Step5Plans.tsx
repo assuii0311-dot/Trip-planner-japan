@@ -930,7 +930,9 @@ function ItineraryBar({
             <span className="itin-state">
               {s.sleep
                 ? `🛏 ${nightsOf.get(s.city.slug) ?? s.nights}박`
-                : `${name(s.base ?? '')}에서 당일치기 · 왕복 ${fmtDur(s.dayTripMin)}`}
+                : s.city.tier === 'district'
+                  ? `${name(s.base ?? '')} 안 · 숙소에서 ${fmtDur(s.dayTripMin / 2)}`
+                  : `${name(s.base ?? '')}에서 당일치기 · 왕복 ${fmtDur(s.dayTripMin)}`}
             </span>
             {/*
               여기서도 도시를 뺄 수 있어야 한다. 계획을 다 보고 나서야
@@ -948,6 +950,8 @@ function ItineraryBar({
                 }
               }}
             >빼기</button>
+            {/* 지역은 자는 곳이 아니다. 짐을 옮길 선택지 자체가 없다. */}
+            {s.city.tier !== 'district' && (
             <button
               type="button" className="itin-swap"
               disabled={s.sleep && itinerary.stops.filter((x) => x.sleep).length <= 1}
@@ -958,6 +962,7 @@ function ItineraryBar({
             >
               {s.sleep ? '짐 안 옮기기' : '짐 옮기기'}
             </button>
+            )}
             {s.why && <div className="itin-why">{s.why}</div>}
             {!s.sleep && s.dayTripMin > 300 && (
               <div className="itin-warn">

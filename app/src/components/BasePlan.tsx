@@ -34,7 +34,9 @@ export default function BasePlan({
               <span className="route-no">{i + 1}</span>
               <span className="route-city">{s.city.name}</span>
               <span className={`route-stay${s.sleep ? '' : ' is-trip'}`}>
-                {s.sleep ? `${s.nights}박` : `당일치기 ← ${name(s.base ?? '')}`}
+                {s.sleep ? `${s.nights}박`
+                  : s.city.tier === 'district' ? `${name(s.base ?? '')} 안 · 숙소에서 ${fmtDur(s.dayTripMin / 2)}`
+                    : `당일치기 ← ${name(s.base ?? '')}`}
               </span>
             </li>
           ))}

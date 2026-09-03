@@ -14,6 +14,7 @@ import { SaveStatus } from './components/SaveStatus';
 import { ResumeBanner, StorageWarning } from './components/ResumeBanner';
 import { airportOf, cityForAirport } from './lib/airports';
 import { buildItinerary, measuredTable } from './lib/itinerary';
+import { expandDistrictScope } from './lib/district';
 import { fastest } from './lib/routing';
 import { expandIslandScope, rehomeIslandItems } from './lib/island';
 import { buildPlans } from './lib/planner';
@@ -118,7 +119,18 @@ export default function App() {
    * 그렇게 여행하지 않는다. 어디서 잘지는 동선 엔진이 고른 도시들 사이에서
    * 정한다.
    */
-  const tripCities = selectedCities;
+  /*
+   * 다만 지역을 골랐으면 그 지역이 속한 도시는 들어간다.
+   *
+   * 아사쿠사와 우에노를 골랐다면 자는 곳은 도쿄다. 그 도시는 사용자가 고른
+   * 것의 일부이지 앱이 제안한 것이 아니다 — 지역을 고르는 것이 곧 그 도시를
+   * 고르는 것이기 때문이다.
+   */
+  const tripCities = useMemo(() => {
+    if (!index) return selectedCities;
+    const want = new Set(expandDistrictScope(state.basics.cities, index.cities));
+    return index.cities.filter((c) => want.has(c.slug));
+  }, [index, selectedCities, state.basics.cities]);
 
   /**
    * 공항이 어느 도시로 이어지는지.
@@ -143,7 +155,9 @@ export default function App() {
    * 고른 도시만 불러오면 그 섬의 절반이 후보에조차 오르지 않는다.
    */
   const cityScope = useMemo(
-    () => (index ? expandIslandScope(state.basics.cities, index.cities, index.islands ?? []) : state.basics.cities),
+    () => (index
+      ? expandIslandScope(expandDistrictScope(state.basics.cities, index.cities), index.cities, index.islands ?? [])
+      : state.basics.cities),
     [index, state.basics.cities],
   );
 

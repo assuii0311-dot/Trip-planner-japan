@@ -108,11 +108,13 @@ export function lodgingFor(
  */
 export function lodgingPlan(days: PlanDay[], cities: City[]): LodgingPick[] {
   const bySleep = new Map<string, { items: Item[]; dates: string[] }>();
+  // 지역 → 속한 도시. 도쿄의 숙소 자리는 그날 간 지역들의 무게중심이다.
+  const homeOf = new Map(cities.map((c) => [c.slug, c.tier === 'district' && c.within ? c.within : c.slug]));
   for (const d of days) {
     if (!d.sleepAt) continue;
     const e = bySleep.get(d.sleepAt) ?? { items: [], dates: [] };
     e.dates.push(d.date);
-    for (const en of d.entries) if (en.item.city === d.sleepAt) e.items.push(en.item);
+    for (const en of d.entries) if ((homeOf.get(en.item.city) ?? en.item.city) === d.sleepAt) e.items.push(en.item);
     bySleep.set(d.sleepAt, e);
   }
 

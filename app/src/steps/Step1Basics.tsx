@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { pickableCities } from '../lib/district';
 import type { Basics, City, MacroRegion } from '../types';
 import { Block, Field, Segmented } from '../components/Controls';
 import CityCard from '../components/CityCard';
@@ -104,7 +105,8 @@ export default function Step1Basics({
   }, [basics.arrivalTime, basics.departureTime, inAirport, outAirport, arrival, departure, cities, days]);
 
   const byRegion = (id: string) => {
-    const list = cities.filter((c) => c.macroRegion === id);
+    // 지역의 껍데기 도시(도쿄)는 카드로 내지 않는다. 볼 것은 전부 지역에 있다.
+    const list = pickableCities(cities).filter((c) => c.macroRegion === id);
     return onlyFirst ? list.filter((c) => c.firstTimer) : list;
   };
 

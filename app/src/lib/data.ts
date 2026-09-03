@@ -1,7 +1,7 @@
 import type { City, Item } from '../types';
 import type { RailTable } from './rail';
 import { setRailTable } from './rail';
-import { setIslandRail } from './routing';
+import { setCountryTransit, setIslandRail } from './routing';
 import { nameIslandHubs } from './island';
 
 export interface CountryIndex {
@@ -12,8 +12,24 @@ export interface CountryIndex {
   macroRegions: { id: string; name: string; regions: string[] }[];
   /** 섬 목록. 섬은 자치주가 아니라 섬 하나가 여행 단위다. */
   islands?: Island[];
+  /**
+   * 문앞~문앞 오버헤드(분) — 등록부의 역~역 시간에 얹는 양 끝 도보·대기.
+   *
+   *   city     — 도시 간. 신칸센·특급은 놓치면 큰일이라 역에 여유를 둔다. 기본 37
+   *   district — 도시 안. 지하철은 3분마다 오니 여유가 필요 없다. 기본 20
+   *
+   * 나라마다 다르다. 오사카는 도쿄보다 작아 나중에 줄일 수 있어야 한다.
+   */
+  transfer?: { city?: number; district?: number };
+  /**
+   * 조사해 둔 구간표 — 지역↔지역, 지역↔도시의 역~역 시간.
+   * `dayTrips` 와 같은 뜻이지만 근교 후보 목록에는 안 올리는 구간이다.
+   */
+  links?: TransitLink[];
   cities: City[];
 }
+
+export interface TransitLink { a: string; b: string; minutes: number; mode: string; note?: string }
 
 export interface Island {
   id: string;
@@ -66,6 +82,8 @@ export async function loadCountry(country: string): Promise<CountryIndex> {
   // 어느 섬에 철도가 있는지 교통 엔진에 알린다. 모르면 섬에는 없다고 본다 —
   // 없는 열차를 지어내는 것보다 있는 열차를 놓치는 편이 낫다.
   setIslandRail(idx.islands ?? []);
+  // 나라별 문앞~문앞 오버헤드와 지역 간 구간표. 없으면 스페인 값(37분)이다.
+  setCountryTransit(idx.transfer ?? {}, idx.links ?? []);
   // 섬은 도시가 아니라 섬 하나가 여행 단위다. 거점 도시는 섬 이름으로 부른다.
   return { ...idx, cities: nameIslandHubs(idx.cities, idx.islands ?? []) };
 }

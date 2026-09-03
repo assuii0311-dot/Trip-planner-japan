@@ -109,6 +109,19 @@ export interface City {
   slug: string;
   name: string;
   nameEn: string;
+  /**
+   * 도시 등급.
+   *
+   *   'city'     — 잘 수 있는 곳. 스페인의 모든 도시, 도쿄·하코네·가마쿠라.
+   *   'district' — 도시 안의 지역. 아사쿠사·우에노처럼 자는 곳이 아니라 낮에
+   *                가는 곳이다. 절대 독립 숙박지가 되지 않고 `within` 도시의
+   *                숙소를 공유한다.
+   *
+   * 안 적으면 'city' 다 — 스페인 데이터는 손대지 않는다.
+   */
+  tier?: 'city' | 'district';
+  /** 'district' 면 어느 도시 안인가. 그 도시가 숙소이자 저녁 자리다. */
+  within?: string | null;
   region: string;
   /** 목록을 훑을 수 있게 15개 지역을 6개 권역으로 묶은 값. */
   macroRegion: string;
@@ -209,6 +222,14 @@ export interface PlanEntry {
   startMin: number;
   item: Item;
   travelMin: number;
+  /**
+   * 이 일정이 그날의 몇 번째 구간(`PlanDay.segments`)에 속하는가.
+   *
+   * 저녁·밤을 자는 도시에서 먹는 일정은 구간 밖이므로 -1 이다. 화면은 이
+   * 번호로 하루를 구간별로 묶어 그린다 — 예전에는 구간이 데이터에만 있고
+   * 화면은 평평한 목록이라 아사쿠사에서 우에노로 넘어간 자리가 안 보였다.
+   */
+  seg?: number;
   /** 반나절 근교에서 거점으로 돌아오는 이동이 이 앞에 끼는지. */
   returnLeg?: { from: string; to: string; minutes: number };
 }
@@ -281,7 +302,11 @@ export interface PlanDay {
    * 그날의 구간들. 하루에 도시가 둘 이상 들어갈 수 있다 —
    * 반나절 도시를 이어 붙이거나, 오후에 옮기거나, 근교를 다녀오는 날.
    */
-  segments?: { city: string; minutes: number; inboundMin: number; isDayTrip: boolean; base: string | null; roundTripMin: number }[];
+  segments?: {
+    city: string; minutes: number; inboundMin: number; isDayTrip: boolean; base: string | null; roundTripMin: number;
+    /** 자는 도시 안의 지역인가. 근교와 달리 저녁을 먹으러 돌아오지 않는다. */
+    district?: boolean;
+  }[];
   /** 도시를 옮긴 날이면 하루의 어디에서 옮겼는가. */
   moveTiming?: 'morning' | 'midday' | 'evening' | null;
   entries: PlanEntry[];

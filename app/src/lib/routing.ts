@@ -30,7 +30,7 @@ import { railBetween, railOnDay } from './rail';
  * 이동으로 버리면 여행이 아니라 이동이 된다.
  */
 
-export type Mode = 'ave' | 'train' | 'bus' | 'flight' | 'car' | 'ferry';
+export type Mode = 'ave' | 'train' | 'bus' | 'flight' | 'car' | 'ferry' | 'metro';
 
 export const MODE_LABEL: Record<Mode, string> = {
   ave: '고속열차',
@@ -39,11 +39,78 @@ export const MODE_LABEL: Record<Mode, string> = {
   flight: '국내선 항공',
   car: '렌터카',
   ferry: '페리',
+  metro: '지하철·전철',
 };
 
 export const MODE_ICON: Record<Mode, string> = {
-  ave: '🚄', train: '🚆', bus: '🚌', flight: '✈️', car: '🚗', ferry: '⛴️',
+  ave: '🚄', train: '🚆', bus: '🚌', flight: '✈️', car: '🚗', ferry: '⛴️', metro: '🚇',
 };
+
+/**
+ * 문앞~문앞 오버헤드 — 역~역 시간에 얹는 양 끝 도보·대기(분).
+ *
+ * ## 왜 두 값인가
+ *
+ * 예전에는 모든 실측 구간에 +37분(역까지 25 + 도착역에서 12)이 붙었다.
+ * 스페인 도시 간 이동에는 맞지만 지하철 한 정거장에는 말이 안 된다 —
+ * 아사쿠사→우에노(긴자선 2정거장, 6분)가 43분으로 나왔다.
+ *
+ *   도시 간 37분: 신칸센·특급은 시간표가 정해져 있어 놓치면 큰일이라
+ *                역에 25분 여유를 둔다.
+ *   도시 안 20분: 출발지→역 도보 8 + 개찰·플랫폼·대기 6 + 도착역→목적지 6.
+ *                지하철은 3분마다 오니 여유를 둘 이유가 없다.
+ *
+ * 검산 — 아사쿠사→우에노 6+20=26분(걸어도 25분), 신주쿠→시부야 7+20=27분,
+ * 시부야→긴자 17+20=37분, 신주쿠→아사쿠사 35+20=55분. 실제 감각과 맞는다.
+ *
+ * 값은 나라 데이터(`index.json` 의 `transfer`)가 정한다. 오사카는 도쿄보다
+ * 작아 나중에 줄일 수 있어야 한다. 안 적으면 스페인 값이다.
+ */
+export interface Overhead { accessMin: number; egressMin: number }
+
+export const CITY_OVERHEAD: Overhead = { accessMin: 25, egressMin: 12 };
+export const DISTRICT_OVERHEAD: Overhead = { accessMin: 14, egressMin: 6 };
+
+/** 합계(분)를 역까지·역에서로 나눈다. 비율은 스페인 값(25:12)을 따른다. */
+function splitOverhead(total: number, like: Overhead): Overhead {
+  const access = Math.round(total * (like.accessMin / (like.accessMin + like.egressMin)));
+  return { accessMin: access, egressMin: total - access };
+}
+
+interface CountryTransit {
+  city: Overhead;
+  district: Overhead;
+  /** 조사해 둔 지역 간 구간. 'a|b'(정렬) → 역~역 분. */
+  links: Map<string, { minutes: number; mode: string; note?: string }>;
+}
+
+const TRANSIT: CountryTransit = { city: CITY_OVERHEAD, district: DISTRICT_OVERHEAD, links: new Map() };
+
+const linkKey = (a: string, b: string) => (a < b ? `${a}|${b}` : `${b}|${a}`);
+
+/**
+ * 나라 데이터를 읽을 때 오버헤드와 구간표를 심는다.
+ * 나라를 바꾸면 다시 불린다 — 앞 나라 값이 남지 않게 매번 통째로 바꾼다.
+ */
+export function setCountryTransit(
+  transfer: { city?: number; district?: number },
+  links: { a: string; b: string; minutes: number; mode: string; note?: string }[],
+): void {
+  TRANSIT.city = transfer.city != null ? splitOverhead(transfer.city, CITY_OVERHEAD) : CITY_OVERHEAD;
+  TRANSIT.district = transfer.district != null ? splitOverhead(transfer.district, DISTRICT_OVERHEAD) : DISTRICT_OVERHEAD;
+  TRANSIT.links = new Map(links.map((l) => [linkKey(l.a, l.b), { minutes: l.minutes, mode: l.mode, note: l.note }]));
+}
+
+/** 조사해 둔 지역 간 구간표. `measuredTable` 이 dayTrips 와 합쳐 쓴다. */
+export const countryLinks = (): ReadonlyMap<string, { minutes: number; mode: string; note?: string }> => TRANSIT.links;
+
+/** 두 곳이 같은 도시 안인가(지역↔지역, 지역↔그 도시). */
+export function sameCity(a: City, b: City): boolean {
+  if (a.slug === b.slug) return true;
+  const ha = a.within ?? a.slug;
+  const hb = b.within ?? b.slug;
+  return ha === hb && (a.tier === 'district' || b.tier === 'district');
+}
 
 /**
  * 한 구간을 한 수단으로 가는 방법.
@@ -380,24 +447,62 @@ function railService(list: RailDeparture[]): Service {
  * 실측 구간을 서비스 하나로 바꾼다.
  * 조사해 둔 51개 구간은 소요 시간이 확인된 값이라 추정 대신 이것을 쓴다.
  */
-function measuredService(minutes: number, mode: string, note?: string): Service {
-  const guess: Mode = /고속|AVE/i.test(mode) ? 'ave'
+function measuredService(
+  minutes: number, mode: string, note?: string,
+  /** 양 끝 도보·대기. 도시 간 37분, 도시 안 20분. 항공은 따로다. */
+  overhead: Overhead = TRANSIT.city,
+): Service {
+  const guess: Mode = /고속|AVE|신칸센/i.test(mode) ? 'ave'
     : /버스/.test(mode) ? 'bus'
-      : /항공|비행/.test(mode) ? 'flight' : 'train';
+      : /항공|비행/.test(mode) ? 'flight'
+        : /지하철|메트로|전철|야마노테|긴자선|metro|subway/i.test(mode) ? 'metro' : 'train';
+  if (guess === 'flight') {
+    return {
+      mode: guess, label: mode, accessMin: 135, rideMin: minutes, egressMin: 60, totalMin: minutes + 195,
+      transfers: 0, costEur: 0, firstDep: hm(6, 30), lastDep: hm(21, 30), headwayMin: 90, estimated: false, note,
+    };
+  }
+  const oh = guess === 'metro' ? TRANSIT.district : overhead;
   return {
     mode: guess,
     label: mode,
-    accessMin: guess === 'flight' ? 135 : 25,
+    accessMin: oh.accessMin,
     rideMin: minutes,
-    egressMin: guess === 'flight' ? 60 : 12,
-    totalMin: minutes + (guess === 'flight' ? 195 : 37),
+    egressMin: oh.egressMin,
+    totalMin: minutes + oh.accessMin + oh.egressMin,
     transfers: 0,
     costEur: 0,
-    firstDep: guess === 'bus' ? hm(7) : hm(6, 30),
-    lastDep: hm(21, 30),
-    headwayMin: guess === 'ave' ? 75 : 90,
+    firstDep: guess === 'metro' ? hm(5, 30) : guess === 'bus' ? hm(7) : hm(6, 30),
+    lastDep: guess === 'metro' ? hm(23, 50) : hm(21, 30),
+    headwayMin: guess === 'metro' ? 5 : guess === 'ave' ? 75 : 90,
     estimated: false,
     note,
+  };
+}
+
+/**
+ * 도시 안 지하철·전철 — 구간표에 없는 지역 사이를 거리로 어림한다.
+ *
+ * 도쿄 도심 지하철은 환승을 넣어 실효 20km/h 남짓이다. 신주쿠~긴자 6.5km
+ * 가 20분 안팎으로 나오게 맞췄다. 도시 안에서는 이것 하나만 내놓는다 —
+ * 아사쿠사에서 우에노까지 렌터카나 시외버스를 제안할 이유가 없다.
+ */
+function metroService(km: number): Service {
+  const oh = TRANSIT.district;
+  const ride = Math.max(4, Math.round((km / 20) * 60 + 2));
+  return {
+    mode: 'metro',
+    label: '지하철·전철',
+    accessMin: oh.accessMin,
+    rideMin: ride,
+    egressMin: oh.egressMin,
+    totalMin: ride + oh.accessMin + oh.egressMin,
+    transfers: km > 4 ? 1 : 0,
+    costEur: 0,
+    firstDep: hm(5, 30), lastDep: hm(23, 50),
+    headwayMin: 5,
+    estimated: true,
+    note: '지하철은 3~5분 간격이라 시간표를 볼 필요가 없습니다. 지도 앱의 값이 곧 답입니다.',
   };
 }
 
@@ -414,6 +519,17 @@ export function servicesBetween(
 ): Service[] {
   const km = Math.round(distanceKm(a, b));
   const out: Service[] = [];
+
+  /*
+   * 같은 도시 안(지역↔지역, 지역↔그 도시)은 지하철 하나다.
+   *
+   * 조사해 둔 역~역 시간이 있으면 그것에 도시 안 오버헤드(20분)를 얹고,
+   * 없으면 거리로 어림한다. 고속철·시외버스·렌터카를 후보로 내지 않는다.
+   */
+  if (sameCity(a, b)) {
+    const link = measured ?? TRANSIT.links.get(linkKey(a.slug, b.slug));
+    return [link ? measuredService(link.minutes, link.mode, link.note, TRANSIT.district) : metroService(distanceKm(a, b))];
+  }
 
   // 실제 시간표가 있으면 그것이 최우선이다.
   const rail = railBetween(a.slug, b.slug);

@@ -234,7 +234,8 @@ export default function Step3Course({
               >
                 <span style={{ fontWeight: 700 }}>{city.name}</span>
                 <span style={{ fontSize: 12, color: 'var(--muted)' }}>
-                  {isDayTrip ? `당일치기 ${fmtDays(wantDays)}` : fmtDays(wantDays)}
+                  {city.tier === 'district' ? `${fmtDays(wantDays)} · 지하철로`
+                    : isDayTrip ? `당일치기 ${fmtDays(wantDays)}` : fmtDays(wantDays)}
                 </span>
                 <span className="count">
                   {picked.length > 0 && <span className="picked">{picked.length}곳 </span>}

@@ -150,10 +150,13 @@ function buildDay(
    * 새벽 5시에 술을 마시라는 말이다. 도착일은 저녁까지만 쓴다.
    */
   longHaulArrival = false,
+  /** 지역 slug → 그 지역이 속한 도시. 지역이 아니면 없다. */
+  withinOf: ReadonlyMap<string, string> = new Map(),
 ): PlanDay {
   const segments = slot.segments.length
     ? slot.segments
     : [{ city: slot.city, minutes: 0, inboundMin: 0, isDayTrip: false, base: null, roundTripMin: 0 }];
+  const homeOf = (slug: string) => withinOf.get(slug) ?? slug;
   /*
    * 근교에서 몇 시에 돌아오는가는 그날 일정이 정하고, 일정은 계획안(빡빡·
    * 보통·느긋)마다 다르다. 그래서 사본을 만들어 안마다 따로 채운다.
@@ -167,7 +170,15 @@ function buildDay(
     segments, moveTiming: slot.moveTiming, entries: [], walkKm: 0,
   });
 
-  const free = (city: string) => pool.filter((p) => !used.has(p.item.id) && p.item.city === city);
+  /*
+   * 이 도시에서 고를 수 있는 것.
+   *
+   * 도쿄처럼 지역이 딸린 도시는 자기 아이템이 없고 볼 것이 전부 지역에
+   * 있다. 그 도시에서 고르라는 것은 그 지역들 어디서든 고르라는 뜻이다 —
+   * 쉬는 날과 저녁 자리가 여기서 나온다.
+   */
+  const free = (city: string) => pool.filter((p) => !used.has(p.item.id)
+    && (p.item.city === city || withinOf.get(p.item.city) === city));
   const anchor = free(segments[0].city).find((p) => p.item.theme !== 'food' && p.item.theme !== 'nightlife')
     ?? free(sleepAt).find((p) => p.item.theme !== 'food' && p.item.theme !== 'nightlife');
   if (!anchor) return bare();
@@ -196,7 +207,9 @@ function buildDay(
    */
   const trip = travels.find((t) => t.kind === 'daytrip');
   const tripArrive = segments[0].isDayTrip && trip ? trip.arriveAt : null;
-  const base = DAY_START[prefs.dayStart] + (segments[0].isDayTrip && !tripArrive ? 75 : 0);
+  // 지역으로 나가는 날은 큰 이동 블록이 없다. 숙소에서 그 지역까지 가는 시간부터 시작한다.
+  const base = DAY_START[prefs.dayStart]
+    + (segments[0].isDayTrip && !tripArrive ? (segments[0].district ? segments[0].inboundMin : 75) : 0);
   const start = Math.max(base, arrival ?? 0, tripArrive ?? 0, startAtMin ?? 0);
 
   const specs = spec.slots(start)
@@ -226,19 +239,39 @@ function buildDay(
     }
     const seg = segments[segIdx];
     const atHome = s === 'dinner' || s === 'night';
-    const city = atHome ? sleepAt : seg.city;
-    const candidates = free(city)
+    /*
+     * 저녁은 자는 도시에서 — 다만 자는 도시 안의 지역에 있으면 거기서 먹는다.
+     *
+     * 근교(세고비아)는 저녁 식당이 일찍 닫고 막차가 있어 거점으로 돌아와
+     * 먹는다. 도쿄 안의 우에노는 다르다. 저녁을 먹고 지하철로 숙소에 가면
+     * 된다. 그 지역에 저녁거리가 없을 때만 도쿄 전체에서 고른다.
+     */
+    const inDistrict = atHome && !!seg.district && homeOf(seg.city) === sleepAt;
+    const prev = entries[entries.length - 1]?.item ?? null;
+    const near = (item: Item) => (prev && hasCoords(prev) && hasCoords(item)
+      ? 1 / (1 + (distanceKm(item, prev) / spec.radiusKm) ** 2) : 0.6);
+    /*
+     * 같은 구간 안에서는 앵커에 가까운 곳을, 도쿄 전체에서 저녁을 고를 때는
+     * 지금 있는 자리에 가까운 곳을 앞세운다. 스페인처럼 지역이 없는 나라에서는
+     * 거점의 저녁 후보에 거리 가중을 두지 않는다 — 예전과 같다.
+     */
+    const weight = (item: Item, city: string) => (city === seg.city ? proximity(item)
+      : atHome && withinOf.size ? near(item) : 1);
+    const pickFrom = (city: string) => free(city)
       .filter((p) => fitsSlot(p.item, s))
-      .map((p) => ({ ...p, adjusted: p.score * (city === seg.city ? proximity(p.item) : 1) }))
+      .map((p) => ({ ...p, adjusted: p.score * weight(p.item, city) }))
       .sort((a, b) => b.adjusted - a.adjusted);
+    let city = atHome ? (inDistrict ? seg.city : sleepAt) : seg.city;
+    let candidates = pickFrom(city);
+    if (!candidates.length && inDistrict) { city = sleepAt; candidates = pickFrom(city); }
     if (!candidates.length) continue;
 
-    const prev = entries[entries.length - 1]?.item ?? null;
     const pick = candidates[0];
     // 근교에서 자는 도시로 돌아오는 구간은 조사한 왕복 시간의 절반을 쓴다.
-    const crossing = atHome && seg.isDayTrip && !returned;
+    // 지역에서는 돌아오지 않는다 — 저녁을 먹은 자리에서 지하철로 숙소에 간다.
+    const crossing = atHome && seg.isDayTrip && !seg.district && !returned && city !== seg.city;
     const travelMin = crossing ? Math.round(seg.roundTripMin / 2)
-      : prev && prev.city === pick.item.city ? travelMinutes(prev, pick.item) : 0;
+      : prev && homeOf(prev.city) === homeOf(pick.item.city) ? travelMinutes(prev, pick.item) : 0;
 
     const startMin = Math.max(clock + travelMin + (prev ? spec.slack : 0), earliest);
     // 여유 60분 — 비는 것보다 늦게라도 하는 편이 낫다. 공항 마감은 예외.
@@ -247,6 +280,8 @@ function buildDay(
 
     entries.push({
       slot: s, startMin, item: pick.item, travelMin,
+      // 자는 도시에서 먹는 저녁·밤은 구간 밖(-1)이다. 그 밖에는 지금 구간.
+      seg: atHome && city !== seg.city ? -1 : segIdx,
       ...(crossing ? { returnLeg: { from: seg.city, to: sleepAt, minutes: Math.round(seg.roundTripMin / 2) } } : {}),
     });
     if (crossing) returned = true;
@@ -331,6 +366,8 @@ export interface DaySegment {
   base: string | null;
   /** 당일치기 왕복 시간(분). */
   roundTripMin: number;
+  /** 자는 도시 안의 지역인가. 근교와 달리 저녁을 먹으러 돌아오지 않는다. */
+  district?: boolean;
 }
 
 export interface DayPlanSlot {
@@ -403,11 +440,17 @@ export function scheduleFromItinerary(
     const segments: DaySegment[] = d.legs.map((l, i) => ({
       city: l.city,
       minutes: l.minutes,
-      // 첫 구간으로 들어오는 이동은 travel 로 따로 다룬다.
-      inboundMin: i === 0 ? 0 : l.isDayTrip ? Math.round(l.roundTripMin / 2) : 0,
+      /*
+       * 첫 구간으로 들어오는 이동은 travel 블록이 따로 다룬다 — 지역만 빼고.
+       * 지역으로 나가는 지하철에는 큰 블록을 만들지 않으므로(구간 머리줄이
+       * 대신한다) 들어오는 시간을 구간이 직접 들고 있어야 한다.
+       */
+      inboundMin: i === 0 ? (l.district ? l.inboundMin : 0)
+        : l.isDayTrip ? (l.inboundMin || Math.round(l.roundTripMin / 2)) : 0,
       isDayTrip: l.isDayTrip,
       base: l.base,
       roundTripMin: l.roundTripMin,
+      district: !!l.district,
     }));
 
     /*
@@ -449,7 +492,12 @@ export function scheduleFromItinerary(
       });
     }
 
-    const trip = segments.find((x) => x.isDayTrip);
+    /*
+     * 근교 왕복은 큰 이동 블록으로 안내한다. 지역은 아니다 — 아사쿠사로
+     * 가는 지하철 35분에 '도쿄 → 아사쿠사 → 도쿄 왕복' 블록을 세우면 하루가
+     * 이동 안내로 도배된다. 지역 간 이동은 구간 머리줄 한 줄이면 된다.
+     */
+    const trip = segments.find((x) => x.isDayTrip && !x.district);
     let ride: Service | undefined;
     if (trip && trip.base) {
       const from = cityOf.get(trip.base);
@@ -491,7 +539,7 @@ export function scheduleFromItinerary(
       travels,
       moveTiming: d.moves.length ? d.moves[d.moves.length - 1].timing : null,
       city: segments[0]?.city ?? d.sleepAt,
-      isDayTrip: !!segments[0]?.isDayTrip,
+      isDayTrip: !!segments[0]?.isDayTrip && !segments[0]?.district,
       returnTo: trip ? d.sleepAt : null,
       returnMinutes: trip ? Math.round(trip.roundTripMin / 2) : 0,
       returnAfter: 'dinner',
@@ -606,6 +654,10 @@ export function buildPlans(input: PlanInput): {
     input.weekday ?? null,
   );
 
+  // 지역 → 속한 도시. 저녁 자리와 쉬는 날의 후보를 고르는 데 쓴다.
+  const withinOf = new Map<string, string>();
+  for (const s of input.itinerary.stops) if (s.city.tier === 'district' && s.city.within) withinOf.set(s.city.slug, s.city.within);
+
   const plans = STYLES.map((spec) => {
     const used = new Set<string>();
     const days: PlanDay[] = schedule.map((s, i) => {
@@ -635,6 +687,7 @@ export function buildPlans(input: PlanInput): {
         startAt, endBy,
         // 첫날에 착륙 시각이 들어왔다면 장거리 비행으로 내린 날이다.
         i === 0 && startAt !== null,
+        withinOf,
       );
     });
 

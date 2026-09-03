@@ -1,5 +1,6 @@
 import type { Itinerary, Stop } from './itinerary';
 import { josa } from './korean';
+import { isDistrict } from './district';
 
 /**
  * 날 채우기 — 하루를 칸이 아니라 시간 축으로 본다.
@@ -113,6 +114,16 @@ export interface PackedLeg {
   base: string | null;
   /** 당일치기 왕복 시간(분). */
   roundTripMin: number;
+  /**
+   * 자는 도시 안의 지역인가(아사쿠사 ← 도쿄).
+   *
+   * 근교와 두 가지가 다르다. 앞 구간이 지역이면 거점으로 돌아오지 않고
+   * 바로 이어 가고(아사쿠사→우에노 26분), 하루에 다 못 보면 다음 날 이어서
+   * 본다 — 왕복이 싸서 '같은 근교는 하루만' 규칙을 둘 이유가 없다.
+   */
+  district?: boolean;
+  /** 이 구간으로 들어오는 이동(분). 앞 구간에서 바로 왔으면 그 직행 시간이다. */
+  inboundMin: number;
 }
 
 /** 하루 안에서 도시를 옮기는 한 구간. */
@@ -185,11 +196,19 @@ export function packDays(
   const hopMin = new Map<string, number>();
   for (const h of itin.hops) hopMin.set(`${h.from.slug}>${h.to.slug}`, h.chosen.totalMin);
   const tripsOf = (slug: string): Stop[] => itin.stops.filter((x) => !x.sleep && x.base === slug);
+  /** 두 곳 사이 문앞~문앞 시간. 여정이 재 둔 값이다. 모르면 무한대. */
+  const link = (a: string, b: string): number =>
+    (a === b ? 0 : itin.legMin?.get(a < b ? `${a}|${b}` : `${b}|${a}`) ?? Infinity);
 
   /** 지금 채우고 있는 날. */
-  interface Open { legs: PackedLeg[]; sleepAt: string; left: number; moves: PackedMove[] }
+  interface Open {
+    legs: PackedLeg[]; sleepAt: string; left: number; moves: PackedMove[];
+    /** 예산이 온전한 날인가. 저녁에 내린 첫날이나 짐을 옮긴 날은 아니다. */
+    full: boolean;
+  }
   let cur: Open | null = null;
-  const open = (sleepAt: string, left = budgetMin): Open => ({ legs: [], sleepAt, left, moves: [] });
+  const open = (sleepAt: string, left = budgetMin): Open =>
+    ({ legs: [], sleepAt, left, moves: [], full: left >= budgetMin });
   const close = () => {
     if (cur && (cur.legs.length || cur.moves.length)) days.push({ legs: cur.legs, sleepAt: cur.sleepAt, moves: cur.moves });
     cur = null;
@@ -242,6 +261,7 @@ export function packDays(
       stop: t,
       minutes: Math.max(0, needMinOf(t.city.slug)),
       round: Math.round(t.dayTripMin),
+      district: isDistrict(t.city) && t.city.within === stop.city.slug,
     /*
      * 왕복만으로 하루가 넘는 근교는 당일치기가 될 수 없다.
      *
@@ -269,7 +289,7 @@ export function packDays(
        */
       if (need >= MIN_SEG_MIN && day.left >= MIN_SEG_MIN) {
         const use = Math.min(need, day.left);
-        add(day, { city: stop.city.slug, minutes: use, isDayTrip: false, base: null, roundTripMin: 0 });
+        add(day, { city: stop.city.slug, minutes: use, isDayTrip: false, base: null, roundTripMin: 0, inboundMin: 0 });
         need -= use;
         day.left -= use;
       }
@@ -310,24 +330,53 @@ export function packDays(
        * 왕복을 못 이긴다. 그때 안 간다고 하면 사용자가 가겠다고 한 도시가
        * 통째로 사라진다 — 잘라 가는 것보다 나쁘다.
        */
-      const takes = (day: Open, t: { minutes: number; round: number }): boolean => {
-        const room = day.left - t.round;
+      /*
+       * 이 근교(또는 지역)를 오늘 넣는 데 드는 이동.
+       *
+       * 근교는 언제나 왕복이다. 지역은 앞 구간이 같은 도시의 지역이면
+       * 거점으로 돌아오지 않고 바로 이어 간다 — 아사쿠사에서 우에노로 가는
+       * 것은 26분이지, 도쿄(신주쿠)로 돌아왔다 다시 나가는 110분이 아니다.
+       * 앞 구간에 이미 물린 '돌아오는 편' 을 이 구간의 것으로 바꿔 끼운다.
+       */
+      const costOf = (day: Open, t: { stop: Stop; round: number; district: boolean }): { cost: number; inbound: number } => {
+        const last = day.legs[day.legs.length - 1];
+        if (t.district && last?.isDayTrip && last.district && last.base === stop.city.slug) {
+          const direct = link(last.city, t.stop.city.slug);
+          if (Number.isFinite(direct)) {
+            const back = Math.round(t.round / 2) - Math.round(last.roundTripMin / 2);
+            return { cost: Math.max(0, direct + back), inbound: direct };
+          }
+        }
+        return { cost: t.round, inbound: Math.round(t.round / 2) };
+      };
+
+      const takes = (day: Open, t: { stop: Stop; minutes: number; round: number; district: boolean }): boolean => {
+        const room = day.left - costOf(day, t).cost;
         if (room < MIN_STAY_MIN) return false;
         if (day.legs.length === 0) return true;
-        return room >= t.minutes;
+        // 지역은 하루에 다 못 봐도 얹는다. 내일 이어서 보면 된다.
+        return t.district || room >= t.minutes;
       };
 
       while (!day.moves.length && queue.length && takes(day, queue[0])) {
         const t = queue[0];
-        const room = day.left - t.round;
+        const { cost, inbound } = costOf(day, t);
+        const room = day.left - cost;
         const use = Math.min(t.minutes, room);
         add(day, {
           city: t.stop.city.slug, minutes: use,
           isDayTrip: true, base: stop.city.slug, roundTripMin: t.round,
+          district: t.district, inboundMin: inbound,
         });
-        moveTotal += t.round;
-        day.left -= t.round + use;
+        moveTotal += cost;
+        day.left -= cost + use;
         t.minutes -= use;
+        /*
+         * 지역은 남은 것을 다음 날 이어서 본다. 왕복이 싸기 때문이다.
+         * 다만 오늘 한 구간도 못 될 만큼 남았으면 무리해서 이어 가지 않는다.
+         */
+        if (t.district && t.minutes >= MIN_SEG_MIN) break;
+        if (t.district) { t.minutes = 0; queue.shift(); continue; }
         /*
          * 같은 근교는 하루만 간다.
          *
@@ -359,7 +408,7 @@ export function packDays(
           }
         }
         if (!put && day.left >= need) {
-          add(day, { city: stop.city.slug, minutes: need, isDayTrip: false, base: null, roundTripMin: 0 });
+          add(day, { city: stop.city.slug, minutes: need, isDayTrip: false, base: null, roundTripMin: 0, inboundMin: 0 });
           day.left -= need;
         } else if (!put) {
           unseen.set(stop.city.slug, (unseen.get(stop.city.slug) ?? 0) + need);
@@ -380,7 +429,11 @@ export function packDays(
        * 그대로 두면 영원히 돈다. 넣을 수 없는 것은 넣을 수 없다고 하고
        * 큐에서 뺀다. 끝나지 않는 계산은 사용자에게 멈춘 화면으로 보인다.
        */
-      if (before === 0) {
+      /*
+       * 다만 예산이 잘린 날(저녁에 내린 첫날, 짐을 옮긴 날)에 못 넣은 것은
+       * 못 넣을 것이 아니다 — 내일 온전한 하루면 들어간다. 그때는 그냥 넘긴다.
+       */
+      if (before === 0 && day.full) {
         if (queue.length) {
           const t = queue.shift()!;
           if (t.minutes > 0) unseen.set(t.stop.city.slug, (unseen.get(t.stop.city.slug) ?? 0) + t.minutes);
@@ -393,7 +446,7 @@ export function packDays(
 
     // 볼거리도 근교도 없는 거점이라도 짐을 옮겼으면 밤은 보낸다.
     if (cur && !cur.legs.length && !cur.moves.length) {
-      add(cur, { city: stop.city.slug, minutes: 0, isDayTrip: false, base: null, roundTripMin: 0 });
+      add(cur, { city: stop.city.slug, minutes: 0, isDayTrip: false, base: null, roundTripMin: 0, inboundMin: 0 });
     }
   }
   close();

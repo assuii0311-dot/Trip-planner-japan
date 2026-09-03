@@ -1,5 +1,6 @@
 import type { City } from '../types';
 import { servicesBetween } from './routing';
+import { hasDistricts, isDistrict } from './district';
 
 /**
  * 어느 도시에 묵고 어느 도시를 당일치기로 다녀올 것인가.
@@ -174,8 +175,18 @@ export function scoreBases(
   const ends = new Set(endpoints.filter((x): x is string => !!x));
   const maxDays = Math.max(1, ...cities.map((c) => itemDaysOf(c.slug)));
 
-  return cities.map((c) => {
-    const others = cities.filter((x) => x.slug !== c.slug);
+  /*
+   * 지역(아사쿠사·우에노)은 거점 후보가 아니다. 자는 곳은 `within` 도시이고,
+   * 지역의 볼거리는 그 도시의 볼거리로 센다 — 도쿄 자체에는 아이템이 없고
+   * 전부 지역에 있기 때문이다. 지역이 딸린 도시는 그 지역들의 숙소이므로
+   * 분량과 무관하게 언제나 거점이다.
+   */
+  const candidates = cities.filter((c) => !isDistrict(c));
+  const daysOf = (c: City) => itemDaysOf(c.slug)
+    + cities.filter((d) => isDistrict(d) && d.within === c.slug).reduce((a, d) => a + itemDaysOf(d.slug), 0);
+
+  return candidates.map((c) => {
+    const others = candidates.filter((x) => x.slug !== c.slug);
     const near = others.filter((x) => legMin(c, x, measured) <= DAY_TRIP_MAX_MIN);
 
     /*
@@ -207,7 +218,7 @@ export function scoreBases(
       evening: eveningScore(c),
       lodging: lodgingScore(c),
       onward,
-      volume: clamp01(itemDaysOf(c.slug) / maxDays),
+      volume: clamp01(daysOf(c) / maxDays),
     };
     const total = (Object.keys(BASE_WEIGHTS) as (keyof typeof BASE_WEIGHTS)[])
       .reduce((a, k) => a + parts[k] * BASE_WEIGHTS[k], 0);
@@ -215,7 +226,7 @@ export function scoreBases(
     return {
       city: c, total, parts,
       covers: near.map((x) => x.slug),
-      standalone: stayBoundOf(c.slug) || itemDaysOf(c.slug) >= (
+      standalone: hasDistricts(c, cities) || stayBoundOf(c.slug) || daysOf(c) >= (
         // 사람이 적어 둔 거점이 이번 여행에 있으면 문턱이 높다.
         c.hub && cities.some((x) => x.slug === c.hub)
           ? MOVE_WORTH_DAYS_NEAR_HUB : MOVE_WORTH_DAYS
@@ -260,6 +271,7 @@ export function chooseBases(
     if (overrides[s.city.slug] === 'daytrip') continue;
     if (overrides[s.city.slug] === 'sleep' || s.standalone) takeBase(s.city);
   }
+  // scored 에는 지역이 없다 — '여기서 자기' 로 지정해도 지역은 숙박지가 되지 않는다.
 
   const covered = new Set<string>();
   const markCovered = () => {
@@ -267,12 +279,16 @@ export function chooseBases(
     for (const b of bases) {
       covered.add(b.slug);
       for (const s of byslug.get(b.slug)?.covers ?? []) covered.add(s);
+      // 지역은 자기 도시가 거점이면 덮인다.
+      for (const d of cities) if (isDistrict(d) && d.within === b.slug) covered.add(d.slug);
     }
   };
   markCovered();
 
   // 2) 아직 안 덮인 도시가 있으면, 점수 × 새로 덮는 수가 가장 큰 곳을 더한다.
-  const left = () => cities.filter((c) => !covered.has(c.slug) && overrides[c.slug] !== 'daytrip');
+  const left = () => cities.filter((c) => !covered.has(c.slug) && overrides[c.slug] !== 'daytrip'
+    // 지역은 스스로 거점이 될 수 없다. 자기 도시가 없으면(있을 수 없지만) 가장 가까운 거점에 붙는다.
+    && !isDistrict(c));
   let guard = cities.length + 1;
   while (left().length && guard-- > 0) {
     let best: { c: City; gain: number } | null = null;
@@ -300,6 +316,8 @@ export function chooseBases(
   const attach = new Map<string, string>();
   for (const c of cities) {
     if (bases.some((b) => b.slug === c.slug)) continue;
+    // 지역은 점수와 무관하게 자기 도시에 붙는다. 그 도시는 언제나 거점이다.
+    if (isDistrict(c) && bases.some((b) => b.slug === c.within)) { attach.set(c.slug, c.within!); continue; }
     let pick: { slug: string; min: number } | null = null;
     for (const b of bases) {
       const t = legMin(c, b, measured);

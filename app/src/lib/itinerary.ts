@@ -1,6 +1,7 @@
 import type { City, Item, Preferences } from '../types';
 import type { Service } from './routing';
-import { fastest, servicesBetween } from './routing';
+import { countryLinks, fastest, servicesBetween } from './routing';
+import { hasDistricts, isDistrict } from './district';
 import { estimateDays } from './capacity';
 import { chooseBases, explainBase, DAY_TRIP_MAX_MIN } from './basecity';
 import { STAY_THEMES } from './themes';
@@ -56,6 +57,13 @@ export interface Itinerary {
   daysNeeded: number;
   /** 도시 간 총 이동 시간(분). */
   transitMin: number;
+  /**
+   * 이 여행의 모든 두 곳 사이 문앞~문앞 최단 시간(분). 'a|b'(정렬) 키.
+   *
+   * 날 채우기가 지역을 이어 붙일 때 쓴다 — 아사쿠사에서 우에노로 바로
+   * 가는 26분과, 도쿄로 돌아왔다 다시 나가는 110분은 다른 하루다.
+   */
+  legMin: Map<string, number>;
 }
 
 
@@ -63,6 +71,8 @@ export interface Itinerary {
 export function measuredTable(cities: City[]): Map<string, { minutes: number; mode: string }> {
   const t = new Map<string, { minutes: number; mode: string }>();
   const key = (a: string, b: string) => (a < b ? `${a}|${b}` : `${b}|${a}`);
+  // 지역 간 구간표(나라 데이터의 links). 근교 후보 목록에는 안 올리지만 실측값이다.
+  for (const [k, v] of countryLinks()) t.set(k, { minutes: v.minutes, mode: v.mode });
   for (const c of cities) {
     for (const d of c.dayTrips) t.set(key(c.slug, d.city), { minutes: d.transitMin, mode: d.mode });
   }
@@ -269,7 +279,9 @@ export function assignLodging(
         ? Math.round(dayTripService(city, ordered.find((c) => c.slug === base)!,
           measured.get(mkey(city.slug, base))).totalMin * 2)
         : 0,
-      why: sc ? explainBase(sc, sleep, base ? nameOf(base) : undefined) : '',
+      why: isDistrict(city) && base
+        ? `${nameOf(base)} 안의 지역입니다. 숙소는 ${nameOf(base)}에 두고 지하철로 다닙니다`
+        : sc ? explainBase(sc, sleep, base ? nameOf(base) : undefined) : '',
     };
   });
 
@@ -280,7 +292,15 @@ export function assignLodging(
   for (const s of stops) {
     if (!s.sleep) continue;
     const attached = stops.filter((x) => !x.sleep && x.base === s.city.slug);
-    s.nights = Math.max(1, Math.round(s.itemDays) + attached.length);
+    /*
+     * 지역은 근교와 다르게 센다. 근교는 하루를 통째로 쓰지만, 지역은 볼거리
+     * 분량만큼만 쓴다 — 아사쿠사·우에노·긴자를 하루씩으로 세면 도쿄 4박이
+     * 8박이 된다.
+     */
+    const districts = attached.filter((x) => isDistrict(x.city));
+    const trips = attached.filter((x) => !isDistrict(x.city));
+    const districtDays = districts.reduce((a, x) => a + x.itemDays, 0);
+    s.nights = Math.max(1, Math.round(s.itemDays + districtDays) + trips.length);
   }
   return stops;
 }
@@ -348,6 +368,13 @@ export function buildItinerary(
     const list = byCity.get(slug);
     if (list && list.length) return estimateDays(list, prefs);
     const c = cities.find((x) => x.slug === slug);
+    /*
+     * 지역이 딸린 도시(도쿄)는 자기 볼거리가 없다 — 전부 지역에 있다.
+     * 권장 숙박일로 대신하면 지역의 분량에 도쿄 3박이 얹혀 7박이 된다.
+     * 지역은 미리보기에서 반나절씩으로 본다. 잘 수 없는 곳이라 박수가 0 이다.
+     */
+    if (c && hasDistricts(c, cities)) return 0;
+    if (c && isDistrict(c)) return Math.max(0.5, c.nights?.[0] ?? 0.5);
     return c?.nights?.[0] ?? 1.5;
   };
 
@@ -389,10 +416,34 @@ export function buildItinerary(
    * 화면에 보이는 순서: 거점 순서대로 놓되, 그 거점에서 다녀오는 당일치기
    * 도시를 바로 뒤에 붙인다. 여행자가 실제로 지나가는 순서다.
    */
+  const legMin = new Map<string, number>();
+  for (const a of cities) {
+    for (const b of cities) {
+      if (a.slug >= b.slug) continue;
+      legMin.set(mkey(a.slug, b.slug), fastest(a, b, measured.get(mkey(a.slug, b.slug)), opts.weekday ?? null).totalMin);
+    }
+  }
+  const leg = (a: string, b: string) => (a === b ? 0 : legMin.get(mkey(a, b)) ?? Infinity);
+
   const ordered: City[] = [];
   for (const b of baseOrder) {
     ordered.push(b);
-    for (const s of placed) if (!s.sleep && s.base === b.slug) ordered.push(s.city);
+    /*
+     * 지역은 가까운 것끼리 이어지게 줄을 세운다.
+     *
+     * 날 채우기는 이 순서대로 하루에 이어 붙인다. 고른 순서대로 두면
+     * 신주쿠→아사쿠사→시부야→우에노처럼 도쿄를 두 번 가로지른다. 거점에서
+     * 시작해 가장 가까운 지역을 차례로 잇는다(최근접 이웃).
+     */
+    const districts = placed.filter((s) => !s.sleep && s.base === b.slug && isDistrict(s.city)).map((s) => s.city);
+    let at = b.slug;
+    while (districts.length) {
+      districts.sort((x, y) => leg(at, x.slug) - leg(at, y.slug));
+      const next = districts.shift()!;
+      ordered.push(next);
+      at = next.slug;
+    }
+    for (const s of placed) if (!s.sleep && s.base === b.slug && !isDistrict(s.city)) ordered.push(s.city);
   }
   for (const s of placed) if (!ordered.some((c) => c.slug === s.city.slug)) ordered.push(s.city);
 
@@ -409,12 +460,15 @@ export function buildItinerary(
   const travelDays = hops.reduce((a, h) => (
     a + (h.chosen.totalMin >= 480 ? 1 : h.chosen.totalMin >= 240 ? 0.5 : 0)
   ), 0);
-  const stayDays = stops.reduce((a, s) => a + (s.sleep ? s.itemDays : Math.max(s.itemDays, 1)), 0);
+  // 근교는 하루를 통째로 쓰지만 지역은 분량만큼만 쓴다.
+  const stayDays = stops.reduce((a, s) => a
+    + (s.sleep || isDistrict(s.city) ? s.itemDays : Math.max(s.itemDays, 1)), 0);
 
   return {
     stops,
     hops,
     daysNeeded: Math.max(1, Math.round((stayDays + travelDays) * 10) / 10),
     transitMin,
+    legMin,
   };
 }
