@@ -3,6 +3,7 @@ import type { Service } from './routing';
 import { fastest, servicesBetween } from './routing';
 import { estimateDays } from './capacity';
 import { chooseBases, explainBase, DAY_TRIP_MAX_MIN } from './basecity';
+import { STAY_THEMES } from './themes';
 
 /**
  * 도시 순서 · 숙박 · 도시 간 이동을 한꺼번에 정하는 엔진.
@@ -234,8 +235,10 @@ export function assignLodging(
   picks: Record<string, string> = {},
   /** 0=일요일. 그 요일에 안 다니는 편은 빼고 센다. */
   weekday: number | null = null,
+  /** 이 도시에 거기서 자야 하는 것(온천)을 담았는가. */
+  stayBoundOf: (slug: string) => boolean = () => false,
 ): Stop[] {
-  const { bases, attach, scores } = chooseBases(ordered, itemDaysOf, measured, endpoints, overrides);
+  const { bases, attach, scores } = chooseBases(ordered, itemDaysOf, measured, endpoints, overrides, stayBoundOf);
   const isBase = new Set(bases.map((b) => b.slug));
   const nameOf = (slug: string) => ordered.find((c) => c.slug === slug)?.name ?? slug;
 
@@ -367,8 +370,16 @@ export function buildItinerary(
    * 렌터카 2시간 26분 구간이 생긴다. 실제로는 둘 다 마드리드에서 다녀온다.
    * 거점을 먼저 정하면 그런 구간이 아예 만들어지지 않는다.
    */
+  /*
+   * 온천을 담은 도시는 거기서 잔다.
+   *
+   * 온천은 저녁에 탕에 들어가고 그대로 자는 것이라 당일치기로는 볼 수 없다.
+   * 하코네가 볼거리 분량으로는 하루치라도, 온천을 담았으면 짐을 옮긴다.
+   * 담지 않았으면(온천에 관심이 없으면) 분량대로 당일치기가 된다.
+   */
+  const stayBoundOf = (slug: string) => (byCity.get(slug) ?? []).some((it) => STAY_THEMES.has(it.theme));
   const placed = assignLodging(cities, itemDaysOf, measured, opts.lodging, [startSlug, endSlug],
-    opts.picks ?? {}, opts.weekday ?? null);
+    opts.picks ?? {}, opts.weekday ?? null, stayBoundOf);
   const baseCities = placed.filter((s) => s.sleep).map((s) => s.city);
   const baseOrder = manual && manual.length === cities.length
     ? manual.filter((c) => baseCities.some((b) => b.slug === c.slug))

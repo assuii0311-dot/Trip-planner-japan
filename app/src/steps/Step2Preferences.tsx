@@ -1,6 +1,6 @@
 import type { City, Companion, Preferences, ThemeId } from '../types';
 import { Block, Chips, Field, Scale, Segmented } from '../components/Controls';
-import { THEMES } from '../lib/themes';
+import { themesFor } from '../lib/themes';
 import { describeTaste } from '../lib/taste';
 
 const FOOD_STYLES = [
@@ -34,7 +34,9 @@ export default function Step2Preferences({
     const cur = prefs[key];
     onChange({ [key]: cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v] } as Partial<Preferences>);
   };
-  const changed = THEMES.filter((t) => prefs.themes[t.id] !== inferred[t.id]).length;
+  // 온천처럼 나라에 따라 있고 없는 테마는 고른 도시에 실제로 있을 때만 묻는다.
+  const themes = themesFor(selectedCities);
+  const changed = themes.filter((t) => prefs.themes[t.id] !== inferred[t.id]).length;
 
   return (
     <>
@@ -46,7 +48,7 @@ export default function Step2Preferences({
         help="고르신 도시에서 읽은 값입니다. 다르면 바꾸세요. 0은 빼도 좋음, 3은 이번 여행의 목적입니다."
       >
         <div className="card">
-          {THEMES.map((t) => {
+          {themes.map((t) => {
             const v = prefs.themes[t.id];
             const moved = v !== inferred[t.id];
             return (

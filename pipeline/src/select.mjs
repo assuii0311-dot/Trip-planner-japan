@@ -10,8 +10,9 @@
 
 /** 계획을 짜려면 최소한 이만큼은 있어야 하는 테마별 하한. */
 const FLOORS = {
-  hub:       { food: 14, history: 8, art: 7, landmark: 7, nature: 5, activity: 5, nightlife: 5, shopping: 3 },
-  satellite: { food: 7,  history: 5, art: 3, landmark: 4, nature: 3, activity: 2, nightlife: 2, shopping: 2 },
+  // 온천은 있는 곳에서만 채워진다 — 없는 나라에서는 후보가 0개라 하한이 비어 있어도 아무 일이 없다.
+  hub:       { food: 14, history: 8, art: 7, landmark: 7, nature: 5, activity: 5, nightlife: 5, shopping: 3, onsen: 2 },
+  satellite: { food: 7,  history: 5, art: 3, landmark: 4, nature: 3, activity: 2, nightlife: 2, shopping: 2, onsen: 3 },
 };
 
 /** 설명이 길고 좌표가 있는 항목이 실제로 쓸모가 크다. */

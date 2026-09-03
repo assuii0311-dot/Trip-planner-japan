@@ -24,7 +24,7 @@ export async function popularityByWikidata(ids) {
 }
 
 const HIGH_ENERGY = /\b(hike|hiking|trek|climb|summit|cycl|bike|kayak|surf|dive|snorkel|zip|canyon|via ferrata|marathon|steep|ascent|stairs)/i;
-const LOW_ENERGY = /\b(cafe|café|bar|restaurant|spa|bath|cruise|boat|show|concert|cinema|tasting|market hall)/i;
+const LOW_ENERGY = /\b(cafe|café|bar|restaurant|spa|bath|onsen|hot spring|cruise|boat|show|concert|cinema|tasting|market hall)/i;
 
 const OUTDOOR_THEMES = new Set(['nature', 'landmark', 'activity']);
 
@@ -33,6 +33,8 @@ function bestSlots(item) {
   switch (item.theme) {
     case 'food': return ['lunch', 'dinner'];
     case 'nightlife': return ['evening', 'night'];
+    // 온천은 오후 늦게 들어가 저녁을 먹고 밤에 한 번 더. 아침 자리는 아니다.
+    case 'onsen': return ['afternoon', 'evening', 'night'];
     case 'shopping': return ['morning', 'afternoon'];
     case 'nature': return ['morning', 'afternoon', 'evening'];
     case 'art':

@@ -109,12 +109,18 @@ function eveningScore(c: City): number {
   const t = c.themes ?? {};
   const nightlife = t.nightlife ?? 0;
   const food = t.food ?? 0;
+  /*
+   * 온천도 저녁 콘텐츠다. 해가 진 뒤 탕에 들어가는 것이 온천 마을에서 저녁을
+   * 보내는 방식이다. 이것을 여기 넣으면 하코네·구사쓰는 저녁이 있는 곳으로,
+   * 가마쿠라·가와고에는 낮에만 볼 곳으로 자연히 갈린다.
+   */
+  const onsen = t.onsen ?? 0;
   const n = Math.max(1, c.itemCount || 1);
   // 밤 전용 항목은 귀하므로 가중을 높게, 식당은 수가 많으므로 낮게 본다.
-  const density = clamp01((nightlife * 3 + food) / (n * 0.35));
+  const density = clamp01(((nightlife + onsen) * 3 + food) / (n * 0.35));
   const tags = new Set(c.tags);
   let bonus = 0;
-  for (const [tag, v] of [['나이트라이프', 0.25], ['타파스', 0.15], ['미식', 0.12], ['대도시', 0.12]] as const) {
+  for (const [tag, v] of [['나이트라이프', 0.25], ['온천', 0.25], ['타파스', 0.15], ['미식', 0.12], ['대도시', 0.12]] as const) {
     if (tags.has(tag)) bonus += v;
   }
   return clamp01(density * 0.7 + bonus);
@@ -156,6 +162,14 @@ export interface BaseScore {
 export function scoreBases(
   cities: City[], itemDaysOf: (slug: string) => number,
   measured: Measured, endpoints: (string | null)[] = [],
+  /**
+   * 이 도시에 '거기서 자야 하는' 것을 담았는가(온천).
+   *
+   * 온천은 저녁에 탕에 들어가고 그대로 자는 것이라 당일치기로는 볼 수 없다.
+   * 볼거리 분량이 하루 반에 못 미쳐도, 온천을 담았으면 짐을 옮길 값어치가
+   * 있다. 몰라도 된다 — 그때는 분량만 본다.
+   */
+  stayBoundOf: (slug: string) => boolean = () => false,
 ): BaseScore[] {
   const ends = new Set(endpoints.filter((x): x is string => !!x));
   const maxDays = Math.max(1, ...cities.map((c) => itemDaysOf(c.slug)));
@@ -201,7 +215,7 @@ export function scoreBases(
     return {
       city: c, total, parts,
       covers: near.map((x) => x.slug),
-      standalone: itemDaysOf(c.slug) >= (
+      standalone: stayBoundOf(c.slug) || itemDaysOf(c.slug) >= (
         // 사람이 적어 둔 거점이 이번 여행에 있으면 문턱이 높다.
         c.hub && cities.some((x) => x.slug === c.hub)
           ? MOVE_WORTH_DAYS_NEAR_HUB : MOVE_WORTH_DAYS
@@ -233,8 +247,9 @@ export function chooseBases(
   cities: City[], itemDaysOf: (slug: string) => number,
   measured: Measured, endpoints: (string | null)[] = [],
   overrides: Record<string, 'sleep' | 'daytrip'> = {},
+  stayBoundOf: (slug: string) => boolean = () => false,
 ): BasePlan {
-  const scored = scoreBases(cities, itemDaysOf, measured, endpoints);
+  const scored = scoreBases(cities, itemDaysOf, measured, endpoints, stayBoundOf);
   const byslug = new Map(scored.map((s) => [s.city.slug, s]));
 
   const bases: City[] = [];

@@ -1,7 +1,15 @@
 /** 활동 테마 — 여행 아이템을 묶는 상위 분류 (3단계). */
 export type ThemeId =
   | 'history' | 'art' | 'landmark' | 'nature'
-  | 'food' | 'nightlife' | 'activity' | 'shopping';
+  | 'food' | 'nightlife' | 'activity' | 'shopping'
+  /**
+   * 온천. 일본을 붙이면서 아홉 번째로 들어왔다.
+   *
+   * 표시만의 문제가 아니다 — 온천은 해가 진 뒤 하는 것이라 저녁 콘텐츠로
+   * 세고, 밤 자리에 들어가며, 온천을 담은 도시는 거기서 자야 한다.
+   * 스페인 데이터에는 이 테마의 아이템이 없어 아무 영향이 없다.
+   */
+  | 'onsen';
 
 export type Slot = 'morning' | 'lunch' | 'afternoon' | 'evening' | 'dinner' | 'night';
 

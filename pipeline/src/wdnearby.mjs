@@ -39,7 +39,7 @@ function themeFromType(typeLabel) {
   return null;
 }
 
-const DURATION = { nature: 60, activity: 120, art: 90, history: 60, landmark: 30, nightlife: 60, shopping: 45, food: 75 };
+const DURATION = { nature: 60, activity: 120, art: 90, history: 60, landmark: 30, nightlife: 60, shopping: 45, food: 75, onsen: 90 };
 const slug = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
   .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 48);
 

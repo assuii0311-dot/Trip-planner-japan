@@ -95,7 +95,8 @@ const STYLES: StyleSpec[] = [
 function fitsSlot(item: Item, slot: Slot): boolean {
   const meal = isMeal(item);
   if (MEAL_SLOTS.has(slot)) return item.theme === 'food';
-  if (slot === 'night') return item.theme === 'nightlife';
+  // 밤은 술자리만이 아니다 — 온천은 저녁을 먹고 탕에 들어가는 것이다.
+  if (slot === 'night') return item.theme === 'nightlife' || item.theme === 'onsen';
   if (meal) return false;
   return item.bestSlots.length === 0 || item.bestSlots.includes(slot);
 }

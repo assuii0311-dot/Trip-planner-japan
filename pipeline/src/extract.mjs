@@ -18,6 +18,12 @@ const fold = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
 export const THEMES = [
   {
+    // 온천은 자연(hot spring → springs?)이나 액티비티(spa)보다 먼저 본다.
+    // 일본에서는 탕에 들어가는 것 자체가 하루의 목적이라 따로 세어야 한다.
+    id: 'onsen', ko: '온천',
+    re: /\b(onsen|hot ?springs?|sento|bath ?houses?|public baths?|rotenburo|rotemburo|ashiyu|foot ?baths?|ryokans?)\b|温泉|銭湯|足湯/,
+  },
+  {
     id: 'nature', ko: '자연경관',
     re: /\b((?<!amusement )(?<!theme )(?<!water )parks?|parcs?|parques?|gardens?|jardin(?:es)?|jardins?|beach(?:es)?|playas?|platjas?|mountains?|sierra|montana|viewpoints?|miradors?|lakes?|lagos?|rivers?|forests?|nature reserve|natural park|cliffs?|caves?|cuevas?|islands?|islas?|botanic(?:al)?|dunes?|delta|lagoons?|albufera|hills?)\b/,
   },
@@ -55,7 +61,7 @@ export const THEMES = [
 const TYPE_FALLBACK = { see: 'landmark', do: 'activity', eat: 'food', drink: 'nightlife', buy: 'shopping' };
 
 /** Rough visit duration in minutes, by theme. Refined per-item by the curation pass. */
-const DURATION = { nature: 90, activity: 150, art: 120, history: 90, landmark: 45, nightlife: 90, shopping: 60, food: 75 };
+const DURATION = { nature: 90, activity: 150, art: 120, history: 90, landmark: 45, nightlife: 90, shopping: 60, food: 75, onsen: 120 };
 
 /**
  * Score every theme instead of taking the first pattern that hits.

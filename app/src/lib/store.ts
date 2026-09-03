@@ -37,7 +37,7 @@ function migrateSingleCountry(): void {
 }
 
 export const DEFAULT_THEMES: Record<ThemeId, number> = {
-  history: 2, art: 2, landmark: 2, nature: 2, food: 2, nightlife: 1, activity: 1, shopping: 1,
+  history: 2, art: 2, landmark: 2, nature: 2, food: 2, nightlife: 1, activity: 1, shopping: 1, onsen: 1,
 };
 
 export function defaultState(): TripState {
