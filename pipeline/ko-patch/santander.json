@@ -1,0 +1,139 @@
+{
+  "santander-taj-mahal": {
+    "summary": "시내 유일의 인도 식당",
+    "why": "산탄데르에 하나뿐인 인도 식당입니다. 타파스와 해산물이 물릴 때 확실한 전환이 됩니다."
+  },
+  "santander-la-mulata": {
+    "summary": "붐비는 해산물 식당. 응대가 친절하다",
+    "why": "해산물을 중심으로 한 인기 식당입니다. 값이 조금 있지만 응대가 좋고 재료가 확실합니다.",
+    "booking": "저녁은 예약을 권합니다"
+  },
+  "santander-la-bombi": {
+    "summary": "고급 해산물 식당. 안쪽 자리가 좋다",
+    "why": "고급 해산물 식당으로, 바 쪽보다 안쪽 홀 자리가 낫습니다. 칸타브리아 바다의 재료를 제대로 씁니다."
+  },
+  "santander-el-serbal": {
+    "summary": "미슐랭 1스타. 해변이 내려다보이는 자리",
+    "why": "미슐랭 1스타로, 칸타브리아 해산물을 현대적으로 다룹니다. 해변이 내려다보이는 자리가 있습니다.",
+    "booking": "예약이 필요합니다"
+  },
+  "santander-tatami": {
+    "summary": "초밥과 일본 요리",
+    "why": "초밥과 사시미를 내는 일본 식당입니다. 항구 도시라 생선이 좋습니다."
+  },
+  "santander-posada-del-mar": {
+    "summary": "해산물이 훌륭한 식당",
+    "why": "해산물이 훌륭한 식당입니다. 점심과 저녁 시간이 짧으니 시간을 맞춰 가세요."
+  },
+  "santander-gelin": {
+    "summary": "소박한 전통 요리",
+    "why": "소박한 전통 칸타브리아 요리를 냅니다. 아침 일찍부터 열어 하루의 시작으로도 씁니다."
+  },
+  "santander-cathedral": {
+    "summary": "위아래 두 층으로 나뉜 고딕 성당. 아래에 로마 유구",
+    "why": "성당이 위아래 두 층으로 나뉘어 있고, 아래층 바닥에 로마 시대 유구가 유리 아래로 드러나 있습니다. 1941년 대화재에서 살아남은 몇 안 되는 건물이기도 합니다."
+  },
+  "santander-museum-of-prehistory-and-archaeology-of-cantabri": {
+    "summary": "알타미라 지역의 선사 유물을 모았다",
+    "why": "알타미라 동굴을 비롯해 칸타브리아 일대에서 나온 선사 유물을 모았습니다. 동굴 원본에 들어갈 수 없는 지금, 그 시대를 이해하는 가장 좋은 출발점입니다."
+  },
+  "santander-palacio-de-festivales-de-cantabria": {
+    "summary": "국제 음악 축제가 열리는 대형 공연장",
+    "why": "여름 국제 음악 축제가 열리는 대형 공연장입니다. 일정이 맞으면 값어치가 큽니다."
+  },
+  "santander-ethnography-museum": {
+    "summary": "17세기 건물의 지역 생활사 박물관",
+    "why": "17세기 건물을 쓰는 지역 생활사 박물관입니다. 칸타브리아 사람들이 산과 바다 사이에서 어떻게 살았는지를 보여 주고, 무료입니다."
+  },
+  "santander-museum-of-modern-contemporary-art": {
+    "summary": "칸타브리아 지역 현대미술. 무료",
+    "why": "칸타브리아 지역 현대미술을 모은 미술관입니다. 무료이고 규모가 작아 부담이 없습니다."
+  },
+  "santander-maritime-museum-of-cantabria": {
+    "summary": "바다 생태와 어업사를 함께 다룬다",
+    "why": "칸타브리아 바다의 생태와 어업의 역사를 함께 다룹니다. 수족관과 고래 뼈대가 있어 아이 동반에도 맞습니다."
+  },
+  "santander-faro-cabo-mayor-art-centre": {
+    "summary": "절벽 위 등대에 들어선 전시 공간. 무료",
+    "why": "절벽 위 등대 건물에 들어선 전시 공간입니다. 전시보다 거기까지 이어지는 해안 절벽길과 등대에서 보는 바다가 목적이 됩니다.",
+    "caution": "시내에서 떨어져 있습니다. 버스나 차가 필요합니다."
+  },
+  "santander-centro-botin": {
+    "summary": "렌초 피아노가 바다 위로 띄워 지은 미술관",
+    "why": "렌초 피아노가 만 위로 건물을 띄우고 그 아래를 비워, 공원과 바다가 그대로 이어지도록 지었습니다. 전시를 보지 않아도 건물 아래 데크를 걷는 것만으로 값어치가 있습니다."
+  },
+  "santander-bodega-fuente-de": {
+    "summary": "칸타브리아 가정식을 내는 보데가",
+    "why": "칸타브리아 가정식을 내는 보데가입니다. 꾸밈이 없고 값이 정직합니다."
+  },
+  "santander-naves-de-gamazo": {
+    "summary": "옛 항만 창고를 개조한 현대미술 공간",
+    "why": "옛 항만 창고를 개조한 현대미술 공간입니다. 무료이고 센트로 보틴 근처라 함께 보게 됩니다."
+  },
+  "santander-el-jardin-del-paraiso": {
+    "summary": "평이 좋은 도심 정원",
+    "why": "도심에 있는 정원으로 평이 좋습니다. 늦게까지 열어 저녁에도 갈 수 있습니다."
+  },
+  "santander-centro-cultural-doctor-madrazo": {
+    "summary": "전시와 공연이 열리는 문화 공간",
+    "why": "전시와 영화 상영이 열리는 문화 공간입니다. 그날 프로그램에 따라 정하면 됩니다."
+  },
+  "santander-snack-bar-el-sardi": {
+    "summary": "간단히 한잔하기 좋은 동네 바",
+    "why": "친근한 동네 바입니다. 늦게까지 열어 저녁 마무리로 씁니다."
+  },
+  "santander-casona-del-judio": {
+    "summary": "외곽의 고급 식당",
+    "why": "시 외곽에 있는 고급 식당입니다. 조용히 한 끼를 제대로 쓰고 싶을 때 갑니다.",
+    "caution": "시 외곽이라 택시가 필요합니다."
+  },
+  "santander-il-piccolino": {
+    "summary": "인기 이탈리아 식당. 하루 종일 연다",
+    "why": "인기 이탈리아 식당으로 아침부터 자정까지 엽니다. 시간이 애매할 때 확실한 선택지입니다."
+  },
+  "santander-restaurante-del-puerto": {
+    "summary": "항구에 면한 해산물 식당",
+    "why": "항구에 면한 해산물 식당입니다. 배가 드나드는 것을 보며 먹게 됩니다."
+  },
+  "santander-fundacion-caja-cantabria": {
+    "summary": "연극과 콘서트, 전시가 열리는 공간",
+    "why": "연극과 팝·재즈 공연, 전시가 열리는 공간입니다. 일정에 따라 정하면 됩니다."
+  },
+  "santander-wd-palacio-de-la-magdalena": {
+    "summary": "반도 끝 언덕의 왕실 여름 별궁. 삼면이 바다",
+    "why": "시민들이 돈을 모아 왕실에 바친 여름 별궁으로, 반도 끝 언덕에 서 있습니다. 영국풍 저택이고 둘러싼 공원에서 삼면이 바다인 풍경을 보게 됩니다."
+  },
+  "santander-wd-sardinero": {
+    "summary": "벨 에포크 시절의 고급 해변 구역",
+    "why": "20세기 초 왕실이 여름을 보내면서 고급 휴양지가 된 해변 구역입니다. 카지노와 벨 에포크 건물이 남아, 그 시절의 산탄데르가 어떤 도시였는지 보여 줍니다."
+  },
+  "santander-wd-mouro-island": {
+    "summary": "만 입구의 무인도. 등대가 서 있다",
+    "why": "만 입구에 떠 있는 무인도로 등대가 서 있습니다. 마그달레나 반도에서 정면으로 보이고, 파도가 칠 때 특히 극적입니다.",
+    "caution": "상륙할 수 없습니다."
+  },
+  "santander-wd-playa-de-los-bikinis": {
+    "summary": "마그달레나 반도 아래의 작은 해변",
+    "why": "마그달레나 반도 아래의 작은 해변입니다. 1960년대 스페인에서 처음 비키니를 입기 시작한 곳이라는 이야기에서 이름이 나왔습니다."
+  },
+  "santander-wd-church-of-the-anunciacion-santander": {
+    "summary": "1941년 대화재를 견딘 시내 성당",
+    "why": "도시 대부분을 태운 1941년 화재에서 살아남은 시내 성당입니다. 지금의 산탄데르가 거의 전후에 다시 지어진 도시라는 사실이 이 건물로 확인됩니다."
+  },
+  "santander-wd-cantabrian-coast": {
+    "summary": "절벽과 만이 번갈아 이어지는 북부 해안",
+    "why": "절벽과 만이 번갈아 이어지는 칸타브리아 해안입니다. 지중해와 달리 물이 차고 파도가 있어, 스페인의 다른 얼굴을 봅니다."
+  },
+  "santander-wd-playa-de-la-magdalena": {
+    "summary": "마그달레나 궁 아래의 잔잔한 해변",
+    "why": "마그달레나 궁 아래에 있어 만이 감싸 파도가 잔잔합니다. 가족 단위가 많고 시내에서 가깝습니다."
+  },
+  "santander-wd-playa-los-peligros": {
+    "summary": "만 안쪽의 파도 없는 해변",
+    "why": "만 안쪽에 있어 파도가 거의 없습니다. 아이와 함께라면 사르디네로보다 안전합니다."
+  },
+  "santander-wd-llamas-park": {
+    "summary": "사르디네로 근처의 큰 도시 공원",
+    "why": "사르디네로 근처의 큰 도시 공원입니다. 연못과 산책로가 있어 해변과 묶어 걷기 좋습니다."
+  }
+}

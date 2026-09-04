@@ -1,0 +1,1539 @@
+:root {
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --surface-2: #f0eeea;
+  --line: #e2ded7;
+  --text: #211f1c;
+  --muted: #6f6a62;
+  --accent: #b5452b;
+  --accent-soft: #fdeee9;
+  --ok: #2f6b4f;
+  --shadow: 0 1px 2px rgb(33 31 28 / 6%), 0 6px 20px rgb(33 31 28 / 6%);
+  --radius: 14px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171614;
+    --surface: #201e1b;
+    --surface-2: #2a2724;
+    --line: #38342f;
+    --text: #ece9e4;
+    --muted: #a19a90;
+    --accent: #e7825f;
+    --accent-soft: #35231c;
+    --ok: #7fc0a0;
+    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 6px 20px rgb(0 0 0 / 25%);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+/*
+  height 가 아니라 min-height 다.
+  내용이 화면보다 긴 페이지에 height: 100% 를 걸면 body 상자는 화면 높이에
+  고정되고 내용만 그 밖으로 삐져나간다. 사파리는 이 상태에서 스크롤·합성·
+  히트테스트가 어긋나는 일이 있다 — 손가락은 카드 위에 있는데 눌리지 않고,
+  스크롤하면 칠해지지 않아 검게 남는 식이다.
+*/
+html, body, #root { min-height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+.app {
+  max-width: 860px;
+  margin: 0 auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(112px + env(safe-area-inset-bottom));
+}
+
+/* ---------- header / stepper ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  /*
+    예전에는 반투명 + backdrop-filter 였다. 예쁘기는 한데, 붙박이(sticky/
+    fixed) 막대에 backdrop-filter 를 걸면 페이지 전체를 배경으로 삼는 합성
+    레이어가 생긴다. 사파리에서 이 레이어가 다시 칠해지지 않거나 히트테스트를
+    가로채는 일이 있다. 장식 하나와 '눌리지 않는 화면' 을 바꿀 수는 없다.
+  */
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  padding: calc(10px + env(safe-area-inset-top)) 16px 2px;
+}
+
+.topbar h1 { font-size: 17px; margin: 0 0 2px; letter-spacing: -0.01em; }
+/*
+  나라 이름은 나라 고르는 곳으로 가는 링크이기도 하다.
+
+  글자 높이(20px)는 손가락에 작다 — 안드로이드 검사가 36px 아래를 잡는다.
+  그렇다고 머리줄을 키우면 목록이 보는 자리를 잃는다. 그래서 누르는 자리만
+  세로로 넓히고, 늘어난 만큼을 음수 여백으로 도로 접는다. 보이는 높이는
+  그대로이고 손가락이 닿는 자리는 44px 이 된다.
+*/
+.country-back {
+  display: inline-flex; align-items: center; gap: 5px;
+  min-height: 44px; margin: -12px 0;
+  color: inherit; text-decoration: none;
+}
+.country-back span { font-size: 11px; color: var(--muted); }
+.country-back:hover span, .country-back:focus-visible span { color: var(--accent); }
+.country-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+/*
+  단계 표시는 눌러서 앞 단계로 돌아가는 버튼이기도 하다. 그런데 높이가
+  6px 이라 손가락으로는 사실상 누를 수 없었다(안드로이드 검사에서 6px 로
+  걸렸다). 보이는 막대는 6px 그대로 두고, 버튼 자체는 위아래 여백으로
+  36px 를 확보한다. 늘어난 만큼은 머리줄 여백에서 덜어낸다.
+*/
+.steps { display: flex; gap: 6px; }
+
+.steps button {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  padding: 15px 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.steps button::after {
+  content: '';
+  display: block;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  transition: background 0.2s;
+}
+.steps button[data-state='done']::after { background: color-mix(in srgb, var(--accent) 45%, var(--surface-2)); }
+.steps button[data-state='current']::after { background: var(--accent); }
+.steps button:disabled { cursor: default; }
+
+.step-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+
+/* ---------- layout ---------- */
+main { padding: 20px 16px 8px; flex: 1; }
+
+h2 { font-size: 22px; margin: 0 0 4px; letter-spacing: -0.02em; }
+.lede { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+
+section.block { margin-bottom: 26px; }
+section.block > h3 { font-size: 15px; margin: 0 0 4px; }
+section.block > .help { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- controls ---------- */
+label.field { display: block; margin-bottom: 16px; }
+label.field > span { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+
+/*
+  time 이 빠져 있었다. 그래서 착륙·이륙 시각 칸만 스타일이 안 먹어 높이
+  24px 짜리 맨몸 입력으로 나왔고, 안드로이드에서는 손가락으로 누르기
+  어려운 크기였다. 옆의 날짜 칸(46px)과 나란히 있어 눈에도 잘 안 띈다.
+*/
+input[type='text'], input[type='date'], input[type='time'], input[type='number'], select {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 16px; /* iOS 자동 확대 방지 */
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.chip {
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.chip[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.seg { display: flex; background: var(--surface-2); border-radius: 10px; padding: 3px; gap: 3px; }
+.seg button {
+  flex: 1; min-height: 40px; border: none; border-radius: 8px;
+  background: transparent; color: var(--muted); font: inherit; font-size: 14px; cursor: pointer;
+}
+.seg button[aria-pressed='true'] { background: var(--surface); color: var(--text); font-weight: 600; box-shadow: var(--shadow); }
+
+input[type='range'] { width: 100%; accent-color: var(--accent); height: 34px; }
+
+.scale-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+
+/* ---------- theme sliders ---------- */
+.theme-row { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.theme-row:last-child { border-bottom: none; }
+.theme-row .name { font-size: 15px; font-weight: 600; }
+.theme-row .hint { grid-column: 1 / -1; font-size: 12px; color: var(--muted); margin-top: -2px; }
+.theme-row .dots { display: flex; gap: 6px; }
+.dot {
+  width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line);
+  background: var(--surface); color: var(--muted); font: inherit; font-size: 12px; cursor: pointer;
+}
+.dot[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+
+/* ---------- item list (3·4단계) ---------- */
+.theme-group { margin-bottom: 14px; }
+.theme-head {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); color: var(--text); font: inherit; cursor: pointer; text-align: left;
+}
+.theme-head .count { margin-left: auto; font-size: 13px; color: var(--muted); }
+.theme-head .picked { color: var(--accent); font-weight: 600; }
+
+.item {
+  display: grid; grid-template-columns: 24px 1fr; gap: 10px;
+  padding: 12px 14px; border-bottom: 1px solid var(--line);
+}
+.item:last-child { border-bottom: none; }
+.item .body { min-width: 0; }
+.item .title { font-size: 15px; font-weight: 600; line-height: 1.35; }
+.item .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.item .desc { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.item .stars { display: flex; gap: 4px; margin-top: 8px; }
+
+.star {
+  min-width: 44px; min-height: 34px; padding: 0 8px;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  color: var(--muted); font: inherit; font-size: 13px; cursor: pointer;
+}
+.star[aria-pressed='true'] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+
+input[type='checkbox'] { width: 22px; height: 22px; accent-color: var(--accent); margin-top: 2px; }
+
+.meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tag { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+
+/* ---------- plans (5단계) ---------- */
+.plan-tabs { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
+.plan-tab {
+  flex: 1 0 auto; min-width: 104px; padding: 12px; border-radius: var(--radius);
+  border: 1px solid var(--line); background: var(--surface); color: var(--text); font: inherit; cursor: pointer; text-align: left;
+}
+.plan-tab[aria-pressed='true'] { border-color: var(--accent); background: var(--accent-soft); }
+.plan-tab .t { font-weight: 700; font-size: 15px; }
+.plan-tab .s { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.day { margin-bottom: 18px; }
+.day-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; padding: 0 2px; }
+.day-head .n { font-weight: 700; font-size: 16px; }
+.day-head .d { font-size: 13px; color: var(--muted); }
+.day-head .badge { margin-left: auto; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+.entry { display: grid; grid-template-columns: 54px 1fr; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.entry:last-child { border-bottom: none; }
+.entry .time { font-size: 13px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.entry .slot { font-size: 11px; color: var(--muted); }
+.entry .travel { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
+.stat { background: var(--surface); padding: 12px; text-align: center; }
+.stat .v { font-size: 18px; font-weight: 700; }
+.stat .k { font-size: 11px; color: var(--muted); }
+
+/* ---------- guide (6단계) ---------- */
+.link-row {
+  display: flex; align-items: center; gap: 10px; min-height: 48px;
+  padding: 11px 14px; border-bottom: 1px solid var(--line);
+  color: var(--text); text-decoration: none;
+}
+.link-row:last-child { border-bottom: none; }
+.link-row .l { font-weight: 600; font-size: 14px; }
+.link-row .n { font-size: 12px; color: var(--muted); }
+.link-row .go { margin-left: auto; color: var(--accent); font-size: 18px; }
+
+details.guide { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); margin-bottom: 10px; overflow: hidden; }
+details.guide > summary { padding: 14px; font-weight: 600; cursor: pointer; list-style: none; }
+details.guide > summary::-webkit-details-marker { display: none; }
+details.guide > summary::after { content: '＋'; float: right; color: var(--muted); }
+details.guide[open] > summary::after { content: '－'; }
+details.guide .inner { border-top: 1px solid var(--line); }
+
+/* ---------- bottom bar ---------- */
+.bottombar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  /* 위 .topbar 와 같은 이유로 흐림을 걷는다. */
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+}
+.bottombar .inner { max-width: 860px; margin: 0 auto; display: flex; gap: 10px; width: 100%; }
+/*
+  버튼이 왜 잠겼는지 적는 자리. 잠긴 버튼만 두면 무엇을 해야 풀리는지
+  알 길이 없어 화면이 죽은 것처럼 보인다.
+*/
+.bar-why {
+  max-width: 860px; width: 100%; margin: 0 auto;
+  font-size: 12.5px; line-height: 1.5; color: var(--muted);
+}
+
+button.primary, button.ghost {
+  min-height: 50px; flex: 1; border-radius: 12px; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+button.primary { border: none; background: var(--accent); color: #fff; }
+button.primary:disabled { background: var(--surface-2); color: var(--muted); }
+button.ghost { border: 1px solid var(--line); background: var(--surface); color: var(--text); flex: 0 0 auto; padding: 0 18px; }
+
+.toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+.toolbar button { min-height: 42px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; }
+
+.notice { padding: 12px 14px; border-radius: var(--radius); background: var(--accent-soft); color: var(--accent); font-size: 13px; }
+.footnote { font-size: 11px; color: var(--muted); margin-top: 24px; line-height: 1.6; }
+.footnote a { color: inherit; }
+
+.empty { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 14px; }
+.spinner { text-align: center; padding: 40px; color: var(--muted); }
+
+/* ---------- 1단계: 날짜 ---------- */
+/*
+  두 칸을 나란히 두는데, 그리드 칸은 기본이 min-width: auto 라 자식이
+  줄어들지 못한다. 날짜·시각 입력은 브라우저가 정한 고유 최소 너비가 커서,
+  320px 짜리 화면(갤럭시 S9+ 등)에서 가로로 100px 삐져나갔다.
+
+  min-width 를 풀어 주고, 그래도 좁은 화면에서는 위아래로 쌓는다 —
+  320px 에 날짜 칸 둘을 나란히 밀어 넣으면 어차피 읽기 어렵다.
+*/
+.date-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: end;
+}
+.date-pair label.field { margin-bottom: 8px; min-width: 0; }
+.date-pair input { min-width: 0; }
+
+@media (max-width: 360px) {
+  .date-pair { grid-template-columns: 1fr; }
+}
+
+/* ---------- 1단계: 도시 카드 ---------- */
+.city-list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+
+.city-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: border-color 0.15s;
+}
+.city-card.is-selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, var(--shadow); }
+
+.city-main {
+  display: block; width: 100%; padding: 0; border: none; background: none;
+  color: inherit; font: inherit; text-align: left; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.city-photo {
+  width: 100%; height: 132px; object-fit: cover; display: block;
+  background: var(--surface-2);
+}
+
+.city-body { padding: 12px 14px 10px; }
+
+.city-head { display: flex; align-items: center; gap: 8px; }
+.city-name { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+.city-check { margin-left: auto; color: var(--accent); font-size: 18px; font-weight: 700; }
+
+.badge-first {
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent);
+}
+
+.city-tagline { margin: 5px 0 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+.city-themes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+
+.city-more {
+  width: 100%; min-height: 40px; border: none; border-top: 1px solid var(--line);
+  background: var(--surface-2); color: var(--muted); font: inherit; font-size: 13px; cursor: pointer;
+}
+
+.city-detail { padding: 12px 14px; border-top: 1px solid var(--line); background: var(--surface-2); }
+.city-detail .detail-row { margin: 0 0 8px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.city-detail .detail-row:last-of-type { margin-bottom: 0; }
+.city-detail b { color: var(--text); font-weight: 600; margin-right: 6px; }
+.photo-credit { margin: 10px 0 0; font-size: 11px; color: var(--muted); opacity: 0.75; }
+
+/* ---------- 1단계: 거점 제안 ---------- */
+.base-group { padding: 14px; margin-bottom: 10px; }
+
+.base-head { display: flex; align-items: center; gap: 8px; }
+.base-name { font-size: 16px; font-weight: 700; }
+.base-nights { font-size: 13px; color: var(--muted); }
+.badge-suggest {
+  margin-left: auto; font-size: 11px; font-weight: 700; padding: 2px 8px;
+  border-radius: 999px; background: var(--accent); color: #fff;
+}
+
+.base-reason { margin: 8px 0 0; font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+.base-trips { list-style: none; margin: 12px 0 0; padding: 0; }
+.base-trips li {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 7px 0; border-top: 1px solid var(--line); font-size: 13px;
+}
+.trip-city { font-weight: 600; }
+.trip-leg { margin-left: auto; color: var(--muted); font-size: 12px; }
+
+.base-switch { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.base-switch > span { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.base-switch select { min-height: 40px; }
+
+.return-leg { color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+/* 구간 머리줄 — 하루에 도시(지역)가 둘 이상일 때 어디서 어디로 넘어가는지. */
+.seg-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+  padding: 7px 14px; font-size: 12.5px; font-weight: 700;
+  background: var(--accent-soft); color: var(--accent); border-bottom: 1px solid var(--line);
+}
+.seg-head .seg-move { font-weight: 500; color: var(--muted); font-size: 12px; }
+.seg-head.is-home { background: transparent; border-top: 1px dashed var(--line); }
+
+/* 아이템 설명 — 요약 한 줄, 펼치면 왜 가는가 / 실무 정보 / 주의점 */
+.item .more { margin-top: 8px; }
+.item .more > summary {
+  cursor: pointer; font-size: 12px; color: var(--muted);
+  list-style: none; padding: 2px 0;
+}
+.item .more > summary::-webkit-details-marker { display: none; }
+.item .more > summary::after { content: ' ▾'; }
+.item .more[open] > summary::after { content: ' ▴'; }
+
+.detail { font-size: 13px; line-height: 1.6; }
+.detail .why { margin: 6px 0 10px; color: var(--text); }
+.detail .practical {
+  margin: 0; display: grid; grid-template-columns: 56px 1fr;
+  gap: 2px 10px; font-size: 12.5px;
+}
+.detail .practical > div { display: contents; }
+.detail .practical dt { color: var(--muted); }
+.detail .practical dd { margin: 0; color: var(--text); }
+.detail .caution {
+  margin: 10px 0 0; padding: 8px 10px; border-radius: 8px;
+  background: rgba(220, 120, 20, 0.12); color: var(--text); font-size: 12.5px;
+}
+
+.entry-summary { font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+.entry-flag { font-size: 12px; margin-top: 4px; color: #b45309; font-weight: 600; }
+
+/* --- 3단계: 아이템 사진 · 도시 표기 · 추천 --- */
+
+/* 사진은 절반 남짓만 있다. 없는 자리를 비워 두면 목록이 들쭉날쭉해지므로
+   있을 때만 나타나고, 원격 사진이 실패하면 흔적 없이 사라진다(ItemPhoto). */
+.item-head { display: flex; gap: 10px; align-items: flex-start; }
+.item-text { min-width: 0; flex: 1; }
+
+/* 정사각 썸네일. 목록을 훑는 속도를 해치지 않는 크기여야 한다. */
+.item-photo {
+  flex: 0 0 68px;
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  display: block;
+  border-radius: 9px;
+  background: var(--surface-2);
+}
+
+.city-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  margin-right: 6px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.recommend { margin: 0 0 24px; }
+.recommend h3 { font-size: 15px; margin: 0 0 4px; }
+.recommend .basis {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin: 0 0 12px;
+  line-height: 1.6;
+}
+.recommend .basis strong { color: var(--text); font-weight: 600; }
+
+/* 가로 스크롤 — 세로로 8개를 쌓으면 테마 목록이 화면 밖으로 밀려난다. */
+.pick-grid {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.pick {
+  flex: 0 0 168px;
+  scroll-snap-align: start;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+}
+.item-photo-wide {
+  width: 100%;
+  height: 104px;
+  object-fit: cover;
+  display: block;
+  background: var(--surface-2);
+}
+.pick-body { padding: 9px 11px 11px; }
+.pick-city { font-size: 11px; font-weight: 700; color: var(--accent); }
+.pick-name { font-size: 14px; font-weight: 600; line-height: 1.35; margin-top: 1px; }
+.pick-why { font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.45; }
+
+/* --- 중간 저장: 저장 상태 · 이어서 하기 · 저장분 경고 --- */
+
+/* 단계 표시줄 가운데. 눈에 띄되 방해하지 않는 크기여야 한다. */
+.save-status {
+  color: var(--ok);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.save-status.is-bad {
+  color: var(--accent);
+  font-weight: 700;
+}
+.step-label { align-items: center; gap: 10px; }
+
+.resume {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.resume-body { flex: 1 1 190px; min-width: 0; }
+.resume-title { font-size: 14px; font-weight: 700; }
+.resume-when { font-weight: 400; color: var(--muted); }
+.resume-detail { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.resume-acts { display: flex; gap: 8px; }
+.resume-acts button {
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.resume-acts .resume-reset { color: var(--muted); }
+
+.storage-warn { margin-bottom: 18px; line-height: 1.6; font-size: 13px; }
+.storage-warn button {
+  background: var(--surface);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --- 3단계: 도시별 추천 코스 --- */
+
+.city-panel { margin-top: 10px; }
+
+/* 코스 세 장은 가로로 넘긴다. 세로로 쌓으면 비교가 안 된다 —
+   비교하려고 만든 화면이므로 나란히 보이는 것이 핵심이다. */
+.course-grid {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.course {
+  flex: 0 0 232px;
+  scroll-snap-align: start;
+  text-align: left;
+  padding: 12px 13px 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.course.is-active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent) inset, var(--shadow);
+  background: var(--accent-soft);
+}
+.course-head { display: flex; align-items: baseline; gap: 8px; }
+.course-title { font-size: 15px; font-weight: 700; }
+.course-on {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.course-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.course-mix { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.course-basis { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+.course-thumbs { display: flex; gap: 5px; margin-top: 9px; }
+.course-thumbs .item-photo { flex: 0 0 46px; width: 46px; height: 46px; border-radius: 7px; }
+
+/* --- 4단계: 일정 대안 --- */
+
+/* 폰에서는 일정 아래로 내려온다. 390px 에서 오른쪽에 칸을 더 두면
+   일정 제목이 두 글자씩 끊긴다. 아이패드 폭에서는 오른쪽 칸으로 간다. */
+.entry-alts { grid-column: 2; margin-top: 8px; }
+.entry-alts > summary {
+  display: inline-block;
+  font-size: 11.5px;
+  color: var(--accent);
+  cursor: pointer;
+  list-style: none;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+.entry-alts > summary::-webkit-details-marker { display: none; }
+.entry-alts > summary:after { content: " ▾"; }
+.entry-alts[open] > summary:after { content: " ▴"; }
+.entry-alts:empty { display: none; }
+
+.alt-list { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.alt {
+  text-align: left;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.alt-name { font-size: 13px; font-weight: 600; line-height: 1.35; }
+.alt-why { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.alt-delta { font-size: 11px; color: var(--accent); margin-top: 3px; }
+
+@media (min-width: 720px) {
+  .entry { grid-template-columns: 54px 1fr 210px; }
+  .entry-alts { grid-column: 3; margin-top: 0; }
+  .course { flex-basis: 268px; }
+}
+
+/* 공항 선택 아래 안내 — 어느 도시로 이어지는지, 어긋나면 얼마나 먼지. */
+.airport-note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.airport-note p { margin: 0 0 5px; }
+.airport-note p:last-child { margin-bottom: 0; }
+.airport-note b { color: var(--text); }
+.airport-caveat { color: var(--accent); }
+
+/* --- 4단계: 도시 간 이동 구간 --- */
+
+.travel-block {
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+/*
+  근교 왕복도 같은 블록으로 그린다. 짐을 옮기느냐 아니냐만 다를 뿐,
+  사람이 알아야 할 것(무엇을 타고, 몇 시에, 얼마에)은 같다.
+  다만 '여기서 자지는 않는다' 는 것이 한눈에 보이게 테두리를 눕힌다.
+*/
+.travel-block.is-daytrip {
+  border-style: dashed;
+  background: transparent;
+}
+.travel-tag {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 1px 7px; margin-left: 6px; vertical-align: 2px;
+}
+.travel-head { display: flex; align-items: flex-start; gap: 10px; }
+.travel-icon { font-size: 22px; line-height: 1.1; }
+.travel-route { font-size: 15px; font-weight: 700; }
+.travel-when { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.travel-total-sub {
+  display: block; font-size: 10.5px; font-weight: 500;
+  color: var(--muted); white-space: nowrap;
+}
+.travel-total {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.travel-meta { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.travel-note { font-size: 12px; color: var(--muted); margin-top: 4px; font-style: italic; }
+
+.travel-alts { margin-top: 10px; }
+.travel-alts > summary {
+  font-size: 12.5px;
+  color: var(--accent);
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+}
+.travel-alts > summary::-webkit-details-marker { display: none; }
+.travel-alts > summary:after { content: " ▾"; }
+.travel-alts[open] > summary:after { content: " ▴"; }
+
+.mode-list { display: flex; flex-direction: column; gap: 6px; margin-top: 9px; }
+.mode {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.mode.is-on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.mode-icon { font-size: 18px; }
+.mode-body { display: flex; flex-direction: column; min-width: 0; }
+.mode-label { font-size: 13.5px; font-weight: 600; }
+.mode-sub { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.mode-on { margin-left: auto; font-size: 11px; font-weight: 700; color: var(--accent); }
+
+/* --- 4단계: 여정 요약 --- */
+
+.itin {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.itin > summary {
+  padding: 12px 14px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.itin > summary::-webkit-details-marker { display: none; }
+.itin > summary:after { content: "＋"; float: right; color: var(--muted); }
+.itin[open] > summary:after { content: "－"; }
+.itin-body { padding: 0 14px 14px; border-top: 1px solid var(--line); padding-top: 12px; }
+.itin-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.itin-row:last-child { border-bottom: none; }
+/* 4단계에서 바로 빼기 — 도시 줄의 '빼기', 일정 줄의 ✕ */
+.itin-drop {
+  margin-left: auto;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.itin-drop:disabled { opacity: 0.35; cursor: default; }
+.itin-drop + .itin-swap { margin-left: 0; }
+.itin-city { font-size: 14px; font-weight: 600; }
+.itin-state { font-size: 12.5px; color: var(--muted); }
+.itin-swap {
+  margin-left: auto;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* --- 여행 지도 --- */
+
+.map-wrap { position: relative; }
+.trip-map {
+  display: block;
+  background: var(--surface-2);
+  border-radius: 10px;
+  touch-action: none;          /* 핀치·끌기를 우리가 처리한다 */
+  cursor: grab;
+  user-select: none;
+}
+.trip-map:active { cursor: grabbing; }
+.map-land path { fill: var(--surface); stroke: var(--line); }
+.map-route line { stroke: var(--accent); stroke-linecap: round; opacity: 0.7; }
+.map-mode circle { fill: var(--surface); stroke: var(--accent); }
+.map-pin { cursor: pointer; }
+.map-city circle.is-sleep { fill: var(--accent); stroke: var(--surface); }
+.map-city circle.is-trip { fill: var(--surface); stroke: var(--accent); }
+.map-pin.is-on circle.is-sleep,
+.map-pin.is-on circle.is-trip { stroke: var(--text); }
+.map-name { font-weight: 700; fill: var(--text); paint-order: stroke; stroke: var(--surface-2); stroke-width: 2px; }
+.map-days { fill: var(--muted); paint-order: stroke; stroke: var(--surface-2); stroke-width: 2px; }
+
+.map-tools { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.map-tools button {
+  min-width: 38px; min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit; font-size: 15px; line-height: 1;
+  cursor: pointer;
+}
+.map-tools .map-reset { margin-left: auto; font-size: 12px; padding: 0 12px; color: var(--muted); }
+.map-zoom { font-size: 12px; color: var(--muted); min-width: 34px; text-align: center; }
+.map-hint { margin: 6px 0 0; }
+
+/* 도시를 눌렀을 때 나오는 그 도시 일정 */
+.map-card {
+  margin-top: 12px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+.map-card-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--accent-soft);
+}
+.map-card-close {
+  margin-left: auto;
+  width: 30px; height: 30px;
+  border: none; border-radius: 8px;
+  background: transparent; color: var(--muted);
+  font: inherit; font-size: 20px; line-height: 1;
+  cursor: pointer;
+}
+.map-card-day { padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.map-card-day:last-child { border-bottom: none; }
+.map-card-date { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 8px; }
+.map-card-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.map-card-list > li { display: flex; gap: 9px; align-items: flex-start; }
+.map-card-list .item-photo { flex: 0 0 52px; width: 52px; height: 52px; border-radius: 8px; }
+.map-card-body { min-width: 0; }
+.map-card-time { font-size: 11.5px; font-weight: 700; color: var(--accent); }
+.map-card-name { font-size: 13.5px; font-weight: 600; line-height: 1.35; }
+.map-card-sum { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.45; }
+
+.map-legend { list-style: none; margin: 14px 0 0; padding: 0; }
+.map-legend > li { padding: 10px 0; border-top: 1px solid var(--line); }
+.map-legend > li:first-child { border-top: none; padding-top: 4px; }
+.leg-head { display: flex; align-items: center; gap: 8px; }
+.leg-no {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  flex: 0 0 20px;
+}
+.leg-city { font-size: 14px; font-weight: 700; }
+.leg-stay { margin-left: auto; font-size: 11.5px; color: var(--accent); font-weight: 600; }
+.leg-stay.is-trip { color: var(--muted); font-weight: 400; }
+.leg-items { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+.leg-hop { font-size: 12px; color: var(--muted); margin-top: 8px; padding-left: 28px; }
+
+/* --- 1단계 여정 미리보기 --- */
+
+.route { list-style: none; margin: 0; padding: 14px; }
+.route > li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+.route > li:last-child { border-bottom: none; }
+.route-no {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px; font-weight: 700;
+  display: grid; place-items: center;
+  flex: 0 0 20px;
+}
+.route-city { font-size: 14px; font-weight: 600; }
+.route-stay { margin-left: auto; font-size: 12px; color: var(--accent); font-weight: 600; }
+.route-stay.is-trip { color: var(--muted); font-weight: 400; }
+.route-hops {
+  list-style: none;
+  margin: 0;
+  padding: 11px 14px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-2);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+/* 순서 바꾸기 — 도시와 일정 모두 같은 모양의 화살표를 쓴다. */
+.entry-move, .itin-move { display: flex; gap: 4px; }
+.entry-move { margin-top: 8px; }
+.entry-move button, .itin-move button {
+  width: 32px; height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+.entry-move button:disabled, .itin-move button:disabled { opacity: 0.3; cursor: default; }
+.entry-actions { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.entry-actions .entry-move { margin-top: 0; margin-left: auto; }
+.entry-drop {
+  width: 32px; height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+.entry-drop:hover { border-color: #c0392b; color: #c0392b; }
+.itin-move { flex: 0 0 auto; }
+
+/* 3단계: 일수 ↔ 아이템 양방향 */
+.days-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+.days-label { font-size: 13px; font-weight: 600; white-space: nowrap; }
+.days-step { display: flex; align-items: center; gap: 2px; margin-left: auto; }
+.days-step button {
+  width: 36px; height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit; font-size: 15px; line-height: 1;
+  cursor: pointer;
+}
+.days-step button:disabled { opacity: 0.35; cursor: default; }
+.days-value {
+  min-width: 52px;
+  text-align: center;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.days-hint { font-size: 12px; color: var(--muted); }
+
+/* 정한 일수와 담은 분량이 어긋날 때만 나온다. */
+.days-off {
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.days-off.is-over { background: #fdf1e7; color: #8a4b12; }
+@media (prefers-color-scheme: dark) {
+  .days-off.is-over { background: #3a2a17; color: #f0c08a; }
+}
+
+/* 도시 머리줄 — 펼치기 버튼 옆에 '빼기' */
+.city-head { display: flex; align-items: stretch; gap: 6px; }
+.city-head .theme-head { flex: 1; min-width: 0; }
+.city-drop {
+  flex: none;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit; font-size: 12.5px;
+  cursor: pointer;
+}
+.city-drop:hover { border-color: #c2453a; color: #c2453a; }
+
+/* 4단계 대안 — 설명과 펼치기 */
+.alt {
+  padding: 10px 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+.alt-sum { font-size: 12px; color: var(--text); margin-top: 3px; line-height: 1.45; }
+.alt-acts { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.alt-take {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--accent);
+  font: inherit; font-size: 12.5px; font-weight: 600;
+  cursor: pointer;
+}
+.alt-more > summary {
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  list-style: none;
+}
+.alt-more > summary::-webkit-details-marker { display: none; }
+.alt-more > summary:after { content: " ▾"; }
+.alt-more[open] > summary:after { content: " ▴"; }
+.alt-detail {
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+}
+.alt-item + .alt-item { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+.alt-item-head { display: flex; gap: 9px; align-items: flex-start; margin-bottom: 6px; }
+.alt-item-head .item-photo { flex: 0 0 52px; width: 52px; height: 52px; border-radius: 8px; }
+.alt-item-name { font-size: 13.5px; font-weight: 700; }
+.alt-item-sub { font-size: 11.5px; color: var(--muted); }
+
+.itin-warn {
+  flex: 1 0 100%;
+  font-size: 11.5px;
+  color: var(--accent);
+  margin-top: 4px;
+}
+.itin-row { flex-wrap: wrap; }
+.itin-swap:disabled { opacity: 0.35; cursor: default; }
+
+/* ---------- 4단계: 숙소 추천 ---------- */
+.lodge, .carbox {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.lodge > summary, .carbox > summary {
+  padding: 12px 14px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.lodge > summary::-webkit-details-marker,
+.carbox > summary::-webkit-details-marker { display: none; }
+.lodge-body, .carbox-body { padding: 0 14px 14px; }
+
+.lodge-row {
+  padding: 11px 0;
+  border-top: 1px solid var(--line);
+}
+.lodge-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.lodge-when { font-size: 12px; color: var(--muted); }
+.lodge-where { margin-top: 4px; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+.lodge-warn {
+  margin-top: 6px; padding: 7px 10px; border-radius: 8px;
+  background: #fdf1e7; color: #8a4b12; font-size: 12.5px; line-height: 1.55;
+}
+.lodge-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.lodge-links a {
+  padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface-2); color: var(--text);
+  font-size: 12.5px; text-decoration: none;
+}
+.lodge-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- 4단계: 렌터카 별도 관리 ---------- */
+.car-sums { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.car-sum {
+  flex: 1 1 110px; padding: 9px 11px; border-radius: 10px;
+  background: var(--surface-2); text-align: center;
+}
+.car-sum .v { font-size: 15px; font-weight: 700; }
+.car-sum .k { margin-top: 2px; font-size: 11.5px; color: var(--muted); }
+.car-sum.is-warn { background: #fdf1e7; }
+.car-sum.is-warn .v, .car-sum.is-warn .k { color: #8a4b12; }
+
+.car-notes { margin: 0 0 12px; padding-left: 18px; }
+.car-notes li { font-size: 12.5px; line-height: 1.65; color: var(--muted); margin-bottom: 5px; }
+
+.car-h { margin: 0 0 6px; font-size: 13px; }
+.car-leg { padding: 9px 0; border-top: 1px solid var(--line); }
+.car-leg-head { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; flex-wrap: wrap; }
+.car-leg-head span { color: var(--muted); font-size: 12.5px; }
+.car-alt { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.car-alt-label { font-size: 12.5px; font-weight: 600; }
+.car-delta { font-size: 12px; color: var(--muted); }
+.car-delta.is-slow { color: #8a4b12; }
+.car-take {
+  margin-left: auto; padding: 6px 12px;
+  border: 1px solid var(--accent); border-radius: 999px;
+  background: var(--surface); color: var(--accent);
+  font: inherit; font-size: 12.5px; cursor: pointer;
+}
+.car-impact { margin: 6px 0 0; font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+@media (prefers-color-scheme: dark) {
+  .lodge-warn { background: #3a2a17; color: #f0c08a; }
+  .car-sum.is-warn { background: #3a2a17; }
+  .car-sum.is-warn .v, .car-sum.is-warn .k { color: #f0c08a; }
+  .car-delta.is-slow { color: #f0c08a; }
+}
+
+/* 4단계 — '여기서 자기 / 당일치기' 가 무슨 뜻인지 */
+.itin-legend {
+  margin: 0 0 10px;
+  padding: 9px 11px;
+  border-radius: 9px;
+  background: var(--surface-2);
+}
+.itin-legend p { margin: 0 0 5px; font-size: 12.5px; line-height: 1.6; }
+.itin-legend p:last-child { margin-bottom: 0; }
+/*
+  사유는 늘 제 줄에서 시작한다. 버튼 옆에 끼면 '짐 옮기기 | 마드리드에서
+  다녀오는 편이…' 처럼 버튼 문구와 이어져 읽힌다.
+*/
+.itin-why {
+  flex-basis: 100%;
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.itin-swap { flex: none; }
+
+/* 하루 머리줄 — 그날 밤 어디서 자는가 */
+.day-sleep {
+  margin-left: auto;
+  font-size: 11.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* 도시 안 이동 — 무엇을 타고 몇 분 */
+.travel a { color: inherit; }
+.travel-tip {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+/* 지도 — 근교 왕복은 짐을 옮기는 구간보다 가늘게 */
+.map-route line.is-daytrip { opacity: 0.55; }
+
+/* ---------- 3단계: 꼭 가야 하는 곳 ---------- */
+.must-box {
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: var(--accent-soft);
+}
+.must-head { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+.must-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.must {
+  padding: 4px 10px; border-radius: 999px;
+  background: var(--surface); color: var(--text);
+  font-size: 12.5px; font-weight: 600;
+}
+.must.is-in { color: var(--accent); }
+
+.course-must {
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--accent);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* ---------- 3단계: 미식 후보 (일정에 안 더해짐) ---------- */
+.foodbox {
+  margin: 4px 0 14px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.foodbox > summary {
+  padding: 11px 13px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  color: var(--muted);
+}
+.foodbox > summary::-webkit-details-marker { display: none; }
+.foodbox > summary b { color: var(--text); }
+.foodbox .help, .foodbox .item { padding-left: 13px; padding-right: 13px; }
+.sum-meal { color: var(--muted); font-weight: 500; }
+.days-cap { color: var(--accent); }
+.tag.is-away { background: var(--accent-soft); color: var(--accent); }
+
+/* ---------- 3단계: 함께 보면 좋은 묶음 ---------- */
+.bundles { margin: 4px 0 14px; }
+.bundles-head { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+.bundle {
+  padding: 11px 13px;
+  margin-bottom: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.bundle.is-in { border-color: var(--accent); background: var(--accent-soft); }
+.bundle-top { display: flex; align-items: baseline; gap: 8px; }
+.bundle-top b { font-size: 14px; }
+.bundle-n { margin-left: auto; font-size: 12px; color: var(--muted); }
+.bundle-price { margin-top: 3px; font-size: 12.5px; color: var(--accent); }
+.bundle-pass { color: var(--muted); font-weight: 400; }
+.bundle-why { margin: 6px 0 8px; font-size: 12.5px; line-height: 1.6; color: var(--muted); }
+.bundle-items { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 9px; }
+.bundle-item {
+  padding: 3px 9px; border-radius: 999px;
+  background: var(--surface-2); color: var(--muted); font-size: 12px;
+}
+.bundle-item.is-on { background: var(--accent); color: #fff; }
+.bundle-take {
+  padding: 7px 14px;
+  border: 1px solid var(--accent); border-radius: 999px;
+  background: var(--surface); color: var(--accent);
+  font: inherit; font-size: 12.5px; cursor: pointer;
+}
+
+/* ---------- 공항 — 여행의 앞뒤를 먹는 시간 ---------- */
+.airport-block {
+  margin: 8px 0;
+  padding: 10px 12px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+.airport-line { font-size: 13px; line-height: 1.55; }
+.airport-why { margin-top: 3px; font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+/* 1단계 — 실제로 쓸 수 있는 날 */
+.tripwin {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+.tripwin > summary { padding: 10px 12px; cursor: pointer; list-style: none; font-size: 13px; line-height: 1.5; }
+.tripwin > summary::-webkit-details-marker { display: none; }
+.tripwin-body { padding: 0 12px 12px; }
+.tripwin-body p { margin: 0 0 8px; font-size: 12.5px; line-height: 1.6; }
+.tripwin-why { display: block; margin-top: 2px; font-size: 11.5px; color: var(--muted); }
+/* 한 목록으로 합친 아이템의 테마 구분자 */
+.tag.is-cat { background: var(--surface-2); color: var(--text); font-weight: 600; }
+
+/* 3단계: 등급 일괄 적용 */
+.bulk {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 10px 12px; margin-bottom: 14px;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+}
+.bulk-label { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.bulk-btns { display: flex; gap: 6px; margin-left: auto; }
+.bulk-btn {
+  min-height: 36px; padding: 0 14px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface); color: var(--text);
+  font: inherit; font-size: 13px; cursor: pointer;
+}
+.bulk-btn.is-on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+
+/* ---------- 고장났을 때 보이는 화면 ---------- */
+/*
+  화면이 하얗게 비면 무엇이 잘못됐는지도, 어떻게 빠져나오는지도 알 수 없다.
+  적어도 빠져나오는 길은 보여야 한다.
+*/
+.crash { padding: 20px 4px; }
+.crash h2 { margin: 0 0 8px; }
+.crash-steps { margin: 0 0 16px; padding-left: 20px; }
+.crash-steps li { font-size: 13.5px; line-height: 1.8; color: var(--muted); }
+.crash-steps b { color: var(--text); }
+.crash-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.crash-btns button {
+  min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); color: var(--text);
+  font: inherit; font-size: 14px; cursor: pointer;
+  flex: 0 1 auto;
+}
+.crash-btns button.primary { border: none; background: var(--accent); color: #fff; }
+.crash-detail { margin-top: 18px; }
+.crash-detail summary { font-size: 13px; color: var(--muted); cursor: pointer; }
+.crash-detail pre {
+  margin-top: 8px; padding: 10px; overflow-x: auto;
+  background: var(--surface-2); border-radius: 8px;
+  font-size: 11.5px; line-height: 1.6; white-space: pre-wrap; word-break: break-all;
+}
+
+/* ---------- 진단 정보 ---------- */
+.diag { margin: 18px 0 8px; }
+.diag > summary {
+  font-size: 12.5px; color: var(--muted); cursor: pointer;
+  padding: 10px 0; list-style: none;
+}
+.diag > summary::-webkit-details-marker { display: none; }
+.diag > summary::before { content: '🛠 '; }
+.diag-text {
+  width: 100%; box-sizing: border-box;
+  padding: 10px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--surface-2); color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px; line-height: 1.55;
+  /* 사파리에서 확대되지 않게. 16px 미만이면 입력칸에서 확대가 일어난다. */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 새 판 알림 — 예전 판을 쓰고 있다는 것은 본인이 알 길이 없다. */
+.update-bar { margin-bottom: 14px; }
+
+/* ---------- 그리기 문제 좁히기용 스위치 (?safe=1 / ?off=...) ---------- */
+/*
+  아이패드에서만 나는 그리기 문제를 기기에서 이분 탐색하기 위한 것.
+  평소에는 아무 영향이 없다 — 주소에 스위치가 있을 때만 걸린다.
+*/
+.off-photos .city-photo,
+.off-photos .item-photo,
+.off-photos .thumb { display: none !important; }
+
+.off-sticky .topbar { position: static !important; }
+
+.off-fixed .bottombar {
+  position: static !important;
+  margin-top: 16px;
+}
+.off-fixed .app { padding-bottom: 0 !important; }
+
+.off-shadow .city-card,
+.off-shadow .card,
+.off-shadow .pick,
+.off-shadow .course {
+  box-shadow: none !important;
+  transition: none !important;
+  overflow: visible !important;
+  border-radius: 0 !important;
+}
+.off-shadow .city-photo { border-radius: 0 !important; }
+
+/* 스위치가 걸려 있다는 것을 화면에 알린다. 모르고 쓰면 안 된다. */
+.mode-bar {
+  position: sticky; top: 0; z-index: 40;
+  padding: 8px 12px;
+  background: #6b2f1c; color: #fff;
+  font-size: 12.5px; line-height: 1.5;
+}
+.mode-bar a { color: #fff; text-decoration: underline; }
+.diag-modes { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px; }
+.diag-modes a {
+  display: inline-block; padding: 9px 12px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); color: var(--text);
+  font-size: 13px; text-decoration: none;
+}
+.diag-modes a.is-on { border-color: var(--accent); color: var(--accent); }
+.diag-why { font-size: 12px; color: var(--muted); margin: 0 0 10px; line-height: 1.6; }
+
+/* 직전 화면에서 무슨 일이 있었는지 — 가장 먼저 보여야 한다. */
+.notice.trouble { margin-bottom: 14px; border-color: var(--accent); }
+
+/* 0.2일 눈금은 사람이 못 읽는다. 곳 수를 나란히 적는다. */
+.days-count { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 4px; }
+.sum-move { color: var(--muted); font-weight: 400; }
+
+/* ---------- 이동 시점 고르기 ---------- */
+/*
+  예전에는 도시 간 이동이 언제나 아침 첫 편이었다. 선택지가 아예 없어서
+  오전에 이 도시를 더 보고 오후에 옮기는 것이 불가능했다.
+*/
+.timing-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px 0; flex-wrap: wrap;
+}
+.timing-label { font-size: 12.5px; color: var(--muted); }
+.timing-btns { display: flex; gap: 6px; margin-left: auto; }
+.timing-btn {
+  min-height: 34px; padding: 0 12px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface); color: var(--muted);
+  font: inherit; font-size: 12.5px; cursor: pointer;
+}
+.timing-btn.is-on { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.timing-btn:disabled { opacity: 0.35; cursor: default; }
+.timing-why { margin: 6px 12px 10px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* 이 계획이 며칠짜리인지 언제나 보인다. */
+.day-tally {
+  margin: 0 0 14px; padding: 10px 12px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); font-size: 13px; color: var(--muted);
+}
+.day-tally b { color: var(--text); }
+
+/* ─────────────────────────────────────────────────────────────
+   나라 고르는 곳
+
+   앱과 같은 토큰을 쓴다 — 고르고 들어갔을 때 다른 물건처럼 보이면 안 된다.
+   다만 여기는 단계 막대도 하단 버튼도 없는 한 장짜리라, 세로로 길게 흐르게
+   두고 카드를 크게 잡는다. 손가락으로 누르는 자리가 카드 전체다.
+   ───────────────────────────────────────────────────────────── */
+
+.landing {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 20px calc(40px + env(safe-area-inset-bottom));
+}
+
+.landing-kicker {
+  margin: 0 0 6px;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--accent); text-transform: uppercase;
+}
+.landing-head h1 { margin: 0 0 10px; font-size: 30px; line-height: 1.25; letter-spacing: -0.02em; }
+.landing-sub { margin: 0 0 28px; color: var(--muted); font-size: 15px; line-height: 1.65; }
+.landing-sub b { color: var(--text); font-weight: 600; }
+
+.pick-list { display: grid; gap: 12px; margin-bottom: 36px; }
+
+.pick {
+  --pick: var(--accent);
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 18px; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); box-shadow: var(--shadow);
+  color: inherit; text-decoration: none;
+  transition: border-color 0.15s, transform 0.15s;
+}
+a.pick:hover, a.pick:focus-visible {
+  border-color: var(--pick);
+  transform: translateY(-1px);
+  outline: none;
+}
+a.pick:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--pick) 35%, transparent); }
+a.pick:active { transform: none; }
+
+/* 아직 못 들어가는 나라. 흐리게 두되 무엇이 남았는지는 읽히게 한다. */
+.pick.is-soon { background: var(--surface-2); box-shadow: none; border-style: dashed; }
+.pick.is-soon .pick-flag { filter: grayscale(1); opacity: 0.55; }
+.pick.is-soon .pick-title, .pick.is-soon .pick-tagline { color: var(--muted); }
+
+.pick-flag { font-size: 34px; line-height: 1.1; }
+.pick-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
+.pick-title {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  font-size: 19px; font-weight: 700; letter-spacing: -0.01em;
+}
+.pick-en { font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: 0.02em; }
+.pick-soon {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px;
+}
+.pick-tagline { font-size: 13px; color: var(--pick); font-weight: 600; }
+.pick-blurb { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+.pick-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.pick-tag {
+  font-size: 11.5px; color: var(--muted);
+  background: var(--surface-2); border-radius: 999px; padding: 2px 9px;
+}
+.pick.is-soon .pick-tag { background: var(--surface); }
+.pick-resume {
+  margin-top: 8px; font-size: 12.5px; font-weight: 600; color: var(--pick);
+}
+.pick-go { margin-left: auto; align-self: center; font-size: 20px; color: var(--pick); }
+
+.landing-how {
+  border-top: 1px solid var(--line);
+  padding-top: 26px; margin-bottom: 30px;
+}
+.landing-how h2 { margin: 0 0 14px; font-size: 16px; }
+.landing-how ol { margin: 0; padding-left: 20px; display: grid; gap: 9px; }
+.landing-how li { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.landing-how b { color: var(--text); font-weight: 600; }
+
+.landing-foot { border-top: 1px solid var(--line); padding-top: 20px; }
+.landing-foot p { margin: 0 0 10px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+.landing-src { font-size: 11.5px; }
+
+@media (max-width: 420px) {
+  .landing { padding: 28px 16px 40px; }
+  .landing-head h1 { font-size: 25px; }
+  .pick { padding: 15px; gap: 11px; }
+  .pick-flag { font-size: 28px; }
+}
+
+.primary-link {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--accent); font-weight: 600; text-decoration: none;
+}
+.primary-link:hover, .primary-link:focus-visible { text-decoration: underline; }

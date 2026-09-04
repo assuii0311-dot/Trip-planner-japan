@@ -1,0 +1,184 @@
+{
+  "roppongi-daigo": {
+    "name": "다이고",
+    "summary": "사찰 정진요리의 미슐랭 2스타",
+    "booking": "예약 필수"
+  },
+  "roppongi-narisawa": {
+    "name": "나리사와",
+    "summary": "세계 50대 레스토랑의 단골. 두 달 전 예약",
+    "booking": "두 달 전 온라인 예약"
+  },
+  "roppongi-gonpachi": {
+    "name": "곤파치 니시아자부",
+    "summary": "'킬빌' 의 무대가 된 이자카야",
+    "why": "영화 '킬빌' 의 결투 장면 세트가 이 가게를 본떴습니다. 널찍한 목조 실내에서 꼬치와 소바를 먹고, 외국인 손님이 많아 영어가 통합니다.",
+    "booking": "저녁은 예약 권장"
+  },
+  "roppongi-nodaiwa": {
+    "name": "노다이와",
+    "summary": "200년 된 장어집. 자연산 장어를 낸다",
+    "why": "에도 시대부터 다섯 대를 이은 장어 노포로 자연산 장어를 내는 철이 있습니다. 히가시아자부 본점의 옛 창고 건물이 좋습니다."
+  },
+  "roppongi-tony-roma-s": {
+    "name": "토니 로마스",
+    "summary": "미국식 립 체인"
+  },
+  "roppongi-atelier-de-joel-robuchon": {
+    "name": "아틀리에 드 조엘 로부숑",
+    "summary": "카운터에서 먹는 프렌치. 롯폰기 힐즈",
+    "booking": "예약 권장"
+  },
+  "roppongi-tsurutontan": {
+    "name": "쓰루톤탄",
+    "summary": "세숫대야만 한 그릇의 우동. 새벽까지",
+    "why": "큰 그릇에 담긴 우동으로 유명한 체인의 롯폰기점입니다. 새벽 3시까지 열어 클럽 뒤 해장 자리가 됩니다."
+  },
+  "roppongi-zojo-ji-temple": {
+    "name": "조조지",
+    "summary": "도쿠가와 가문의 절. 도쿄타워를 등에 진 본당",
+    "why": "도쿠가와 쇼군 여섯 명이 묻힌 정토종 대본산입니다. 1622년의 산게다쓰몬(문)이 도쿄 최고(最古)의 목조 건축이고, 본당 뒤로 도쿄타워가 솟은 구도가 유명합니다. 시바 공원과 이어집니다.",
+    "durationMin": 45
+  },
+  "roppongi-national-art-center": {
+    "name": "국립신미술관",
+    "summary": "소장품 없이 기획전만. 구로카와 기쇼의 유리 파도 건물",
+    "why": "소장품 없이 기획전만 여는 일본 최대 전시 공간입니다. 구로카와 기쇼가 설계한 물결치는 유리 외벽과 거꾸로 선 원뿔 위의 카페가 전시만큼 볼거리입니다. 무엇을 하는지 먼저 보고 가세요.",
+    "closed": "화요일 휴관",
+    "durationMin": 90
+  },
+  "roppongi-mori-art-museum": {
+    "name": "모리 미술관",
+    "summary": "롯폰기 힐즈 53층의 현대미술관. 22시까지",
+    "why": "롯폰기 힐즈 모리타워 53층의 현대미술관으로 아시아 현대미술 기획전이 강합니다. 22시까지 열어 저녁 일정으로 맞고, 표에 52층 전망대(도쿄 시티뷰)가 포함됩니다.",
+    "booking": "인기 전시는 날짜 지정 예매",
+    "durationMin": 90
+  },
+  "roppongi-tokyo-tower": {
+    "name": "도쿄타워",
+    "summary": "1958년의 333m 붉은 탑. 스카이트리보다 정겹다",
+    "why": "1958년에 세운 333m 의 전파탑으로 에펠탑을 본떴습니다. 150m 메인데크와 250m 톱데크가 있고, 밤 조명이 계절과 행사마다 바뀝니다. 스카이트리보다 낮지만 도심 한가운데라 야경이 가깝고, 시바 공원과 조조지에서 올려다보는 자리가 좋습니다.",
+    "booking": "톱데크는 시간 지정 예매",
+    "busy": "해 질 무렵과 주말 저녁",
+    "durationMin": 75
+  },
+  "roppongi-roppongi-crossing": {
+    "name": "롯폰기 교차로",
+    "summary": "롯폰기의 중심 교차로. 밤에 술집 거리가 시작된다",
+    "durationMin": 10
+  },
+  "roppongi-roppongi-hills": {
+    "name": "롯폰기 힐즈",
+    "summary": "모리타워를 중심으로 한 복합 단지. 거미 조각 '마망'",
+    "theme": "landmark",
+    "why": "2003년 문 연 복합 단지로 54층 모리타워, 거미 조각 '마망', TV아사히, 영화관이 있습니다. 미술관과 전망대를 위해 오고, 겨울 게야키자카의 일루미네이션이 도쿄에서 손꼽힙니다.",
+    "durationMin": 60
+  },
+  "roppongi-mohri-garden": {
+    "name": "모리 정원",
+    "summary": "롯폰기 힐즈 안 에도 시대 다이묘 정원의 흔적",
+    "why": "힐즈 단지 안에 남은 에도 시대 모리 가문 저택의 연못 정원입니다. TV아사히 옆이고 10분이면 한 바퀴입니다.",
+    "durationMin": 15
+  },
+  "roppongi-tv-asahi": {
+    "name": "TV아사히",
+    "summary": "도라에몽의 방송국. 1층 무료 전시와 굿즈",
+    "why": "도라에몽·짱구를 방영하는 방송국입니다. 1층 로비에 캐릭터 전시와 굿즈숍이 무료로 열려 있어 아이와 함께면 롯폰기 힐즈에서 들릅니다.",
+    "durationMin": 30
+  },
+  "roppongi-toho-cinemas": {
+    "name": "도호 시네마즈 롯폰기",
+    "summary": "힐즈의 대형 영화관. 밤샘 상영",
+    "durationMin": 150
+  },
+  "roppongi-shot-bar-propaganda": {
+    "name": "프로파간다",
+    "summary": "롯폰기의 외국인 바"
+  },
+  "roppongi-bar-quest-roppongi": {
+    "name": "바 퀘스트",
+    "summary": "호주 맥주를 파는 스포츠 바"
+  },
+  "roppongi-azabu-juban": {
+    "name": "아자부주반",
+    "summary": "롯폰기 옆 조용한 상점가. 노포와 대사관 동네",
+    "why": "롯폰기 힐즈 남쪽의 조용한 상점가입니다. 200년 된 센베이 가게, 타이야키 노포 '나니와야', 온천이 있고 8월 축제가 큽니다. 밤의 롯폰기와 대비되는 낮 동네입니다.",
+    "durationMin": 45
+  },
+  "roppongi-don-quixote": {
+    "name": "돈키호테 롯폰기",
+    "summary": "24시간 잡화 할인점. 기념품·과자·약",
+    "why": "24시간 여는 할인 잡화점으로 과자·화장품·약을 한 번에 삽니다. 면세가 되고 밤에 사람이 많습니다.",
+    "durationMin": 40
+  },
+  "roppongi-nezu-museum": {
+    "name": "네즈 미술관",
+    "summary": "구마 겐고의 건물과 대나무 진입로. 정원이 본편",
+    "why": "네즈 가이치로의 동양 고미술 컬렉션으로 구마 겐고가 설계한 건물과 대나무 진입로, 넓은 일본 정원이 유명합니다. 4월 말 오가타 고린의 붓꽃 병풍 공개 때가 절정입니다. 오모테산도에서 걸어 10분입니다.",
+    "closed": "월요일 휴관",
+    "booking": "날짜 지정 온라인 예매",
+    "durationMin": 75
+  },
+  "roppongi-motown": {
+    "name": "모타운",
+    "summary": "1980~90년대 음악의 롯폰기 클럽"
+  },
+  "roppongi-japan-sake-and-shochu-information-center": {
+    "name": "일본 사케 정보관",
+    "summary": "전국 사케를 시음하고 산다. ¥100 부터",
+    "why": "주조조합이 운영하는 시음관으로 전국의 사케·소주를 한 잔 ¥100~500 에 마셔 보고 삽니다. 도라노몬에 있습니다.",
+    "durationMin": 40
+  },
+  "roppongi-abbott-s-choice": {
+    "name": "애봇츠 초이스",
+    "summary": "작은 캐주얼 바"
+  },
+  "roppongi-sarashina": {
+    "name": "사라시나 본점",
+    "summary": "하얀 소바의 원조. 아자부주반 1789년",
+    "why": "소바 알맹이 속만 갈아 만든 하얀 '사라시나 소바' 의 원조 노포입니다. 아자부주반 상점가 산책과 묶습니다."
+  },
+  "roppongi-ristorante-da-nino": {
+    "name": "다 니노",
+    "summary": "미드타운 근처의 이탈리안"
+  },
+  "roppongi-worldstar-cafe": {
+    "name": "월드스타 카페",
+    "summary": "점심 정식이 싼 카페"
+  },
+  "roppongi-anniversaire-cafe": {
+    "name": "아니베르셀 카페",
+    "summary": "오모테산도의 파리풍 테라스 카페"
+  },
+  "roppongi-roku-roku": {
+    "name": "로쿠로쿠",
+    "summary": "그랜드하얏트 6층의 식당 여섯 곳"
+  },
+  "roppongi-taro-okamoto-memorial-museum": {
+    "name": "오카모토 타로 기념관",
+    "summary": "'예술은 폭발이다' 의 작가가 살던 집과 아틀리에",
+    "why": "오카모토 타로가 50년을 살며 작업한 아오야마의 집입니다. 아틀리에가 그대로이고 정원에 조각이 서 있습니다. 네즈 미술관과 걸어 5분입니다.",
+    "closed": "화요일 휴관",
+    "durationMin": 45
+  },
+  "roppongi-sumitomo-collection": {
+    "name": "센오쿠 하쿠코칸 도쿄",
+    "summary": "스미토모 가문의 중국 청동기 컬렉션",
+    "theme": "art",
+    "durationMin": 45
+  },
+  "roppongi-brewdog": {
+    "name": "브루독 롯폰기",
+    "summary": "스코틀랜드 크래프트 맥주 20탭"
+  },
+  "roppongi-odeon-club": {
+    "name": "오데온",
+    "summary": "새벽까지 하는 힙합·테크노 클럽"
+  },
+  "roppongi-tokyo-city-view": {
+    "name": "도쿄 시티뷰",
+    "summary": "롯폰기 힐즈 52층 전망대. 도쿄타워가 정면",
+    "why": "모리타워 52층의 실내 전망대로 도쿄타워가 정면에 보이는 각도입니다. 모리 미술관 표에 포함되고, 옥상 스카이데크는 별도 요금에 날씨가 좋을 때만 엽니다.",
+    "durationMin": 45
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "kawagoe-azumaya": {
+    "name": "아즈마야",
+    "summary": "가와고에의 장어 노포"
+  },
+  "kawagoe-hand-made-soba-hyakujyo": {
+    "name": "햐쿠조",
+    "summary": "옛 은행 건물의 수타 소바"
+  },
+  "kawagoe-kitain-temple": {
+    "name": "기타인",
+    "summary": "에도성에서 옮겨 온 방과 오백나한",
+    "why": "1638년 에도성의 건물을 옮겨 지어 3대 쇼군 이에미쓰가 태어난 방이 남아 있는 절입니다. 표정이 다 다른 오백나한 석상 538기가 유명합니다. 창고 거리에서 걸어 15분입니다.",
+    "durationMin": 60
+  },
+  "kawagoe-kawagoe-castle": {
+    "name": "가와고에성 혼마루고텐",
+    "summary": "간토에 남은 유일한 성의 본성 건물",
+    "why": "1848년의 성 본성 어전으로 간토 지방에 남은 유일한 것입니다. 다다미 방을 걸으며 봅니다. 규모가 작아 30분이면 됩니다.",
+    "closed": "월요일 휴관",
+    "durationMin": 30
+  },
+  "kawagoe-hattori-museum-of-folklore": {
+    "name": "핫토리 민속자료관",
+    "summary": "창고 건물 안의 작은 무료 전시",
+    "durationMin": 20
+  },
+  "kawagoe-city-museum": {
+    "name": "가와고에시립박물관",
+    "summary": "창고 거리를 본 뒤 배경을 알려 주는 박물관",
+    "durationMin": 45
+  },
+  "kawagoe-toki-no-kane": {
+    "name": "시간의 종(도키노카네)",
+    "summary": "창고 거리의 상징 종루. 하루 네 번 울린다",
+    "why": "창고 거리 골목에 선 16m 종루로 가와고에의 상징입니다. 6·12·15·18시에 종이 울리고, 종루 아래에서 창고 거리 쪽으로 찍는 것이 정석 사진입니다.",
+    "durationMin": 15
+  },
+  "kawagoe-osawa-residence": {
+    "name": "오사와 저택",
+    "summary": "1792년 창고 거리에서 가장 오래된 집",
+    "durationMin": 15
+  },
+  "kawagoe-kashiya-yokocho": {
+    "name": "과자 골목(가시야요코초)",
+    "summary": "옛날 과자 가게 20곳의 돌길. 고구마 과자",
+    "theme": "shopping",
+    "why": "메이지 시대부터 이어진 옛날 과자 골목입니다. 자갈 돌길에 사탕·센베이·고구마 과자 가게 20여 곳이 있고, 창고 거리와 붙어 있어 반나절 코스의 끝입니다.",
+    "durationMin": 30
+  },
+  "kawagoe-izakaya-big": {
+    "name": "이자카야 다이",
+    "summary": "동네 이자카야"
+  },
+  "kawagoe-matsumoto-soy-sauce-shop": {
+    "name": "마쓰모토 간장 상점",
+    "summary": "1830년의 간장 창고. 무료 견학과 시음",
+    "why": "창고 거리 안쪽의 간장 양조장으로 나무통이 늘어선 창고를 무료로 보여 줍니다. 간장 아이스크림과 간장 선물이 있습니다.",
+    "durationMin": 30
+  },
+  "kawagoe-fukazen": {
+    "name": "후카젠",
+    "summary": "족자와 표구의 오래된 가게",
+    "durationMin": 15
+  },
+  "kawagoe-chiisanatabi-kawagoe-onsen": {
+    "name": "가와고에 온천 '작은 여행'",
+    "summary": "시내에서 버스로 가는 당일 온천. 관광 뒤 한 시간",
+    "why": "가와고에역에서 버스 10분의 당일 온천입니다. 창고 거리를 보고 돌아가기 전 한 시간 몸을 데우기에 좋습니다.",
+    "durationMin": 90
+  },
+  "kawagoe-maruhiro-department-store": {
+    "name": "마루히로 백화점",
+    "summary": "지역 백화점",
+    "durationMin": 20
+  },
+  "kawagoe-machikan-knife-shop": {
+    "name": "마치칸 칼 가게",
+    "summary": "부엌칼 전문점",
+    "durationMin": 15
+  },
+  "kawagoe-mana-clipper": {
+    "name": "마나 클리퍼",
+    "summary": "칵테일 바"
+  },
+  "kawagoe-italian-bar-takeya": {
+    "name": "이탈리안 사카바 다케야",
+    "summary": "와인 바"
+  },
+  "kawagoe-coedo-brewery-the-restaurant": {
+    "name": "코에도 브루어리 더 레스토랑",
+    "summary": "고구마 맥주로 유명한 코에도의 직영 식당",
+    "why": "가와고에의 크래프트 맥주 코에도(COEDO)의 직영점입니다. 자색고구마로 빚은 '베니아카' 가 대표이고 아시아 요리와 함께 냅니다."
+  },
+  "kawagoe-museum-of-kurazukuri": {
+    "name": "구라즈쿠리 자료관",
+    "summary": "창고 건물 안을 볼 수 있는 자료관. 장기 휴관 중",
+    "caution": "내진 공사로 장기 휴관 중입니다. 재개관을 확인하세요.",
+    "durationMin": 20
+  },
+  "kawagoe-crea-mall": {
+    "name": "크레아몰",
+    "summary": "역에서 창고 거리까지 이어지는 상점가",
+    "durationMin": 20
+  },
+  "kawagoe-wd-hikawa-shrine": {
+    "name": "가와고에 히카와 신사",
+    "summary": "인연의 신사. 바람에 흔들리는 풍경 터널",
+    "why": "1500년 된 인연의 신사로 여름에는 풍경 2천 개를 매단 터널이 생깁니다. 물에 띄우면 글자가 나타나는 점괘와 낚시로 건지는 도미 부적이 유명합니다. 창고 거리에서 걸어 10분입니다.",
+    "durationMin": 40
+  }
+}

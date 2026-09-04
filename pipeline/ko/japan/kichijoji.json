@@ -1,0 +1,66 @@
+{
+  "kichijoji-iseya": {
+    "name": "이세야 본점",
+    "summary": "1928년부터 꼬치 하나 ¥100. 공원 입구",
+    "why": "이노카시라 공원 입구의 야키토리 노포로 꼬치 한 개가 ¥100 대입니다. 낮부터 열어 공원에 가기 전후로 서서 한 잔 하는 자리입니다.",
+    "busy": "주말 오후 줄"
+  },
+  "kichijoji-monk-s-foods": {
+    "name": "몽크스 푸즈",
+    "summary": "재즈가 흐르는 정식집"
+  },
+  "kichijoji-cat-cafe-calico": {
+    "name": "고양이 카페 캬리코",
+    "summary": "고양이 15마리와 노는 카페",
+    "theme": "activity",
+    "durationMin": 60
+  },
+  "kichijoji-harmonica-quina": {
+    "name": "하모니카 키나",
+    "summary": "하모니카 요코초의 태국 요리 가게"
+  },
+  "kichijoji-hachijuhachiya": {
+    "name": "하치주하치야",
+    "summary": "채식 샌드위치와 카페"
+  },
+  "kichijoji-kichijoji-sato": {
+    "name": "사토",
+    "summary": "멘치카츠 하나로 줄 세우는 정육점",
+    "why": "정육점 앞에서 파는 동그란 멘치카츠(다진 고기 튀김)가 기치조지의 명물입니다. 하나 ¥300 대이고 줄이 늘 서 있습니다.",
+    "busy": "주말 30분 대기"
+  },
+  "kichijoji-bloomoon": {
+    "name": "블루문",
+    "summary": "아시아 요리를 두루 내는 식당"
+  },
+  "kichijoji-cheeky": {
+    "name": "치키",
+    "summary": "라이브 하우스"
+  },
+  "kichijoji-alvorada": {
+    "name": "알보라다",
+    "summary": "브라질 요리와 라이브 음악"
+  },
+  "kichijoji-yuzawaya": {
+    "name": "유자와야",
+    "summary": "수예·공예 재료 2층",
+    "durationMin": 30
+  },
+  "kichijoji-bubuka": {
+    "name": "부부카",
+    "summary": "국물 없는 아부라 소바의 명가"
+  },
+  "kichijoji-onao": {
+    "name": "오나오",
+    "summary": "화지(和紙) 기념품 가게",
+    "durationMin": 20
+  },
+  "kichijoji-warp": {
+    "name": "워프",
+    "summary": "라이브 하우스"
+  },
+  "kichijoji-rag-tag": {
+    "name": "래그태그",
+    "summary": "브랜드 중고 의류"
+  }
+}

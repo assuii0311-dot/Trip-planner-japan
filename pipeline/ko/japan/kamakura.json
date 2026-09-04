@@ -1,0 +1,160 @@
+{
+  "kamakura-tobiccho": {
+    "name": "도빗초 본점",
+    "summary": "에노시마 시라스(멸치) 덮밥의 대표 가게",
+    "why": "에노시마 입구의 시라스 덮밥집으로 생 시라스와 삶은 시라스를 함께 얹습니다. 주말에는 한 시간 넘게 기다립니다.",
+    "busy": "주말 점심 60분 이상"
+  },
+  "kamakura-shonan-cafe": {
+    "name": "쇼난 카페",
+    "summary": "바다 앞 카페. 아보카도 덮밥"
+  },
+  "kamakura-raitei": {
+    "name": "라이테이",
+    "summary": "정원 안의 소바집. 값은 높지만 풍경값",
+    "why": "넓은 일본 정원 안에서 소바를 먹는 곳입니다. 값이 다른 소바집의 두 배지만 정원 산책이 포함된 셈입니다."
+  },
+  "kamakura-house-of-flavours": {
+    "name": "하우스 오브 플레이버스",
+    "summary": "치즈케이크로 알려진 카페"
+  },
+  "kamakura-enoshima-shrine": {
+    "name": "에노시마 신사",
+    "summary": "섬을 오르는 세 사당. 벤자이텐과 에스컬레이터",
+    "why": "에노시마 섬 전체가 신사 경내로 세 사당이 언덕을 따라 이어집니다. 유료 에스컬레이터로 오르고 정상에서 사가미만을 봅니다. 나체 벤자이텐 상이 유명합니다.",
+    "durationMin": 75
+  },
+  "kamakura-zeniarai-benten-shrine": {
+    "name": "제니아라이 벤텐",
+    "summary": "동굴 샘물에 돈을 씻으면 몇 배로 돌아온다는 신사",
+    "why": "터널을 지나 들어가는 바위 속 신사로, 동굴 샘물에 지폐를 씻으면 돈이 불어난다는 곳입니다. 대불에서 언덕을 넘어 걸어옵니다.",
+    "durationMin": 40
+  },
+  "kamakura-myohonji-temple": {
+    "name": "묘혼지",
+    "summary": "골짜기 안의 조용한 절. 울트라맨 작가의 묘",
+    "theme": "history",
+    "durationMin": 30
+  },
+  "kamakura-kamakura-museum-of-history-and-culture": {
+    "name": "가마쿠라 역사문화교류관",
+    "summary": "노먼 포스터 설계 저택의 역사 박물관",
+    "durationMin": 45
+  },
+  "kamakura-kamakurakokomae-station": {
+    "name": "가마쿠라고교마에역 건널목",
+    "summary": "슬램덩크 오프닝의 그 건널목. 바다가 뒤에",
+    "why": "에노덴 가마쿠라고교마에역 옆 건널목으로 만화 슬램덩크 오프닝의 배경입니다. 전차가 지나갈 때 바다를 배경으로 찍으려는 사람들로 늘 붐빕니다.",
+    "caution": "찻길에 나가 찍지 마세요. 주민 민원으로 경비가 섭니다.",
+    "durationMin": 30
+  },
+  "kamakura-engakuji": {
+    "name": "엔가쿠지",
+    "summary": "기타카마쿠라의 선종 대찰. 삼나무 계단",
+    "theme": "history",
+    "why": "1282년 몽골 침입 전사자를 기리며 세운 임제종 대본산입니다. 기타카마쿠라역에서 바로 계단이 시작되고 큰 산문과 사리전(국보)이 있습니다. 가마쿠라를 북쪽에서 시작하는 사람이 첫 번째로 들르는 절입니다.",
+    "durationMin": 60
+  },
+  "kamakura-tokeiji": {
+    "name": "도케이지",
+    "summary": "이혼을 원하는 여성이 피신하던 절. 꽃의 절",
+    "theme": "history",
+    "why": "에도 시대 이혼이 금지된 여성이 3년을 머물면 이혼이 성립하던 '인연 끊는 절' 입니다. 지금은 매화·창포·단풍의 작은 절이고 엔가쿠지에서 걸어 5분입니다.",
+    "durationMin": 40
+  },
+  "kamakura-meigetsuin": {
+    "name": "메이게쓰인",
+    "summary": "수국의 절. 6월에는 입장에 한 시간",
+    "theme": "history",
+    "why": "6월 수국 2,500그루가 계단을 덮어 '수국의 절' 로 불립니다. 본당의 둥근 창으로 보는 뒷정원도 유명합니다. 6월에는 입장 대기 한 시간이고 그 밖의 계절은 한산합니다.",
+    "busy": "6월 주말 60분 이상 대기",
+    "durationMin": 45
+  },
+  "kamakura-iwaya-caves": {
+    "name": "에노시마 이와야 동굴",
+    "summary": "섬 뒤편 바다 동굴. 촛불을 들고 들어간다",
+    "why": "에노시마 뒤편 바위에 파도가 뚫은 동굴입니다. 촛불을 받아 들고 들어가고, 동굴 앞 바위에서 파도를 봅니다. 섬을 끝까지 걸어야 나옵니다.",
+    "caution": "파도가 높으면 닫습니다.",
+    "durationMin": 40
+  },
+  "kamakura-enoshima-samuel-cocking-garden": {
+    "name": "사무엘 코킹 정원과 에노시마 시캔들",
+    "summary": "섬 정상의 정원과 전망 등대. 겨울 조명",
+    "why": "에노시마 정상의 식물원과 전망 등대(시캔들)입니다. 등대에서 후지산과 쇼난 해안이 보이고, 겨울 일루미네이션이 간토에서 손꼽힙니다.",
+    "durationMin": 45
+  },
+  "kamakura-yuigahama": {
+    "name": "유이가하마 해변",
+    "summary": "가마쿠라 시내 앞 해변. 여름 해수욕장",
+    "why": "가마쿠라역에서 걸어 15분의 해변입니다. 여름에는 해수욕장과 해변 술집이 서고, 그 밖에는 서퍼와 산책하는 사람뿐입니다.",
+    "durationMin": 40
+  },
+  "kamakura-inamuragasaki": {
+    "name": "이나무라가사키",
+    "summary": "바다로 튀어나온 곶. 후지산과 에노시마가 한 장에",
+    "theme": "nature",
+    "why": "에노덴이 지나는 바닷가 곶의 공원으로 에노시마와 후지산이 한 화면에 들어옵니다. 해 질 무렵이 가장 좋고 온천 시설도 하나 있습니다.",
+    "durationMin": 30
+  },
+  "kamakura-shichirigahama": {
+    "name": "시치리가하마",
+    "summary": "서퍼의 해변. 에노덴 창밖의 그 바다",
+    "theme": "nature",
+    "durationMin": 30
+  },
+  "kamakura-hokokuji": {
+    "name": "호코쿠지",
+    "summary": "대나무 숲의 절. 숲속 찻집에서 말차",
+    "theme": "history",
+    "why": "본당 뒤 2천 그루 대나무 숲으로 '대나무의 절' 이라 불립니다. 숲속 찻집에서 말차를 마시는 표를 함께 삽니다. 가마쿠라역에서 버스 10분입니다.",
+    "durationMin": 45
+  },
+  "kamakura-sugimotodera": {
+    "name": "스기모토데라",
+    "summary": "734년 창건. 가마쿠라에서 가장 오래된 절",
+    "theme": "history",
+    "why": "가마쿠라 막부보다 500년 앞선 734년에 세운 절입니다. 이끼 낀 돌계단과 초가지붕 본당에 십일면관음 셋을 모십니다. 호코쿠지와 걸어 5분입니다.",
+    "durationMin": 30
+  },
+  "kamakura-kenchoji": {
+    "name": "겐초지",
+    "summary": "일본 최초의 선종 사원. 가마쿠라 오산의 첫째",
+    "theme": "history",
+    "why": "1253년 세운 일본 최초의 본격 선종 사원으로 가마쿠라 오산 중 첫째입니다. 큰 산문과 700년 된 향나무, 뒤편 언덕 위 한소보 전망대까지 오르면 후지산이 보입니다.",
+    "durationMin": 60
+  },
+  "kamakura-jomyoji": {
+    "name": "조묘지",
+    "summary": "관광객이 적은 오산의 절. 정원에서 다도",
+    "theme": "history",
+    "durationMin": 40
+  },
+  "kamakura-kotokuin": {
+    "name": "가마쿠라 대불(고토쿠인)",
+    "summary": "13.35m 청동 대불. 안에도 들어간다",
+    "theme": "history",
+    "why": "1252년 주조된 높이 13.35m 의 청동 아미타불입니다. 1498년 해일로 법당이 쓸려 나간 뒤 500년 넘게 노천에 앉아 있습니다. ¥50 을 내면 불상 안에 들어갑니다. 가마쿠라의 상징이고 에노덴 하세역에서 걸어 10분입니다.",
+    "busy": "10~15시 단체 관광",
+    "durationMin": 45
+  },
+  "kamakura-enoshima-aquarium": {
+    "name": "신에노시마 수족관",
+    "summary": "해파리 전시와 사가미만 대수조. 아이와 함께",
+    "why": "사가미만의 물고기를 채운 대수조와 해파리 전시가 좋은 수족관입니다. 에노시마 입구에 있어 아이와 함께면 섬 대신 여기입니다.",
+    "durationMin": 120
+  },
+  "kamakura-hasedera": {
+    "name": "하세데라",
+    "summary": "9m 목조 관음상과 바다 전망. 수국 계단",
+    "theme": "history",
+    "why": "높이 9m 의 십일면관음(일본 최대급 목조 불상)을 모신 절입니다. 경내 전망대에서 유이가하마 바다가 보이고 6월 수국 산책로가 유명합니다. 대불에서 걸어 10분이라 둘을 묶습니다.",
+    "busy": "6월 수국 철 대기",
+    "durationMin": 60
+  },
+  "kamakura-wd-tsurugaoka-hachimangu": {
+    "name": "쓰루가오카 하치만구",
+    "summary": "가마쿠라 막부의 수호 신사. 고마치도리 끝",
+    "why": "1180년 미나모토노 요리토모가 세운 가마쿠라 막부의 중심 신사입니다. 역에서 와카미야오지 참배길을 따라 걸어오고, 61단 계단 위 본궁에서 마을과 바다가 내려다보입니다. 봄 벚꽃길과 9월 야부사메(말 위 활쏘기)가 유명합니다.",
+    "durationMin": 60
+  }
+}

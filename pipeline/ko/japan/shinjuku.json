@@ -1,0 +1,176 @@
+{
+  "shinjuku-nabezo": {
+    "name": "나베조",
+    "summary": "샤부샤부 무한 리필 체인. 값이 정해져 있어 편하다"
+  },
+  "shinjuku-torafugu-tei": {
+    "name": "도라후구테이",
+    "summary": "복어 전문 체인. 복어를 싸게 먹어 보려면",
+    "why": "복어(후구) 코스를 체인 규모로 싸게 내는 곳입니다. 복어회·복어 튀김·복어 전골을 한 번에 맛보는 코스가 ¥5,000 대입니다."
+  },
+  "shinjuku-martiniburger": {
+    "name": "마티니버거",
+    "summary": "가구라자카의 수제 버거와 마티니"
+  },
+  "shinjuku-yanbaru": {
+    "name": "얀바루",
+    "summary": "오키나와 소바와 고야 찬푸르. 3층 건물 전체",
+    "why": "오키나와 요리를 값싸게 내는 집으로 오키나와 소바가 대표입니다. 신주쿠 3초메의 3층 건물 전체가 가게입니다."
+  },
+  "shinjuku-canal-cafe": {
+    "name": "카날 카페",
+    "summary": "이이다바시 해자 위의 카페. 벚꽃 철 명소",
+    "why": "이이다바시역 옆 옛 성 해자 물 위에 데크를 낸 카페입니다. 벚꽃 철에는 물에 떨어진 꽃잎 위에서 커피를 마십니다."
+  },
+  "shinjuku-aiiro-cafe": {
+    "name": "아이이로 카페",
+    "summary": "니초메의 열린 바. 거리로 넘치는 손님들",
+    "theme": "nightlife",
+    "why": "신주쿠 니초메(게이 타운)의 대표 바로 입구가 트여 있어 손님이 길까지 나옵니다. 누구나 편하게 들어가는 분위기라 니초메를 처음 가 보는 사람의 입구가 됩니다."
+  },
+  "shinjuku-blumare": {
+    "name": "블루마레",
+    "summary": "피자·파스타. 같은 회사의 식당이 모인 건물"
+  },
+  "shinjuku-hanazono-shrine": {
+    "name": "하나조노 신사",
+    "summary": "가부키초 옆 붉은 신사. 11월 도리노이치 축제",
+    "why": "환락가 한복판에 붉은 사당이 서 있는 대비가 좋은 신사입니다. 11월 도리노이치(酉の市) 때는 복 갈퀴를 파는 노점 수백 개가 서서 밤새 붐빕니다. 골든가이 바로 옆이라 저녁 전에 들릅니다.",
+    "durationMin": 30
+  },
+  "shinjuku-suga-shrine": {
+    "name": "스가 신사",
+    "summary": "'너의 이름은' 의 그 계단이 있는 작은 신사",
+    "why": "영화 '너의 이름은' 마지막 장면의 계단이 있는 요쓰야의 작은 신사입니다. 신사보다 계단을 보러 갑니다. 신주쿠에서 지하철 두 정거장입니다.",
+    "durationMin": 30,
+    "caution": "주택가입니다. 계단에서 오래 머물며 소리 내지 마세요."
+  },
+  "shinjuku-tokyo-opera-city": {
+    "name": "도쿄 오페라시티",
+    "summary": "콘서트홀과 아트갤러리. 하쓰다이의 문화 단지",
+    "why": "클래식 콘서트홀과 신국립극장, 3층의 아트갤러리가 있는 복합 건물입니다. 공연이 없으면 갤러리 기획전만 봅니다.",
+    "durationMin": 60
+  },
+  "shinjuku-fire-museum": {
+    "name": "소방박물관",
+    "summary": "소방 헬기와 옛 소방차. 무료",
+    "why": "헬리콥터 3대와 옛 소방차, 에도 시대 소방 조직 전시가 있는 무료 박물관입니다. 아이와 함께면 한 시간이 갑니다.",
+    "closed": "월요일 휴관",
+    "durationMin": 60
+  },
+  "shinjuku-tokyo-toy-museum": {
+    "name": "도쿄 장난감 미술관",
+    "summary": "옛 초등학교 안의 나무 장난감 놀이터",
+    "why": "폐교한 초등학교 교실에 나무 장난감을 채운 곳입니다. 만지고 놀 수 있어 아이가 있으면 두 시간을 씁니다.",
+    "closed": "목요일 휴관",
+    "durationMin": 90
+  },
+  "shinjuku-tokyo-metropolitan-government-center": {
+    "name": "도쿄도청 전망대",
+    "summary": "202m 무료 전망대. 남쪽 전망실은 밤 늦게까지",
+    "why": "도청 45층의 무료 전망대입니다. 북쪽·남쪽 전망실 중 남쪽이 22시까지 열고, 맑은 날 후지산이 보입니다. 밤에는 겨울 저녁 건물 외벽의 프로젝션 매핑도 있습니다.",
+    "hours": "북전망실 9:30~22:00 (남전망실은 휴관일이 다릅니다)",
+    "durationMin": 45
+  },
+  "shinjuku-shinjuku-southern-terrace": {
+    "name": "서던 테라스",
+    "summary": "남쪽 출구 위의 산책로. 겨울 조명",
+    "why": "신주쿠역 남쪽 출구 위 산책로입니다. 도코모 타워를 보며 걷고, 겨울에는 일루미네이션이 켜집니다. 오다큐 로망스카 승강장이 바로 옆입니다.",
+    "durationMin": 20
+  },
+  "shinjuku-shinjuku-gyoen-national-garden": {
+    "name": "신주쿠 교엔",
+    "summary": "영국·프랑스·일본 정원이 한 곳에. 도심의 가장 넓은 잔디",
+    "why": "58만㎡ 의 국민공원으로 영국식 잔디, 프랑스식 정형 정원, 일본식 연못 정원이 이어집니다. 벚꽃이 65종 1,000그루라 3월 말부터 4월 중순까지 길게 핍니다. 술 반입이 금지라 우에노보다 조용합니다. 온라인 예매를 하면 줄을 건너뜁니다.",
+    "closed": "월요일 휴원",
+    "booking": "벚꽃·단풍 철은 날짜 지정 온라인 예매가 필요합니다",
+    "caution": "16시 반에 입장을 끊고 18시에 닫습니다(계절에 따라 다름). 술 반입 금지.",
+    "durationMin": 90
+  },
+  "shinjuku-marone": {
+    "name": "마로네",
+    "summary": "작은 재즈 바. 주인이 직접 고르는 음반"
+  },
+  "shinjuku-loft-plus-one": {
+    "name": "로프트 플러스원",
+    "summary": "토크 라이브가 있는 바. 일본어를 알아야 재미있다"
+  },
+  "shinjuku-hands": {
+    "name": "핸즈 신주쿠",
+    "summary": "생활 잡화·DIY 7층. 타카시마야 옆",
+    "durationMin": 45
+  },
+  "shinjuku-yodobashi-camera": {
+    "name": "요도바시 카메라 신주쿠 서쪽 출구 본점",
+    "summary": "카메라·가전의 본점. 건물이 여러 동",
+    "durationMin": 45
+  },
+  "shinjuku-lumine": {
+    "name": "루미네",
+    "summary": "역 위 세 개 동의 패션 빌딩. 20~30대 여성복",
+    "durationMin": 45
+  },
+  "shinjuku-isetan": {
+    "name": "이세탄 신주쿠 본점",
+    "summary": "일본 백화점의 정점. 지하 식품관과 남성관",
+    "why": "매출 일본 1위 백화점으로 패션 편집이 가장 앞섭니다. 지하 식품관(데파치카)에서 도시락과 화과자를 사고, 별관의 남성관은 그 자체가 명소입니다.",
+    "durationMin": 60
+  },
+  "shinjuku-bic-camera": {
+    "name": "빅카메라 신주쿠 동쪽 출구점",
+    "summary": "동쪽 출구의 가전 매장",
+    "durationMin": 30
+  },
+  "shinjuku-hair-of-the-dogs": {
+    "name": "헤어 오브 더 독스",
+    "summary": "펑크록과 루차도르. 골든가이의 바"
+  },
+  "shinjuku-bar-albatross-g": {
+    "name": "바 알바트로스 G",
+    "summary": "샹들리에와 붉은 벽의 3층 바. 골든가이",
+    "why": "골든가이 안에서 관광객이 들어가기 가장 편한 바입니다. 자릿세 ¥500 에 칵테일이 ¥700 대이고 3층 다락까지 있습니다."
+  },
+  "shinjuku-new-york-bar-grill": {
+    "name": "뉴욕 바",
+    "summary": "파크 하얏트 52층. 영화 '사랑도 통역이 되나요' 의 바",
+    "why": "파크 하얏트 52층의 재즈 바로 영화 '사랑도 통역이 되나요' 의 무대입니다. 커버 차지 ¥3,000 안팎에 칵테일이 ¥2,500 대라 값은 세지만 야경과 라이브 재즈가 그 값을 합니다. 2024~25년 호텔 개보수로 문을 닫았다가 다시 엽니다.",
+    "caution": "드레스 코드가 있습니다(반바지·슬리퍼 불가). 개보수 뒤 재개관 일정을 확인하세요."
+  },
+  "shinjuku-gold-finger": {
+    "name": "골드핑거",
+    "summary": "니초메의 여성 전용 바. 토요일은 여성만"
+  },
+  "shinjuku-takashimaya": {
+    "name": "다카시마야 타임스스퀘어",
+    "summary": "남쪽 출구의 백화점. 옆에 기노쿠니야와 핸즈",
+    "durationMin": 45
+  },
+  "shinjuku-casablanca": {
+    "name": "카사블랑카",
+    "summary": "2층 클럽. 다트와 댄스 플로어"
+  },
+  "shinjuku-vagabond": {
+    "name": "바가본드",
+    "summary": "서쪽 출구의 2층 펍. 피아노 라이브"
+  },
+  "shinjuku-odakyu": {
+    "name": "오다큐 백화점",
+    "summary": "서쪽 출구 재개발로 임시 이전 중",
+    "caution": "2022년부터 본관이 철거되고 임시 매장으로 옮겼습니다. 볼 것이 줄었습니다."
+  },
+  "shinjuku-excelsior-caffe": {
+    "name": "엑셀시오르 카페",
+    "summary": "도토루의 고급 체인. 잠깐 앉을 때",
+    "theme": "food"
+  },
+  "shinjuku-suzuya": {
+    "name": "스즈야",
+    "summary": "1954년부터 돈카츠 차즈케. 가부키초 입구",
+    "why": "돈카츠를 밥 위에 얹고 녹차를 부어 먹는 '돈카츠 차즈케' 를 만든 집입니다. 가부키초 입구에 있어 밤 산책 전 저녁으로 맞습니다."
+  },
+  "shinjuku-segafredo-zanetti-espresso": {
+    "name": "세가프레도 에스프레소",
+    "summary": "이탈리아 에스프레소 체인",
+    "theme": "food"
+  }
+}

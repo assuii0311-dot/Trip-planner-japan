@@ -1,0 +1,104 @@
+{
+  "nikko-sobadokoro-gen-an": {
+    "name": "소바도코로 겐안",
+    "summary": "신사와 역 사이 길의 소바집"
+  },
+  "nikko-ramen-bonten": {
+    "name": "라멘 본텐",
+    "summary": "닛코에서 저녁에 문 연 몇 안 되는 라멘집",
+    "why": "닛코는 저녁에 문 여는 식당이 적습니다. 늦게 돌아왔을 때 갈 수 있는 라멘집입니다."
+  },
+  "nikko-hippari-dako": {
+    "name": "힛파리다코",
+    "summary": "외국인 여행자의 메모가 벽을 덮은 작은 식당",
+    "why": "야키토리와 우동을 내는 작은 식당으로 외국인 손님이 남긴 메모가 벽과 천장을 덮었습니다. 값이 싸고 영어 메뉴가 있습니다."
+  },
+  "nikko-cafe-restaurant-bell": {
+    "name": "카페 레스토랑 벨",
+    "summary": "닛코의 카페와 양식"
+  },
+  "nikko-gurumans-wagyu": {
+    "name": "구루망스 와규",
+    "summary": "와규 스테이크. 예약 필요",
+    "booking": "예약 필수"
+  },
+  "nikko-rinno-ji-temple": {
+    "name": "린노지",
+    "summary": "닛코 산의 총본산. 삼불당의 8m 금불 셋",
+    "why": "766년 닛코를 연 승려 쇼도가 세운 천태종 대본산입니다. 삼불당에 높이 8m 의 금박 불상 셋이 있고, 도쇼구로 가는 길 입구라 먼저 들릅니다.",
+    "durationMin": 45
+  },
+  "nikko-futarasan-shrine": {
+    "name": "후타라산 신사",
+    "summary": "난타이산을 모신 782년의 신사. 도쇼구 옆의 조용한 숲",
+    "why": "난타이산을 신체로 모신 신사로 도쇼구보다 800년 앞섭니다. 도쇼구에서 삼나무 길을 따라 5분이고 훨씬 조용합니다. 신쿄 다리도 이 신사의 것입니다.",
+    "durationMin": 40
+  },
+  "nikko-takino-o-shrine": {
+    "name": "다키노오 신사",
+    "summary": "삼나무 숲 속의 한적한 신사. 도리이 구멍에 돌 던지기",
+    "durationMin": 40
+  },
+  "nikko-toshogu-museum": {
+    "name": "도쇼구 보물관",
+    "summary": "도쿠가와 가문의 갑옷과 칼",
+    "durationMin": 40
+  },
+  "nikko-shinkyo-bridge": {
+    "name": "신쿄",
+    "summary": "강 위의 붉은 다리. 닛코의 첫 장면",
+    "why": "신사 구역 입구 다이야강에 걸린 붉은 옻칠 다리로 닛코 사진의 첫 장입니다. 건너는 데 ¥300 이고 길에서 보는 것만으로 충분합니다.",
+    "durationMin": 15
+  },
+  "nikko-yakushi-do-hall": {
+    "name": "야쿠시도(우는 용)",
+    "summary": "천장의 용 아래서 박수를 치면 울음소리가 난다",
+    "why": "도쇼구 경내 본지당의 천장에 그려진 용 아래에서 딱따기를 치면 울림이 용의 울음처럼 들립니다. 승려가 시연해 줍니다. 도쇼구 표에 포함됩니다.",
+    "durationMin": 20
+  },
+  "nikko-yomei-mon-gate": {
+    "name": "요메이몬",
+    "summary": "조각 500개가 덮인 문. 해 질 때까지 봐도 안 질린다",
+    "why": "도쇼구의 정문으로 조각 508개가 빈틈없이 덮여 '히구라시노몬'(해 질 때까지 보는 문) 이라 불립니다. 2017년 복원을 마쳐 금박이 새것입니다. 도쇼구 안에 있습니다.",
+    "durationMin": 20
+  },
+  "nikko-kegon-falls": {
+    "name": "게곤 폭포",
+    "summary": "97m 를 곧게 떨어지는 일본 3대 폭포. 엘리베이터로 아래까지",
+    "why": "주젠지 호수 물이 97m 절벽을 곧게 떨어지는 폭포로 일본 3대 폭포입니다. 무료 전망대와 유료 엘리베이터(¥570)로 내려가는 아래 전망대가 있고, 아래가 훨씬 박력 있습니다. 10월 단풍이 절정입니다.",
+    "durationMin": 45
+  },
+  "nikko-nikko-botanical-garden": {
+    "name": "닛코 식물원",
+    "summary": "도쿄대 부속 식물원. 고산 식물",
+    "durationMin": 45
+  },
+  "nikko-tamozawa-imperial-villa-memorial-park": {
+    "name": "다모자와 어용저",
+    "summary": "다이쇼 천황이 쓰던 목조 별궁. 106개 방",
+    "why": "1899년 지은 황실 별장으로 목조 건물로는 일본 최대급입니다. 106개 방 중 일부를 걷고 정원을 봅니다. 신사 구역에서 걸어 15분이고 관광객이 적습니다.",
+    "closed": "화요일 휴관",
+    "durationMin": 60
+  },
+  "nikko-kanmangafuchi-abyss": {
+    "name": "간만가후치",
+    "summary": "강가 오솔길의 지장보살 70기. 셀 때마다 수가 달라진다",
+    "theme": "nature",
+    "why": "다이야강 협곡 오솔길에 붉은 모자를 쓴 지장보살 70여 기가 늘어서 있습니다. 갈 때와 올 때 센 수가 다르다는 전설이 있습니다. 신쿄에서 걸어 20분의 조용한 자리입니다.",
+    "durationMin": 40
+  },
+  "nikko-taiyuin-byo": {
+    "name": "다이유인",
+    "summary": "3대 쇼군 이에미쓰의 묘. 도쇼구보다 차분하다",
+    "theme": "history",
+    "why": "도쇼구를 세운 3대 쇼군 이에미쓰의 묘소로 할아버지를 넘지 않도록 일부러 수수하게 지었습니다. 그래서 도쇼구보다 조용하고 삼나무 사이의 문들이 아름답습니다. 린노지 표와 세트입니다.",
+    "durationMin": 45
+  },
+  "nikko-nikko-national-park": {
+    "name": "닛코 국립공원",
+    "summary": "습원과 폭포의 하이킹. 센조가하라",
+    "theme": "nature",
+    "why": "주젠지 호수 위쪽 센조가하라 습원의 나무 데크 길이 대표 코스입니다. 유모토 온천까지 세 시간이고 10월 초 풀 단풍이 절정입니다.",
+    "durationMin": 180
+  }
+}
