@@ -1,0 +1,45 @@
+{
+  "chichibu-oomura": {
+    "name": "오무라",
+    "summary": "동네 소바와 돈가스",
+    "why": "소바와 돈가스를 함께 내는 동네 식당입니다. 지치부 순례 사이 점심입니다."
+  },
+  "chichibu-hijiri-shrine": {
+    "name": "히지리 신사",
+    "summary": "일본 최초의 동전 와도카이친의 신사. 금전운",
+    "why": "708년 구리가 나와 일본 첫 동전을 만든 자리의 신사입니다. 큰 동전 조형물이 있고 금전운을 빕니다.",
+    "durationMin": 25
+  },
+  "chichibu-chichibu-temple-pilgrimage": {
+    "name": "지치부 34관음 순례",
+    "summary": "관음 절 34곳을 잇는 순례길. 일부만 걷는다",
+    "why": "관음을 모신 절 34곳의 순례길입니다. 다 걸으면 100km라 시내의 몇 곳만 이어 걷습니다.",
+    "durationMin": 120
+  },
+  "chichibu-hitsujiyama-park": {
+    "name": "히쓰지야마 공원",
+    "summary": "4월 말~5월 초 시바자쿠라 언덕",
+    "why": "봄에 분홍 시바자쿠라가 언덕을 덮는 공원입니다. 개화 기간에는 매우 붐빕니다.",
+    "busy": "4월 말~5월 초 개화기",
+    "durationMin": 60
+  },
+  "chichibu-nagatoro": {
+    "name": "나가토로 라인쿠다리",
+    "summary": "아라카와 계곡을 나룻배로 내려간다",
+    "why": "나무 배로 아라카와의 바위 계곡을 20분 내려갑니다. 12~2월은 고타쓰 배로 바뀝니다.",
+    "durationMin": 60
+  },
+  "chichibu-sl-paleo-express": {
+    "name": "SL 파레오 익스프레스",
+    "summary": "구마가야~미쓰미네구치의 증기기관차",
+    "why": "지치부 철도의 증기기관차로 주말 중심으로 달립니다. 운행일과 지정석을 미리 확인합니다.",
+    "booking": "지정석 예매",
+    "durationMin": 90
+  },
+  "chichibu-wd-mount-buko": {
+    "name": "부코산",
+    "summary": "지치부의 상징 산. 석회석 계단 산",
+    "why": "석회석을 캐내 계단처럼 깎인 지치부의 상징 산입니다. 시내 어디서나 보이고 오르면 4시간입니다.",
+    "durationMin": 240
+  }
+}

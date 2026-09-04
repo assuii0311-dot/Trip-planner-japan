@@ -64,6 +64,13 @@ export const CITIES = [
       T('nikko', 110, '도부 특급 스페이시아', '도쇼구와 폭포·호수. 하루가 꽉 찹니다.'),
       T('kawaguchiko', 115, 'JR 특급 후지회유 · 고속버스', '후지산을 가장 가까이 보는 호수. 온천 숙소가 많습니다.'),
       T('kusatsu', 170, 'JR 특급 구사쓰·시마 + 버스', '일본 최고 수질로 꼽는 온천 마을. 이동이 길어 하룻밤은 자야 합니다.'),
+      T('kawasaki', 18, 'JR 도카이도선', '다이시와 공장 야경. 반나절.'),
+      T('odawara', 35, '도카이도 신칸센 고다마', '성과 어시장. 하코네 가는 길에.'),
+      T('atami', 45, '도카이도 신칸센 고다마', '바다가 보이는 온천 도시. 하룻밤이 보통입니다.'),
+      T('takao', 65, 'JR 주오선 + 게이오선', '케이블카로 오르는 산. 신주쿠에서 50분.'),
+      T('karuizawa', 65, '호쿠리쿠 신칸센', '별장 마을과 아울렛. 여름 피서지.'),
+      T('chichibu', 95, '세이부 특급 라뷰', '신사와 강, 시바자쿠라. 이케부쿠로에서 80분.'),
+      T('sawara', 100, 'JR 나리타선', '물의 마을. 나리타 공항 옆이라 첫날·마지막 날에.'),
     ],
     transitGuide: {
       passes: [
@@ -112,10 +119,10 @@ export const CITIES = [
     transitGuide: inTokyo(['센소지 본당은 6시부터 엽니다. 8시 전에 가면 나카미세가 비어 있습니다.', '스카이트리 전망대는 온라인 예매가 현장보다 쌉니다.']),
   },
   {
-    slug: 'ueno', name: '우에노·야나카', nameEn: 'Ueno', tier: 'district', within: 'tokyo',
+    slug: 'ueno', name: '우에노', nameEn: 'Ueno', tier: 'district', within: 'tokyo',
     titles: ['Tokyo/Ueno', 'Tokyo/Taito'], radiusKm: 1.5,
     region: '도쿄', lat: 35.7141, lon: 139.7774,
-    blurb: '박물관이 모인 공원과 아메요코 시장, 옛 정취가 남은 야나카.',
+    blurb: '박물관이 모인 공원과 아메요코 시장, 동물원.',
     transitGuide: inTokyo(['국립박물관·서양미술관은 월요일에 쉽니다.', '아사쿠사까지 긴자선 두 정거장(6분)입니다. 같은 날에 묶기 좋습니다.']),
   },
   {
@@ -186,6 +193,99 @@ export const CITIES = [
     transitGuide: inTokyo(['지브리 미술관은 매달 10일에 다음 달 표를 팝니다. 현장 판매가 없습니다.']),
   },
 
+
+  // ── 재방문 동네 (2차) — 사용자가 확정한 후보 전부 ──────────────────
+  //
+  // Wikivoyage 문서가 없거나(닛포리·고엔지·구라마에 …) 구 문서를 다른 지역과
+  // 나눠 쓴다(에비스 ← 시부야, 스가모 ← 도시마). 나눠 쓰는 문서의 리스팅은
+  // 중심에 더 가까운 지역이 가져간다(collect.mjs). 문서가 없는 곳은 Wikidata
+  // 반경 채우기와 손으로 넣는 표(pipeline/manual)로 채운다.
+  {
+    slug: 'nippori', name: '닛포리·야네센', nameEn: 'Nippori', tier: 'district', within: 'tokyo',
+    // 우에노 문서를 나눠 쓴다. 야나카 리스팅은 우에노보다 닛포리에 가까워 이쪽으로 온다.
+    titles: ['Tokyo/Ueno', 'Tokyo/Taito'], radiusKm: 1.2, match: ['Yanaka','Nippori','Nezu','Sendagi','Yanesen','谷中','日暮里','根津','千駄木'],
+    region: '도쿄', lat: 35.7278, lon: 139.7708,
+    blurb: '야나카 긴자와 절 골목, 유야케 단단 계단의 노을. 고양이의 동네.',
+    transitGuide: inTokyo(['야마노테선·게이세이선이 서는 역입니다. 나리타 스카이라이너가 여기 섭니다.']),
+  },
+  {
+    slug: 'ebisu', name: '에비스·히로오', nameEn: 'Ebisu', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Shibuya'], radiusKm: 1.0, match: ['Ebisu','Hiroo','恵比寿','広尾'],
+    region: '도쿄', lat: 35.6467, lon: 139.7101,
+    blurb: '가든플레이스와 뒷골목 야키토리·와인바. 도쿄 사람들이 저녁을 먹는 동네.',
+    transitGuide: inTokyo(['가게는 대개 17시에 엽니다. 저녁과 밤의 동네입니다.', '시부야에서 야마노테선 한 정거장입니다.']),
+  },
+  {
+    slug: 'koenji', name: '고엔지', nameEn: 'Koenji', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Suginami'], radiusKm: 1.0, match: ['Koenji','Kōenji','Asagaya','高円寺','阿佐ヶ谷','阿佐谷'],
+    region: '도쿄', lat: 35.7053, lon: 139.6497,
+    blurb: '빈티지 옷가게와 라이브하우스, 8월 아와오도리. 시모키타보다 거칠다.',
+    transitGuide: inTokyo(['신주쿠에서 주오선 각역정차 네 정거장(7분)입니다. 쾌속은 서지 않는 시간이 있습니다.']),
+  },
+  {
+    slug: 'kuramae', name: '구라마에', nameEn: 'Kuramae', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Taito'], radiusKm: 0.9, match: ['Kuramae','Kappabashi','Asakusabashi','Torigoe','蔵前','かっぱ橋','合羽橋','浅草橋','鳥越'],
+    region: '도쿄', lat: 35.7031, lon: 139.7906,
+    blurb: '가죽·문구 공방과 강변 카페. 도쿄의 브루클린이라 불리는 곳.',
+    transitGuide: inTokyo(['아사쿠사에서 걸어 15분, 지하철 한 정거장입니다.']),
+  },
+  {
+    slug: 'kiyosumi', name: '기요스미시라카와', nameEn: 'Kiyosumi-Shirakawa', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/East'], radiusKm: 1.0, match: ['Kiyosumi','Shirakawa','Fukagawa','Monzen','Tomioka','清澄','白河','深川','門前仲町','富岡'],
+    region: '도쿄', lat: 35.6807, lon: 139.7987,
+    blurb: '커피 로스터리 골목과 현대미술관, 기요스미 정원.',
+    transitGuide: inTokyo(['한조몬선·오에도선. 도쿄역에서 10분 거리인데 관광객이 적습니다.']),
+  },
+  {
+    slug: 'kagurazaka', name: '가구라자카', nameEn: 'Kagurazaka', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Shinjuku'], radiusKm: 0.9, match: ['Kagurazaka','Iidabashi','Ushigome','神楽坂','飯田橋','牛込'],
+    region: '도쿄', lat: 35.7018, lon: 139.7407,
+    blurb: '돌계단 골목과 프랑스 식당, 게이샤가 남은 거리.',
+    transitGuide: inTokyo(['이이다바시역에서 언덕을 오르며 봅니다. 골목이 좁아 저녁이 좋습니다.']),
+  },
+  {
+    slug: 'jiyugaoka', name: '지유가오카', nameEn: 'Jiyugaoka', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Setagaya', 'Tokyo/Meguro'], radiusKm: 0.9, match: ['Jiyugaoka','Jiyūgaoka','Kuhonbutsu','Okusawa','自由が丘','九品仏','奥沢'],
+    region: '도쿄', lat: 35.6075, lon: 139.6690,
+    blurb: '디저트 거리와 잡화점. 살고 싶은 동네 조사에서 늘 위에 있는 곳.',
+    transitGuide: inTokyo(['시부야에서 도요코선 급행 12분, 나카메구로에서 8분입니다.']),
+  },
+  {
+    slug: 'sangenjaya', name: '산겐자야', nameEn: 'Sangenjaya', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Setagaya'], radiusKm: 0.9, match: ['Sangenjaya','Sancha','Ikejiri','Shoin','三軒茶屋','池尻','松陰'],
+    region: '도쿄', lat: 35.6437, lon: 139.6710,
+    blurb: '삼각지대 술집 골목과 캐럿타워 전망대. 시모키타와 걸어서 잇는다.',
+    transitGuide: inTokyo(['시부야에서 덴엔토시선 두 정거장(5분)입니다.']),
+  },
+  {
+    slug: 'tsukishima', name: '쓰키시마', nameEn: 'Tsukishima', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Chuo'], radiusKm: 0.8, match: ['Tsukishima','Monja','Kachidoki','Tsukuda','月島','もんじゃ','勝どき','佃'],
+    region: '도쿄', lat: 35.6645, lon: 139.7830,
+    blurb: '몬자야키 가게 70곳이 이어지는 거리. 긴자에서 지하철 두 정거장.',
+    transitGuide: inTokyo(['긴자잇초메에서 유라쿠초선 두 정거장입니다.', '몬자 가게는 저녁이 본편입니다. 점심에 닫는 집이 많습니다.']),
+  },
+  {
+    slug: 'ryogoku', name: '료고쿠', nameEn: 'Ryogoku', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Sumida'], radiusKm: 1.0, match: ['Ryogoku','Ryōgoku','Sumo','Kokugikan','Kinshicho','両国','相撲','国技館','錦糸町'],
+    region: '도쿄', lat: 35.6961, lon: 139.7931,
+    blurb: '스모의 동네. 국기관과 창코나베, 스모 부야.',
+    transitGuide: inTokyo(['아키하바라에서 소부선 두 정거장(4분)입니다.', '스모 대회는 1·5·9월입니다. 아침 연습 견학은 부야마다 다릅니다.']),
+  },
+  {
+    slug: 'akasaka', name: '아카사카', nameEn: 'Akasaka', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Akasaka'], radiusKm: 1.0, match: ['Akasaka','Nagatacho','Hie','Toranomon','赤坂','永田町','日枝','虎ノ門'],
+    region: '도쿄', lat: 35.6735, lon: 139.7369,
+    blurb: '히에 신사의 붉은 도리이 계단과 접대 골목의 노포들.',
+    transitGuide: inTokyo(['롯폰기와 긴자 사이입니다. 지요다선·긴자선.']),
+  },
+  {
+    slug: 'sugamo', name: '스가모', nameEn: 'Sugamo', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Toshima'], radiusKm: 0.9, match: ['Sugamo','Komagome','Rikugien','Otsuka','巣鴨','駒込','六義園','大塚'],
+    region: '도쿄', lat: 35.7335, lon: 139.7393,
+    blurb: '할머니들의 하라주쿠. 빨간 속옷과 소금 대복, 도게누키 지장.',
+    transitGuide: inTokyo(['4·14·24일 장날에 노점이 섭니다.', '이케부쿠로에서 야마노테선 두 정거장입니다.']),
+  },
+
   // ── 근교 도시 — 스페인의 근교와 같은 층 ─────────────────────────────
   //
   // 숙박이냐 당일치기냐는 엔진이 판단한다. 온천을 담으면 거기서 자고,
@@ -232,6 +332,50 @@ export const CITIES = [
     blurb: '유바타케를 중심으로 마을 전체가 온천. 일본에서 손꼽는 수질.',
     transitGuide: { passes: [], apps: [{ name: 'Google Maps', note: '' }], tips: ['이동이 왕복 6시간이라 당일치기는 무리입니다. 하룻밤은 자세요.', '유모미 공연은 하루 몇 회뿐입니다. 시각을 먼저 확인하세요.'] },
   },
+
+  // ── 근교 (2차) — 사용자가 확정한 후보 ───────────────────────────────
+  {
+    slug: 'atami', name: '아타미', nameEn: 'Atami', titles: ['Atami'], radiusKm: 4,
+    region: '시즈오카', lat: 35.1037, lon: 139.0771, isHub: false, hub: 'tokyo',
+    blurb: '신칸센 45분의 온천 도시. 바다와 불꽃놀이, 쇼와의 온천가.',
+    transitGuide: { passes: [], apps: [{ name: 'Google Maps', note: '' }], tips: ['역 앞 상점가에서 온천 만주와 건어물을 삽니다.', '불꽃놀이가 한 해 열 번 넘게 열립니다. 날짜를 확인하세요.'] },
+  },
+  {
+    slug: 'karuizawa', name: '가루이자와', nameEn: 'Karuizawa', titles: ['Karuizawa'], radiusKm: 5,
+    region: '나가노', lat: 36.3428, lon: 138.6350, isHub: false, hub: 'tokyo',
+    blurb: '별장 마을과 아울렛, 자전거로 도는 숲길. 여름이 서늘하다.',
+    transitGuide: { passes: [], apps: [{ name: 'Google Maps', note: '' }], tips: ['역에서 자전거를 빌려 돕니다. 구 가루이자와까지 20분입니다.', '겨울은 영하 10도 아래로 내려갑니다.'] },
+  },
+  {
+    slug: 'chichibu', name: '지치부·나가토로', nameEn: 'Chichibu', titles: ['Chichibu'], radiusKm: 6,
+    region: '사이타마', lat: 35.9906, lon: 139.0855, isHub: false, hub: 'tokyo',
+    blurb: '신사와 강 뱃놀이, 4~5월 시바자쿠라. 12월 밤 축제.',
+    transitGuide: { passes: [], apps: [{ name: 'Google Maps', note: '' }], tips: ['이케부쿠로에서 세이부 특급 라뷰 80분입니다.', '나가토로 뱃놀이는 3~11월입니다.'] },
+  },
+  {
+    slug: 'odawara', name: '오다와라', nameEn: 'Odawara', titles: ['Odawara'], radiusKm: 3,
+    region: '가나가와', lat: 35.2564, lon: 139.1551, isHub: false, hub: 'tokyo',
+    blurb: '성과 어시장, 하코네의 현관. 신칸센 35분.',
+    transitGuide: { passes: [], apps: [{ name: 'Google Maps', note: '' }], tips: ['하코네로 가는 길에 한두 시간 들르는 곳입니다.'] },
+  },
+  {
+    slug: 'takao', name: '다카오산', nameEn: 'Mount Takao', titles: [], radiusKm: 3,
+    region: '도쿄 서부', lat: 35.6423, lon: 139.2699, isHub: false, hub: 'tokyo',
+    blurb: '신주쿠에서 50분의 산. 케이블카와 절, 정상의 후지산.',
+    transitGuide: { passes: [], apps: [{ name: 'Google Maps', note: '' }], tips: ['신주쿠에서 게이오선 특급 50분입니다.', '11월 단풍 철 주말은 케이블카 대기가 한 시간입니다.'] },
+  },
+  {
+    slug: 'kawasaki', name: '가와사키', nameEn: 'Kawasaki', titles: ['Kawasaki'], radiusKm: 4,
+    region: '가나가와', lat: 35.5309, lon: 139.7030, isHub: false, hub: 'tokyo',
+    blurb: '가와사키 다이시와 공장 야경 크루즈, 라조나.',
+    transitGuide: inTokyo(['도쿄에서 JR 18분입니다.']),
+  },
+  {
+    slug: 'sawara', name: '사와라', nameEn: 'Sawara', titles: ['Sawara'], radiusKm: 3,
+    region: '지바', lat: 35.8917, lon: 140.4990, isHub: false, hub: 'tokyo',
+    blurb: '물길을 따라 에도 시대 창고가 남은 물의 마을. 나리타에서 30분.',
+    transitGuide: { passes: [], apps: [{ name: 'Google Maps', note: '' }], tips: ['나리타 공항에서 가깝습니다. 첫날이나 마지막 날에 맞습니다.', '작은 배(사팟파 배)로 물길을 돕니다.'] },
+  },
 ];
 
 /**
@@ -261,6 +405,19 @@ export const LINKS = [
   L('shimokitazawa', 'kichijoji', 12, '게이오 이노카시라선 급행'), L('shimokitazawa', 'shinjuku', 10, '오다큐선'),
   L('shimokitazawa', 'nakameguro', 15), L('nakameguro', 'roppongi', 12, '히비야선'), L('nakameguro', 'ginza', 22, '히비야선'),
   L('tokyo', 'shimokitazawa', 30), L('tokyo', 'nakameguro', 28),
+  // 2차 동네
+  L('nippori', 'ueno', 4, 'JR 야마노테선'), L('nippori', 'tokyo', 11, 'JR 야마노테선'), L('nippori', 'asakusa', 15), L('nippori', 'akihabara', 8, 'JR 야마노테선'), L('nippori', 'ikebukuro', 12, 'JR 야마노테선'), L('nippori', 'sugamo', 8),
+  L('ebisu', 'shibuya', 2, 'JR 야마노테선'), L('ebisu', 'nakameguro', 3, '히비야선'), L('ebisu', 'shinjuku', 9, 'JR 야마노테선'), L('ebisu', 'roppongi', 6, '히비야선'), L('ebisu', 'ginza', 17, '히비야선'), L('ebisu', 'tokyo', 22),
+  L('koenji', 'shinjuku', 7, 'JR 주오선'), L('koenji', 'kichijoji', 8, 'JR 주오선'), L('koenji', 'tokyo', 22, 'JR 주오선'), L('koenji', 'shimokitazawa', 20), L('koenji', 'akihabara', 20, 'JR 주오·소부선'),
+  L('kuramae', 'asakusa', 3, '아사쿠사선'), L('kuramae', 'ueno', 10), L('kuramae', 'akihabara', 10), L('kuramae', 'tokyo', 15), L('kuramae', 'ginza', 15, '아사쿠사선'), L('kuramae', 'ryogoku', 3, '오에도선'),
+  L('kiyosumi', 'tokyo', 12), L('kiyosumi', 'marunouchi', 9, '한조몬선'), L('kiyosumi', 'ginza', 12), L('kiyosumi', 'asakusa', 15), L('kiyosumi', 'roppongi', 20, '오에도선'), L('kiyosumi', 'odaiba', 25), L('kiyosumi', 'ryogoku', 6, '오에도선'),
+  L('kagurazaka', 'shinjuku', 10, '오에도선'), L('kagurazaka', 'tokyo', 10, '도자이선'), L('kagurazaka', 'marunouchi', 8, '도자이선'), L('kagurazaka', 'akihabara', 10), L('kagurazaka', 'ikebukuro', 12, '유라쿠초선'),
+  L('jiyugaoka', 'shibuya', 12, '도큐 도요코선 급행'), L('jiyugaoka', 'nakameguro', 8, '도큐 도요코선'), L('jiyugaoka', 'shimokitazawa', 20), L('jiyugaoka', 'tokyo', 35), L('jiyugaoka', 'yokohama', 20, '도큐 도요코선 급행'),
+  L('sangenjaya', 'shibuya', 5, '도큐 덴엔토시선'), L('sangenjaya', 'shimokitazawa', 15), L('sangenjaya', 'nakameguro', 15), L('sangenjaya', 'tokyo', 30),
+  L('tsukishima', 'ginza', 5, '유라쿠초선'), L('tsukishima', 'tokyo', 10), L('tsukishima', 'odaiba', 15, '유리카모메'), L('tsukishima', 'asakusa', 20),
+  L('ryogoku', 'akihabara', 4, 'JR 소부선'), L('ryogoku', 'asakusa', 8), L('ryogoku', 'tokyo', 12), L('ryogoku', 'shinjuku', 20, 'JR 소부선'), L('ryogoku', 'ueno', 12),
+  L('akasaka', 'roppongi', 4, '지요다선'), L('akasaka', 'ginza', 7, '긴자선'), L('akasaka', 'shinjuku', 11, '마루노우치선'), L('akasaka', 'tokyo', 8), L('akasaka', 'shibuya', 10, '긴자선'),
+  L('sugamo', 'ikebukuro', 5, 'JR 야마노테선'), L('sugamo', 'ueno', 12, 'JR 야마노테선'), L('sugamo', 'tokyo', 17), L('sugamo', 'nippori', 8, 'JR 야마노테선'),
 ];
 
 /**

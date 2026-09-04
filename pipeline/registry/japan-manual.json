@@ -1,0 +1,2909 @@
+{
+  "districts": [],
+  "items": [
+    {
+      "id": "nippori-yuyake-dandan",
+      "wikidata": null,
+      "lat": 35.728,
+      "lon": 139.7665,
+      "name": "유야케 단단",
+      "nameEn": "Yuyake Dandan",
+      "nameLocal": "夕やけだんだん",
+      "city": "nippori",
+      "theme": "landmark",
+      "durationMin": 15,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "street",
+        "재방문"
+      ],
+      "summary": "야나카 긴자로 내려가는 계단. 노을 사진 자리",
+      "why": "닛포리역에서 야나카 긴자 상점가로 내려가는 계단입니다. 해 질 때 계단 위에서 상점가 쪽으로 찍는 사진이 유명하고 고양이가 자주 앉아 있습니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "무료",
+        "booking": null,
+        "busy": "해 질 무렵",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "nippori-ueno-sakuragi-atari",
+      "wikidata": null,
+      "lat": 35.72237,
+      "lon": 139.77103,
+      "name": "우에노 사쿠라기 아타리",
+      "nameEn": "Ueno Sakuragi Atari",
+      "nameLocal": "上野桜木あたり",
+      "city": "nippori",
+      "theme": "shopping",
+      "durationMin": 40,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "select",
+        "craft",
+        "재방문"
+      ],
+      "summary": "1938년 목조 주택 세 채를 고친 빵집·맥줏집·소금 가게",
+      "why": "1938년에 지은 목조 주택 세 채를 고쳐 빵집, 맥주홀, 소금·올리브 가게를 넣었습니다. 야나카 영원과 아사쿠라 조소관 사이에 있어 쉬어 가기 좋습니다.",
+      "practical": {
+        "duration": "약 40분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "nippori-yanaka-beer-hall",
+      "wikidata": null,
+      "lat": 35.72226,
+      "lon": 139.77092,
+      "name": "야나카 비어홀",
+      "nameEn": "Yanaka Beer Hall",
+      "nameLocal": "谷中ビアホール",
+      "city": "nippori",
+      "theme": "nightlife",
+      "durationMin": 60,
+      "priceJpy": 2500,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "evening",
+        "night"
+      ],
+      "indoor": true,
+      "tags": [
+        "bar",
+        "craft",
+        "재방문"
+      ],
+      "summary": "옛 집에서 마시는 직접 빚은 맥주",
+      "why": "우에노 사쿠라기 아타리 안의 맥줏집으로 직접 빚은 맥주를 냅니다. 낮에도 열어 야나카 산책 중 한 잔에 좋습니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "¥2,500",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "nippori-kayaba-coffee",
+      "wikidata": null,
+      "lat": 35.72115,
+      "lon": 139.77077,
+      "name": "카야바 커피",
+      "nameEn": "Kayaba Coffee",
+      "nameLocal": "カヤバ珈琲",
+      "city": "nippori",
+      "theme": "food",
+      "durationMin": 45,
+      "priceJpy": 1200,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "cafe",
+        "local",
+        "재방문"
+      ],
+      "summary": "1938년 문 연 찻집. 계란 샌드",
+      "why": "다이쇼 시대 건물에서 1938년부터 이어 온 찻집입니다. 계란 샌드위치와 루시안(커피+코코아)이 대표이고 아침 일찍 엽니다.",
+      "practical": {
+        "duration": "약 45분",
+        "price": "¥1,200",
+        "booking": null,
+        "busy": "주말 오전 줄",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "nippori-kikujudo-isetatsu",
+      "wikidata": null,
+      "lat": 35.72426,
+      "lon": 139.76785,
+      "name": "기쿠주도 이세타쓰",
+      "nameEn": "Kikujudo Isetatsu",
+      "nameLocal": "菊寿堂いせ辰 谷中本店",
+      "city": "nippori",
+      "theme": "shopping",
+      "durationMin": 20,
+      "priceJpy": null,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "craft",
+        "재방문"
+      ],
+      "summary": "1864년부터 에도 지요가미. 종이 선물",
+      "why": "에도 시대 무늬 종이 지요가미를 1864년부터 찍어 온 가게입니다. 종이 상자·부채·엽서가 가볍고 값이 싸서 선물로 좋습니다.",
+      "practical": {
+        "duration": "약 20분",
+        "price": null,
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "nippori-noike",
+      "wikidata": null,
+      "lat": 35.72461,
+      "lon": 139.76457,
+      "name": "노이케",
+      "nameEn": "Noike",
+      "nameLocal": "乃池",
+      "city": "nippori",
+      "theme": "food",
+      "durationMin": 60,
+      "priceJpy": 3000,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "sushi",
+        "local",
+        "재방문"
+      ],
+      "summary": "1965년부터 아나고 초밥",
+      "why": "붕장어(아나고)를 부드럽게 졸여 얹은 초밥이 대표인 야나카의 초밥집입니다. 점심에도 아나고 초밥 세트를 냅니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "¥3,000",
+        "booking": null,
+        "busy": null,
+        "closed": "화요일",
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "nippori-yanaka-cemetery",
+      "wikidata": "Q864387",
+      "lat": 35.72528,
+      "lon": 139.77056,
+      "name": "야나카 영원",
+      "nameEn": "Yanaka Cemetery",
+      "nameLocal": "谷中霊園",
+      "city": "nippori",
+      "theme": "nature",
+      "durationMin": 40,
+      "priceJpy": 0,
+      "energy": 3,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": false,
+      "tags": [
+        "벚꽃",
+        "재방문"
+      ],
+      "summary": "벚나무 길과 도쿠가와 요시노부의 묘",
+      "why": "도쿄에서 벚꽃 길로 손꼽히는 공동묘지입니다. 마지막 쇼군 도쿠가와 요시노부의 묘가 있고, 사쿠라도리를 따라 걸으면 닛포리에서 우에노까지 이어집니다.",
+      "practical": {
+        "duration": "약 40분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ebisu-yebisu-garden-place",
+      "wikidata": "Q11259433",
+      "lat": 35.64222,
+      "lon": 139.71417,
+      "name": "에비스 가든플레이스",
+      "nameEn": "Yebisu Garden Place",
+      "nameLocal": "恵比寿ガーデンプレイス",
+      "city": "ebisu",
+      "theme": "landmark",
+      "durationMin": 60,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "department",
+        "재방문"
+      ],
+      "summary": "옛 맥주 공장 자리의 복합 단지. 38층 무료 전망",
+      "why": "에비스 맥주 공장 터에 지은 복합 단지입니다. 타워 38층 무료 전망 라운지에서 도쿄타워와 스카이트리가 보이고 겨울에는 바카라 샹들리에가 섭니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ebisu-yebisu-brewery-tokyo",
+      "wikidata": null,
+      "lat": 35.64309,
+      "lon": 139.71454,
+      "name": "예비스 브루어리 도쿄",
+      "nameEn": "Yebisu Brewery Tokyo",
+      "nameLocal": "YEBISU BREWERY TOKYO",
+      "city": "ebisu",
+      "theme": "activity",
+      "durationMin": 60,
+      "priceJpy": null,
+      "energy": 3,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "bar",
+        "craft",
+        "재방문"
+      ],
+      "summary": "에비스 맥주의 역사와 양조. 갓 빚은 맥주 시음",
+      "why": "2024년 새로 연 에비스 맥주의 양조장 겸 기념관입니다. 역사 전시를 보고 탭룸에서 여기서만 빚는 맥주를 마십니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": null,
+        "booking": "투어는 예약 권장",
+        "busy": null,
+        "closed": "월요일 휴관",
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ebisu-ebisu-yokocho",
+      "wikidata": null,
+      "lat": 35.64815,
+      "lon": 139.71074,
+      "name": "에비스 요코초",
+      "nameEn": "Ebisu Yokocho",
+      "nameLocal": "恵比寿横丁",
+      "city": "ebisu",
+      "theme": "nightlife",
+      "durationMin": 90,
+      "priceJpy": 3500,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "evening",
+        "night"
+      ],
+      "indoor": true,
+      "tags": [
+        "izakaya",
+        "bar",
+        "street",
+        "local",
+        "재방문"
+      ],
+      "summary": "세 평짜리 가게 20곳의 골목. 2차의 정석",
+      "why": "옛 시장 건물에 세 평 남짓한 가게 20곳이 들어찬 골목입니다. 자리를 옮겨 가며 마시는 도쿄식 2차·3차에 맞고 늦게까지 붐빕니다.",
+      "practical": {
+        "duration": "약 1시간 30분",
+        "price": "¥3,500",
+        "booking": null,
+        "busy": "금·토 저녁 자리 없음",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ebisu-taiyaki-hiiragi",
+      "wikidata": null,
+      "lat": 35.64767,
+      "lon": 139.71164,
+      "name": "타이야키 히이라기",
+      "nameEn": "Taiyaki Hiiragi",
+      "nameLocal": "たいやき ひいらぎ",
+      "city": "ebisu",
+      "theme": "food",
+      "durationMin": 15,
+      "priceJpy": 300,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "street",
+        "local",
+        "재방문"
+      ],
+      "summary": "한 마리씩 굽는 붕어빵. 얇은 껍질",
+      "why": "틀 하나에 한 마리씩 굽는 붕어빵 가게입니다. 껍질이 얇고 팥이 꼬리까지 차 있어 줄이 섭니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "¥300",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ebisu-tokyo-photographic-art-museum",
+      "wikidata": "Q862884",
+      "lat": 35.6417,
+      "lon": 139.7132,
+      "name": "도쿄도 사진미술관",
+      "nameEn": "Tokyo Photographic Art Museum",
+      "nameLocal": "東京都写真美術館",
+      "city": "ebisu",
+      "theme": "art",
+      "durationMin": 60,
+      "priceJpy": 700,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "가든플레이스 안의 사진 전문 미술관",
+      "why": "일본에서 드문 사진·영상 전문 미술관입니다. 전시가 셋 동시에 열려 하나만 골라 봐도 됩니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "¥700",
+        "booking": null,
+        "busy": null,
+        "closed": "월요일 휴관",
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ebisu-arisugawa-no-miya-memorial-park",
+      "wikidata": "Q4791114",
+      "lat": 35.65201,
+      "lon": 139.72562,
+      "name": "아리스가와노미야 기념공원",
+      "nameEn": "Arisugawa-no-miya Memorial Park",
+      "nameLocal": "有栖川宮記念公園",
+      "city": "ebisu",
+      "theme": "nature",
+      "durationMin": 40,
+      "priceJpy": 0,
+      "energy": 3,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "히로오의 언덕 공원. 연못과 도서관",
+      "why": "히로오 대사관 거리 안의 언덕 공원입니다. 연못과 계류가 있고 안에 도립 중앙도서관이 있어 동네 사람이 산책합니다.",
+      "practical": {
+        "duration": "약 40분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ebisu-sarutahiko-coffee-ebisu",
+      "wikidata": null,
+      "lat": 35.64764,
+      "lon": 139.7109,
+      "name": "사루타히코 커피 에비스 본점",
+      "nameEn": "Sarutahiko Coffee Ebisu",
+      "nameLocal": "猿田彦珈琲 恵比寿本店",
+      "city": "ebisu",
+      "theme": "food",
+      "durationMin": 30,
+      "priceJpy": 700,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "cafe",
+        "재방문"
+      ],
+      "summary": "작은 본점. 스페셜티 커피",
+      "why": "도쿄 곳곳에 가게를 낸 사루타히코 커피의 작은 본점입니다. 역 바로 앞이라 아침에 들르기 좋습니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "¥700",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ebisu-bar-trench",
+      "wikidata": null,
+      "lat": 35.64842,
+      "lon": 139.70792,
+      "name": "바 트렌치",
+      "nameEn": "Bar Trench",
+      "nameLocal": "Bar Trench",
+      "city": "ebisu",
+      "theme": "nightlife",
+      "durationMin": 60,
+      "priceJpy": 3000,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "evening",
+        "night"
+      ],
+      "indoor": true,
+      "tags": [
+        "bar",
+        "fine",
+        "재방문"
+      ],
+      "summary": "압생트와 클래식 칵테일의 작은 바",
+      "why": "세계 바 순위에 오르는 에비스의 작은 바입니다. 압생트와 허브 계열 칵테일이 특기이고 자리가 적어 이른 시간이 좋습니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "¥3,000",
+        "booking": null,
+        "busy": "금·토 밤",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "koenji-koenji-junjo-shopping-street",
+      "wikidata": null,
+      "lat": 35.70679,
+      "lon": 139.6498,
+      "name": "고엔지 순정상점가",
+      "nameEn": "Koenji Junjo Shopping Street",
+      "nameLocal": "高円寺純情商店街",
+      "city": "koenji",
+      "theme": "shopping",
+      "durationMin": 40,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "street",
+        "local",
+        "재방문"
+      ],
+      "summary": "북쪽 출구의 소설 제목이 된 상점가",
+      "why": "소설 제목에서 이름을 딴 북쪽 출구의 상점가입니다. 생선 가게와 반찬집 사이에 카레집과 헌책방이 섞여 있습니다.",
+      "practical": {
+        "duration": "약 40분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "koenji-koenji-pal-shopping-street",
+      "wikidata": null,
+      "lat": 35.70459,
+      "lon": 139.64906,
+      "name": "고엔지 파루 상점가",
+      "nameEn": "Koenji Pal Shopping Street",
+      "nameLocal": "高円寺パル商店街",
+      "city": "koenji",
+      "theme": "shopping",
+      "durationMin": 40,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "street",
+        "select",
+        "재방문"
+      ],
+      "summary": "남쪽 출구 아케이드. 빈티지 가게가 시작된다",
+      "why": "남쪽 출구의 지붕 있는 아케이드로 빈티지 옷가게와 잡화점이 시작되는 곳입니다. 끝까지 가면 룩 상점가로 이어집니다.",
+      "practical": {
+        "duration": "약 40분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "koenji-koenji-look-shopping-street",
+      "wikidata": null,
+      "lat": 35.69982,
+      "lon": 139.64743,
+      "name": "고엔지 룩 상점가",
+      "nameEn": "Koenji Look Shopping Street",
+      "nameLocal": "高円寺ルック商店街",
+      "city": "koenji",
+      "theme": "shopping",
+      "durationMin": 60,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "select",
+        "craft",
+        "재방문"
+      ],
+      "summary": "빈티지 옷가게가 이어지는 거리",
+      "why": "파루 상점가 끝에서 이어지는 거리로 빈티지 옷가게가 가장 많이 모여 있습니다. 가게마다 연대와 취향이 달라 오후가 다 갑니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "koenji-kisho-shrine",
+      "wikidata": null,
+      "lat": 35.70453,
+      "lon": 139.65101,
+      "name": "기쇼 신사",
+      "nameEn": "Kisho Shrine",
+      "nameLocal": "高円寺氷川神社 気象神社",
+      "city": "koenji",
+      "theme": "history",
+      "durationMin": 15,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "일본 유일의 날씨 신사. 나막신 에마",
+      "why": "히카와 신사 안에 있는 일본 유일의 날씨 신사입니다. 나막신 모양 에마에 여행 날 맑기를 빕니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "koenji-taisho",
+      "wikidata": null,
+      "lat": 35.70507,
+      "lon": 139.64854,
+      "name": "다이쇼 본점",
+      "nameEn": "Taisho",
+      "nameLocal": "大将 本店",
+      "city": "koenji",
+      "theme": "nightlife",
+      "durationMin": 75,
+      "priceJpy": 2500,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "evening",
+        "night"
+      ],
+      "indoor": true,
+      "tags": [
+        "izakaya",
+        "street",
+        "local",
+        "재방문"
+      ],
+      "summary": "역 앞의 야키토리. 밖에 앉아 마신다",
+      "why": "역 앞 길가에 자리를 내놓은 야키토리 집으로 저녁마다 붐빕니다. 값이 싸고 늦게까지 열어 고엔지 밤의 시작입니다.",
+      "practical": {
+        "duration": "약 1시간 15분",
+        "price": "¥2,500",
+        "booking": null,
+        "busy": "저녁 내내",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "koenji-za-koenji-public-theatre",
+      "wikidata": "Q11521690",
+      "lat": 35.70592,
+      "lon": 139.65401,
+      "name": "자 고엔지",
+      "nameEn": "Za-Koenji Public Theatre",
+      "nameLocal": "座・高円寺",
+      "city": "koenji",
+      "theme": "activity",
+      "durationMin": 120,
+      "priceJpy": null,
+      "energy": 3,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "구립 공공극장. 텐트 모양 건물",
+      "why": "이토 도요가 설계한 텐트 모양의 구립 극장입니다. 연극과 아와오도리 공연이 있고 안에 카페가 있습니다.",
+      "practical": {
+        "duration": "약 2시간",
+        "price": null,
+        "booking": "공연은 예매",
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "koenji-jirokichi",
+      "wikidata": null,
+      "lat": 35.7057,
+      "lon": 139.65138,
+      "name": "지로키치",
+      "nameEn": "Jirokichi",
+      "nameLocal": "高円寺 JIROKICHI",
+      "city": "koenji",
+      "theme": "nightlife",
+      "durationMin": 120,
+      "priceJpy": 3000,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "evening",
+        "night"
+      ],
+      "indoor": true,
+      "tags": [
+        "bar",
+        "재방문"
+      ],
+      "summary": "1974년부터의 재즈·블루스 라이브하우스",
+      "why": "1974년부터 이어 온 고엔지의 재즈·블루스 라이브하우스입니다. 매일 공연이 있고 자리가 작아 무대가 가깝습니다.",
+      "practical": {
+        "duration": "약 2시간",
+        "price": "¥3,000",
+        "booking": "공연 일정 확인",
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kuramae-kakimori",
+      "wikidata": "Q109318575",
+      "lat": 35.70319,
+      "lon": 139.78568,
+      "name": "카키모리",
+      "nameEn": "Kakimori",
+      "nameLocal": "カキモリ",
+      "city": "kuramae",
+      "theme": "shopping",
+      "durationMin": 40,
+      "priceJpy": null,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "craft",
+        "재방문"
+      ],
+      "summary": "표지와 속지를 골라 만드는 노트. 잉크 조합",
+      "why": "표지·속지·고리를 골라 나만의 노트를 묶어 주는 문구점입니다. 잉크를 섞어 만드는 코너가 있어 예약이 찹니다.",
+      "practical": {
+        "duration": "약 40분",
+        "price": null,
+        "booking": "잉크 만들기는 예약",
+        "busy": null,
+        "closed": "월요일",
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kuramae-dandelion-chocolate-kuramae",
+      "wikidata": null,
+      "lat": 35.70354,
+      "lon": 139.78955,
+      "name": "댄들라이언 초콜릿 구라마에",
+      "nameEn": "Dandelion Chocolate Kuramae",
+      "nameLocal": "ダンデライオン・チョコレート ファクトリー＆カフェ蔵前",
+      "city": "kuramae",
+      "theme": "food",
+      "durationMin": 40,
+      "priceJpy": 1200,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "cafe",
+        "재방문"
+      ],
+      "summary": "초콜릿 공장이 보이는 카페",
+      "why": "샌프란시스코 빈투바 초콜릿의 일본 첫 가게입니다. 1층 공장에서 초콜릿 만드는 것을 보고 2층에서 핫초콜릿을 마십니다.",
+      "practical": {
+        "duration": "약 40분",
+        "price": "¥1,200",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kuramae-kashiya-shinonome",
+      "wikidata": null,
+      "lat": 35.70564,
+      "lon": 139.79043,
+      "name": "가시야 시노노메",
+      "nameEn": "Kashiya Shinonome",
+      "nameLocal": "菓子屋シノノメ",
+      "city": "kuramae",
+      "theme": "food",
+      "durationMin": 20,
+      "priceJpy": 600,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "cafe",
+        "재방문"
+      ],
+      "summary": "구움과자 가게. 옆에 찻집",
+      "why": "구움과자를 파는 가게로 옆에 같은 주인의 찻집이 있습니다. 오전에 종류가 많습니다.",
+      "practical": {
+        "duration": "약 20분",
+        "price": "¥600",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kuramae-mclean-old-burger-stand",
+      "wikidata": null,
+      "lat": 35.70495,
+      "lon": 139.79417,
+      "name": "마쿠레인 다이너",
+      "nameEn": "McLean Old Burger Stand",
+      "nameLocal": "マクレーン オールドファッション ダイナー",
+      "city": "kuramae",
+      "theme": "food",
+      "durationMin": 45,
+      "priceJpy": 1500,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "comfort",
+        "재방문"
+      ],
+      "summary": "옛 미국식 다이너의 수제 버거",
+      "why": "옛 미국 다이너를 본뜬 가게의 두꺼운 수제 버거입니다. 구라마에 점심으로 자리가 찹니다.",
+      "practical": {
+        "duration": "약 45분",
+        "price": "¥1,500",
+        "booking": null,
+        "busy": "주말 점심",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kuramae-kuramae-bridge",
+      "wikidata": "Q11621888",
+      "lat": 35.70083,
+      "lon": 139.79333,
+      "name": "구라마에 다리",
+      "nameEn": "Kuramae Bridge",
+      "nameLocal": "蔵前橋",
+      "city": "kuramae",
+      "theme": "landmark",
+      "durationMin": 15,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "노란 다리에서 보는 스카이트리와 강",
+      "why": "스미다가와의 노란 아치 다리입니다. 강변 테라스로 내려가면 스카이트리가 정면에 보이고 아사쿠사까지 걸어갑니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kuramae-torigoe-shrine",
+      "wikidata": "Q11675149",
+      "lat": 35.70194,
+      "lon": 139.78556,
+      "name": "도리고에 신사",
+      "nameEn": "Torigoe Shrine",
+      "nameLocal": "鳥越神社",
+      "city": "kuramae",
+      "theme": "history",
+      "durationMin": 15,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "6월 밤 축제의 큰 가마로 유명한 신사",
+      "why": "1300년 넘은 동네 신사로 6월 도리고에 마쓰리의 큰 가마가 유명합니다. 축제가 아니면 조용합니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kiyosumi-museum-of-contemporary-art-tokyo",
+      "wikidata": "Q1649688",
+      "lat": 35.68,
+      "lon": 139.80806,
+      "name": "도쿄도 현대미술관",
+      "nameEn": "Museum of Contemporary Art Tokyo",
+      "nameLocal": "東京都現代美術館",
+      "city": "kiyosumi",
+      "theme": "art",
+      "durationMin": 90,
+      "priceJpy": null,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "기바 공원 안의 큰 현대미술관",
+      "why": "기바 공원 안의 큰 현대미술관으로 소장품 전시와 기획전이 함께 열립니다. 서점과 카페가 좋아 반나절이 갑니다.",
+      "practical": {
+        "duration": "약 1시간 30분",
+        "price": null,
+        "booking": null,
+        "busy": null,
+        "closed": "월요일 휴관",
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kiyosumi-blue-bottle-coffee-kiyosumi-shirakawa",
+      "wikidata": null,
+      "lat": 35.67777,
+      "lon": 139.80058,
+      "name": "블루보틀 커피 기요스미시라카와",
+      "nameEn": "Blue Bottle Coffee Kiyosumi-Shirakawa",
+      "nameLocal": "ブルーボトルコーヒー 清澄白河フラッグシップカフェ",
+      "city": "kiyosumi",
+      "theme": "food",
+      "durationMin": 30,
+      "priceJpy": 700,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "cafe",
+        "재방문"
+      ],
+      "summary": "일본 1호점. 커피 동네의 시작",
+      "why": "블루보틀의 일본 1호점으로 이 동네가 커피 거리가 된 계기입니다. 창고를 고친 넓은 가게에서 로스팅을 봅니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "¥700",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kiyosumi-allpress-espresso-tokyo-roastery",
+      "wikidata": null,
+      "lat": 35.67776,
+      "lon": 139.80514,
+      "name": "올프레스 에스프레소 도쿄 로스터리",
+      "nameEn": "Allpress Espresso Tokyo Roastery",
+      "nameLocal": "オールプレス・エスプレッソ 東京ロースタリー&カフェ",
+      "city": "kiyosumi",
+      "theme": "food",
+      "durationMin": 30,
+      "priceJpy": 700,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "cafe",
+        "재방문"
+      ],
+      "summary": "목재 창고를 고친 뉴질랜드 로스터리",
+      "why": "목재 창고를 고친 높은 천장의 로스터리 카페입니다. 플랫화이트가 대표이고 자리가 넉넉합니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "¥700",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kiyosumi-arise-coffee-roasters",
+      "wikidata": null,
+      "lat": 35.67836,
+      "lon": 139.80098,
+      "name": "아라이즈 커피 로스터스",
+      "nameEn": "Arise Coffee Roasters",
+      "nameLocal": "ARiSE COFFEE ROASTERS",
+      "city": "kiyosumi",
+      "theme": "food",
+      "durationMin": 20,
+      "priceJpy": 600,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "cafe",
+        "local",
+        "재방문"
+      ],
+      "summary": "주인이 볶는 작은 로스터리",
+      "why": "주인이 직접 볶고 내리는 작은 가게입니다. 원두를 골라 한 잔씩 내려 주고 동네 사람이 서서 마십니다.",
+      "practical": {
+        "duration": "약 20분",
+        "price": "¥600",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kiyosumi-kiba-park",
+      "wikidata": "Q6403923",
+      "lat": 35.67625,
+      "lon": 139.80842,
+      "name": "기바 공원",
+      "nameEn": "Kiba Park",
+      "nameLocal": "木場公園",
+      "city": "kiyosumi",
+      "theme": "nature",
+      "durationMin": 40,
+      "priceJpy": 0,
+      "energy": 3,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "옛 목재 저장소 자리의 큰 공원",
+      "why": "에도 시대 목재 저장소 자리의 넓은 공원입니다. 현대미술관이 안에 있고 큰 다리에서 스카이트리가 보입니다.",
+      "practical": {
+        "duration": "약 40분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kiyosumi-fukagawa-fudodo",
+      "wikidata": "Q11495650",
+      "lat": 35.67292,
+      "lon": 139.79833,
+      "name": "후카가와 후도도",
+      "nameEn": "Fukagawa Fudodo",
+      "nameLocal": "深川不動堂",
+      "city": "kiyosumi",
+      "theme": "history",
+      "durationMin": 30,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "매일 다섯 번 불을 피우는 호마 의식",
+      "why": "나리타산의 도쿄 별원으로 하루 다섯 번 큰북과 함께 불을 피우는 호마 의식을 봅니다. 본당 벽이 범자 1만 자로 덮여 있습니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kiyosumi-fukagawajuku",
+      "wikidata": null,
+      "lat": 35.68074,
+      "lon": 139.80056,
+      "name": "후카가와주쿠",
+      "nameEn": "Fukagawajuku",
+      "nameLocal": "深川宿 本店",
+      "city": "kiyosumi",
+      "theme": "food",
+      "durationMin": 45,
+      "priceJpy": 2000,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "local",
+        "seafood",
+        "재방문"
+      ],
+      "summary": "조개밥 후카가와메시의 대표 가게",
+      "why": "바지락을 된장에 끓여 밥에 부은 후카가와메시를 내는 가게입니다. 에도 자료관 앞에 있어 함께 갑니다.",
+      "practical": {
+        "duration": "약 45분",
+        "price": "¥2,000",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kiyosumi-tatsumi-shindo",
+      "wikidata": "Q11637868",
+      "lat": 35.67306,
+      "lon": 139.79592,
+      "name": "다쓰미 신도",
+      "nameEn": "Tatsumi Shindo",
+      "nameLocal": "辰巳新道",
+      "city": "kiyosumi",
+      "theme": "nightlife",
+      "durationMin": 75,
+      "priceJpy": 3000,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "evening",
+        "night"
+      ],
+      "indoor": true,
+      "tags": [
+        "izakaya",
+        "bar",
+        "local",
+        "재방문"
+      ],
+      "summary": "몬젠나카초의 좁은 술집 골목",
+      "why": "몬젠나카초 역 옆의 좁은 골목에 카운터 술집이 스무 곳 넘게 붙어 있습니다. 후카가와 산책을 끝내고 한 잔 하는 곳입니다.",
+      "practical": {
+        "duration": "약 1시간 15분",
+        "price": "¥3,000",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kagurazaka-zenkoku-ji",
+      "wikidata": "Q11418909",
+      "lat": 35.7015,
+      "lon": 139.73954,
+      "name": "젠코쿠지 비샤몬텐",
+      "nameEn": "Zenkoku-ji",
+      "nameLocal": "善國寺",
+      "city": "kagurazaka",
+      "theme": "history",
+      "durationMin": 15,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "가구라자카의 상징인 붉은 절",
+      "why": "언덕 한가운데 붉은 문의 절로 호랑이 상이 지킵니다. 가구라자카 산책의 기준점입니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kagurazaka-tokyo-daijingu",
+      "wikidata": "Q11524717",
+      "lat": 35.69998,
+      "lon": 139.74687,
+      "name": "도쿄 다이진구",
+      "nameEn": "Tokyo Daijingu",
+      "nameLocal": "東京大神宮",
+      "city": "kagurazaka",
+      "theme": "history",
+      "durationMin": 20,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "인연을 비는 신사. 이세 신궁의 도쿄 요배전",
+      "why": "이세 신궁을 도쿄에서 참배하도록 세운 신사로 인연을 비는 사람이 줄을 섭니다. 이이다바시 역에서 5분입니다.",
+      "practical": {
+        "duration": "약 20분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kagurazaka-hyogo-yokocho",
+      "wikidata": null,
+      "lat": 35.70245,
+      "lon": 139.73984,
+      "name": "효고 요코초",
+      "nameEn": "Hyogo Yokocho",
+      "nameLocal": "兵庫横丁",
+      "city": "kagurazaka",
+      "theme": "landmark",
+      "durationMin": 15,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "street",
+        "재방문"
+      ],
+      "summary": "검은 담과 돌길의 골목. 료테이가 남았다",
+      "why": "검은 널담과 돌길이 남은 짧은 골목으로 옛 요정이 아직 영업합니다. 저녁에 등이 켜지면 가장 좋습니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kagurazaka-kakurenbo-yokocho",
+      "wikidata": null,
+      "lat": 35.70195,
+      "lon": 139.74087,
+      "name": "가쿠렌보 요코초",
+      "nameEn": "Kakurenbo Yokocho",
+      "nameLocal": "かくれんぼ横丁",
+      "city": "kagurazaka",
+      "theme": "landmark",
+      "durationMin": 15,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "street",
+        "재방문"
+      ],
+      "summary": "게이샤 거리의 흔적이 남은 뒷골목",
+      "why": "미로 같은 뒷골목으로 화류가였던 때의 분위기가 남았습니다. 효고 요코초와 이어 걷습니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kagurazaka-le-bretagne-kagurazaka",
+      "wikidata": null,
+      "lat": 35.70189,
+      "lon": 139.73971,
+      "name": "르 브르타뉴",
+      "nameEn": "Le Bretagne Kagurazaka",
+      "nameLocal": "ル ブルターニュ 神楽坂店",
+      "city": "kagurazaka",
+      "theme": "food",
+      "durationMin": 60,
+      "priceJpy": 2000,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "comfort",
+        "재방문"
+      ],
+      "summary": "브르타뉴식 갈레트와 시드르",
+      "why": "메밀 갈레트와 사과주 시드르를 내는 브르타뉴 요리집입니다. 가구라자카가 프랑스 동네로 불리는 이유의 하나입니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "¥2,000",
+        "booking": null,
+        "busy": "주말 점심",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kagurazaka-baikatei",
+      "wikidata": null,
+      "lat": 35.70304,
+      "lon": 139.737,
+      "name": "바이카테이",
+      "nameEn": "Baikatei",
+      "nameLocal": "梅花亭",
+      "city": "kagurazaka",
+      "theme": "shopping",
+      "durationMin": 10,
+      "priceJpy": null,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "street",
+        "craft",
+        "재방문"
+      ],
+      "summary": "1935년 화과자. 복 고양이 모나카",
+      "why": "1935년부터의 화과자 가게로 복 고양이 모양 모나카가 대표입니다. 산책 선물로 가볍습니다.",
+      "practical": {
+        "duration": "약 10분",
+        "price": null,
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kagurazaka-pain-des-philosophes",
+      "wikidata": null,
+      "lat": 35.70516,
+      "lon": 139.73792,
+      "name": "판 데 피로조프",
+      "nameEn": "Pain des Philosophes",
+      "nameLocal": "パン・デ・フィロゾフ",
+      "city": "kagurazaka",
+      "theme": "food",
+      "durationMin": 15,
+      "priceJpy": 500,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "cafe",
+        "street",
+        "재방문"
+      ],
+      "summary": "발효 빵 전문 빵집",
+      "why": "밀 맛을 살린 발효 빵 전문 빵집입니다. 아침에 사서 카날 카페나 공원에서 먹습니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "¥500",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kagurazaka-akagi-shrine",
+      "wikidata": "Q11635471",
+      "lat": 35.70497,
+      "lon": 139.73633,
+      "name": "아카기 신사",
+      "nameEn": "Akagi Shrine",
+      "nameLocal": "赤城神社",
+      "city": "kagurazaka",
+      "theme": "history",
+      "durationMin": 15,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "구마 겐고가 새로 지은 유리 신사",
+      "why": "건축가 구마 겐고가 다시 지은 신사로 유리와 나무의 본전이 낯섭니다. 안에 카페가 있습니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kagurazaka-akomeya-tokyo-in-la-kagu",
+      "wikidata": null,
+      "lat": 35.70365,
+      "lon": 139.73321,
+      "name": "아코메야 도쿄 in la kagu",
+      "nameEn": "Akomeya Tokyo in la kagu",
+      "nameLocal": "AKOMEYA TOKYO in la kagu",
+      "city": "kagurazaka",
+      "theme": "shopping",
+      "durationMin": 40,
+      "priceJpy": null,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "select",
+        "variety",
+        "재방문"
+      ],
+      "summary": "옛 창고를 고친 쌀·식품·잡화 가게",
+      "why": "출판사 창고를 구마 겐고가 고친 건물의 식료품·잡화점입니다. 쌀과 반찬, 그릇이 있어 선물을 삽니다.",
+      "practical": {
+        "duration": "약 40분",
+        "price": null,
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "kagurazaka-kagurazaka-dori",
+      "wikidata": null,
+      "lat": 35.70102,
+      "lon": 139.74118,
+      "name": "가구라자카 도리",
+      "nameEn": "Kagurazaka-dori",
+      "nameLocal": "神楽坂通り",
+      "city": "kagurazaka",
+      "theme": "shopping",
+      "durationMin": 60,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "street",
+        "select",
+        "재방문"
+      ],
+      "summary": "이이다바시에서 오르는 돌길 상점가",
+      "why": "이이다바시에서 오르는 언덕 상점가로 화과자·프랑스 식당·잡화점이 섞여 있습니다. 오전과 오후에 일방통행 방향이 바뀝니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "jiyugaoka-mont-st-clair",
+      "wikidata": null,
+      "lat": 35.61261,
+      "lon": 139.66656,
+      "name": "몽 상 클레르",
+      "nameEn": "Mont St. Clair",
+      "nameLocal": "モンサンクレール",
+      "city": "jiyugaoka",
+      "theme": "food",
+      "durationMin": 30,
+      "priceJpy": 1200,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "cafe",
+        "fine",
+        "재방문"
+      ],
+      "summary": "쓰지구치 히로노부의 파티스리",
+      "why": "유명 파티시에 쓰지구치 히로노부의 본점입니다. 케이크를 고르는 줄이 길고 안에서 먹을 자리가 적습니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "¥1,200",
+        "booking": null,
+        "busy": "주말 오후 줄",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "jiyugaoka-kona-to-tamago",
+      "wikidata": null,
+      "lat": 35.60387,
+      "lon": 139.67018,
+      "name": "코나 토 타마고",
+      "nameEn": "Kona to Tamago",
+      "nameLocal": "粉と卵",
+      "city": "jiyugaoka",
+      "theme": "food",
+      "durationMin": 20,
+      "priceJpy": 600,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "cafe",
+        "재방문"
+      ],
+      "summary": "구움과자와 고구마 캐러멜",
+      "why": "밀가루와 달걀이라는 이름의 구움과자 가게로 고구마를 캐러멜에 굽는 과자가 대표입니다.",
+      "practical": {
+        "duration": "약 20분",
+        "price": "¥600",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "jiyugaoka-la-vita-jiyugaoka",
+      "wikidata": null,
+      "lat": 35.61076,
+      "lon": 139.6682,
+      "name": "라 비타 지유가오카",
+      "nameEn": "La Vita Jiyugaoka",
+      "nameLocal": "ラ・ヴィータ 自由が丘",
+      "city": "jiyugaoka",
+      "theme": "landmark",
+      "durationMin": 20,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "select",
+        "재방문"
+      ],
+      "summary": "베네치아를 흉내 낸 작은 상가",
+      "why": "운하와 곤돌라까지 베네치아를 본뜬 작은 상가입니다. 사진 자리로 들르고 잡화점을 봅니다.",
+      "practical": {
+        "duration": "약 20분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "jiyugaoka-kuhonbutsu-joshin-ji",
+      "wikidata": "Q11370077",
+      "lat": 35.60817,
+      "lon": 139.66088,
+      "name": "구혼부쓰 조신지",
+      "nameEn": "Kuhonbutsu Joshin-ji",
+      "nameLocal": "九品仏浄真寺",
+      "city": "jiyugaoka",
+      "theme": "history",
+      "durationMin": 40,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "아미타상 아홉 구의 절. 은행나무와 단풍",
+      "why": "세 채의 당에 아미타상 아홉 구를 모신 절입니다. 큰 은행나무와 가을 단풍이 좋고 녹도 끝에서 5분입니다.",
+      "practical": {
+        "duration": "약 40분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sangenjaya-gozoroppu",
+      "wikidata": null,
+      "lat": 35.64594,
+      "lon": 139.66981,
+      "name": "고조롯푸",
+      "nameEn": "Gozoroppu",
+      "nameLocal": "五臓六腑",
+      "city": "sangenjaya",
+      "theme": "nightlife",
+      "durationMin": 75,
+      "priceJpy": 3500,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "evening",
+        "night"
+      ],
+      "indoor": true,
+      "tags": [
+        "izakaya",
+        "seafood",
+        "재방문"
+      ],
+      "summary": "사가미만 생선의 이자카야",
+      "why": "사가미만에서 직송한 생선회와 안주를 내는 이자카야입니다. 산겐자야에 지점이 여럿이라 자리 찾기가 쉽습니다.",
+      "practical": {
+        "duration": "약 1시간 15분",
+        "price": "¥3,500",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sangenjaya-shoin-shrine",
+      "wikidata": "Q132473111",
+      "lat": 35.64705,
+      "lon": 139.65617,
+      "name": "쇼인 신사",
+      "nameEn": "Shoin Shrine",
+      "nameLocal": "松陰神社",
+      "city": "sangenjaya",
+      "theme": "history",
+      "durationMin": 20,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "요시다 쇼인의 신사. 노면전차로 간다",
+      "why": "유신 사상가 요시다 쇼인을 모신 신사입니다. 세타가야선 노면전차를 타고 가서 앞 상점가를 걷습니다.",
+      "practical": {
+        "duration": "약 20분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sangenjaya-setagaya-public-theatre",
+      "wikidata": "Q11362056",
+      "lat": 35.64369,
+      "lon": 139.66961,
+      "name": "세타가야 퍼블릭 시어터",
+      "nameEn": "Setagaya Public Theatre",
+      "nameLocal": "世田谷パブリックシアター",
+      "city": "sangenjaya",
+      "theme": "activity",
+      "durationMin": 120,
+      "priceJpy": null,
+      "energy": 3,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "캐럿타워 안의 공공극장",
+      "why": "캐럿타워 안의 극장으로 연극과 무용 공연이 있습니다. 노가쿠도 같은 무대 구조가 특징입니다.",
+      "practical": {
+        "duration": "약 2시간",
+        "price": null,
+        "booking": "공연은 예매",
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "tsukishima-tsukishima-monja-street",
+      "wikidata": null,
+      "lat": 35.66357,
+      "lon": 139.78146,
+      "name": "쓰키시마 몬자 스트리트",
+      "nameEn": "Tsukishima Monja Street",
+      "nameLocal": "月島西仲通り商店街",
+      "city": "tsukishima",
+      "theme": "food",
+      "durationMin": 30,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "street",
+        "local",
+        "재방문"
+      ],
+      "summary": "몬자 가게 70곳이 이어지는 상점가",
+      "why": "역에서 이어지는 500m 상점가에 몬자야키 가게가 70곳 넘게 있습니다. 골목 안쪽 가게가 조용합니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "tsukishima-monja-kondo",
+      "wikidata": null,
+      "lat": 35.6626,
+      "lon": 139.78119,
+      "name": "몬자 곤도 본점",
+      "nameEn": "Monja Kondo",
+      "nameLocal": "もんじゃ近どう 本店",
+      "city": "tsukishima",
+      "theme": "food",
+      "durationMin": 60,
+      "priceJpy": 1800,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "local",
+        "재방문"
+      ],
+      "summary": "1950년부터의 몬자 노포",
+      "why": "1950년부터 이어 온 몬자 노포입니다. 명란·치즈·떡 몬자가 정석이고 점원이 굽는 법을 알려 줍니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "¥1,800",
+        "booking": null,
+        "busy": "주말 저녁 줄",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "tsukishima-monja-daruma",
+      "wikidata": null,
+      "lat": 35.66356,
+      "lon": 139.7816,
+      "name": "몬자 다루마 쓰키시마 본점",
+      "nameEn": "Monja Daruma",
+      "nameLocal": "月島名物もんじゃ だるま 月島本店",
+      "city": "tsukishima",
+      "theme": "food",
+      "durationMin": 60,
+      "priceJpy": 2000,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "local",
+        "seafood",
+        "재방문"
+      ],
+      "summary": "옛 건물을 고친 몬자집",
+      "why": "오래된 건물을 고친 가게로 분위기가 좋습니다. 해산물 몬자가 많습니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "¥2,000",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "tsukishima-sumiyoshi-shrine-tsukuda",
+      "wikidata": "Q111280245",
+      "lat": 35.78961,
+      "lon": 139.26136,
+      "name": "스미요시 신사",
+      "nameEn": "Sumiyoshi Shrine Tsukuda",
+      "nameLocal": "住吉神社",
+      "city": "tsukishima",
+      "theme": "history",
+      "durationMin": 15,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "어부 마을 쓰쿠다의 신사. 3년마다 큰 축제",
+      "why": "오사카에서 온 어부들이 세운 쓰쿠다지마의 신사입니다. 3년마다 8월에 큰 가마 축제가 열립니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "tsukishima-tsukuda-park",
+      "wikidata": "Q28840599",
+      "lat": 35.66852,
+      "lon": 139.78266,
+      "name": "쓰쿠다 공원",
+      "nameEn": "Tsukuda Park",
+      "nameLocal": "佃公園",
+      "city": "tsukishima",
+      "theme": "nature",
+      "durationMin": 30,
+      "priceJpy": 0,
+      "energy": 3,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "옛 어촌 골목과 강변 산책로",
+      "why": "고층 아파트 아래 옛 어촌 골목과 붉은 다리, 등대 모양 건물이 남았습니다. 강변 산책로에서 도심이 보입니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "tsukishima-tenyasu",
+      "wikidata": null,
+      "lat": 35.6676,
+      "lon": 139.78226,
+      "name": "덴야스 본점",
+      "nameEn": "Tenyasu",
+      "nameLocal": "天安本店",
+      "city": "tsukishima",
+      "theme": "shopping",
+      "durationMin": 15,
+      "priceJpy": null,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "craft",
+        "local",
+        "재방문"
+      ],
+      "summary": "1837년부터의 쓰쿠다니 가게",
+      "why": "쓰쿠다니가 태어난 쓰쿠다지마의 1837년 노포입니다. 작은 종이 상자에 담아 주어 선물로 좋습니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": null,
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "tsukishima-kachidoki-bridge",
+      "wikidata": "Q4844361",
+      "lat": 35.66194,
+      "lon": 139.775,
+      "name": "가치도키 다리",
+      "nameEn": "Kachidoki Bridge",
+      "nameLocal": "勝鬨橋",
+      "city": "tsukishima",
+      "theme": "landmark",
+      "durationMin": 15,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "옛 도개교. 쓰키지로 걸어 건넌다",
+      "why": "1940년의 도개교로 지금은 열리지 않습니다. 쓰키지 시장에서 쓰키시마로 걸어 건너는 길입니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ryogoku-eko-in",
+      "wikidata": "Q3049659",
+      "lat": 35.69344,
+      "lon": 139.79203,
+      "name": "에코인",
+      "nameEn": "Eko-in",
+      "nameLocal": "回向院",
+      "city": "ryogoku",
+      "theme": "history",
+      "durationMin": 30,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "스모가 시작된 절. 의적 네즈미코조의 묘",
+      "why": "에도 스모 대회가 열리던 절로 스모 발상지 비석이 있습니다. 의적 네즈미코조의 묘를 긁어 가면 운이 온다고 합니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ryogoku-chanko-kirishima",
+      "wikidata": null,
+      "lat": 35.69565,
+      "lon": 139.79157,
+      "name": "창코 기리시마",
+      "nameEn": "Chanko Kirishima",
+      "nameLocal": "ちゃんこ霧島",
+      "city": "ryogoku",
+      "theme": "food",
+      "durationMin": 75,
+      "priceJpy": 3500,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "comfort",
+        "local",
+        "재방문"
+      ],
+      "summary": "전 오제키 기리시마의 소금 창코",
+      "why": "전 오제키 기리시마가 하는 창코나베 집입니다. 소금 국물이 대표이고 국기관 옆이라 대회 뒤 자리가 찹니다.",
+      "practical": {
+        "duration": "약 1시간 15분",
+        "price": "¥3,500",
+        "booking": "대회 기간 예약",
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ryogoku-yoshiba",
+      "wikidata": null,
+      "lat": 35.70183,
+      "lon": 139.79565,
+      "name": "요시바",
+      "nameEn": "Yoshiba",
+      "nameLocal": "割烹吉葉",
+      "city": "ryogoku",
+      "theme": "food",
+      "durationMin": 90,
+      "priceJpy": 6000,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "fine",
+        "local",
+        "재방문"
+      ],
+      "summary": "옛 스모 부야의 씨름판 앞에서 먹는 창코",
+      "why": "옛 스모 부야 건물을 그대로 써서 가운데 씨름판이 남았습니다. 저녁에는 씨름판 위에서 노래·연주 공연이 있습니다.",
+      "practical": {
+        "duration": "약 1시간 30분",
+        "price": "¥6,000",
+        "booking": "예약 권장",
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ryogoku-nomi-no-sukune-shrine",
+      "wikidata": "Q106852594",
+      "lat": 35.69696,
+      "lon": 139.80126,
+      "name": "노미노스쿠네 신사",
+      "nameEn": "Nomi no Sukune Shrine",
+      "nameLocal": "野見宿禰神社",
+      "city": "ryogoku",
+      "theme": "history",
+      "durationMin": 10,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "스모의 신. 역대 요코즈나 비석",
+      "why": "스모의 조상신을 모신 작은 신사로 역대 요코즈나의 이름을 새긴 비석이 있습니다. 대회 전 협회가 참배합니다.",
+      "practical": {
+        "duration": "약 10분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ryogoku-ryogoku-takahashi",
+      "wikidata": null,
+      "lat": 35.6947,
+      "lon": 139.79681,
+      "name": "료고쿠 다카하시",
+      "nameEn": "Ryogoku Takahashi",
+      "nameLocal": "両国 髙はし",
+      "city": "ryogoku",
+      "theme": "shopping",
+      "durationMin": 15,
+      "priceJpy": null,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "craft",
+        "local",
+        "재방문"
+      ],
+      "summary": "스모 방석과 기념품 가게",
+      "why": "스모 방석과 부채, 리키시 이름 수건을 파는 오래된 가게입니다. 국기관 앞입니다.",
+      "practical": {
+        "duration": "약 15분",
+        "price": null,
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ryogoku-former-yasuda-garden",
+      "wikidata": "Q11511031",
+      "lat": 35.69836,
+      "lon": 139.79369,
+      "name": "구 야스다 정원",
+      "nameEn": "Former Yasuda Garden",
+      "nameLocal": "旧安田庭園",
+      "city": "ryogoku",
+      "theme": "nature",
+      "durationMin": 25,
+      "priceJpy": 0,
+      "energy": 3,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "국기관 옆 무료 일본 정원",
+      "why": "국기관 옆의 작은 회유식 정원으로 무료입니다. 옛날에는 스미다가와 조수를 끌어 연못을 채웠습니다.",
+      "practical": {
+        "duration": "약 25분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ryogoku-ryogoku-edo-noren",
+      "wikidata": null,
+      "lat": 35.69619,
+      "lon": 139.79243,
+      "name": "료고쿠 에도 노렌",
+      "nameEn": "Ryogoku Edo Noren",
+      "nameLocal": "-両国- 江戸NOREN",
+      "city": "ryogoku",
+      "theme": "food",
+      "durationMin": 60,
+      "priceJpy": 1500,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "local",
+        "재방문"
+      ],
+      "summary": "역 옛 건물 안 식당가. 가운데 씨름판",
+      "why": "옛 역사 건물에 에도 요리 식당을 모았고 가운데 진짜 규격의 씨름판이 있습니다. 창코·소바·튀김을 고릅니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "¥1,500",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "ryogoku-liondo",
+      "wikidata": null,
+      "lat": 35.69436,
+      "lon": 139.79744,
+      "name": "라이온도",
+      "nameEn": "Liondo",
+      "nameLocal": "ライオン堂",
+      "city": "ryogoku",
+      "theme": "shopping",
+      "durationMin": 10,
+      "priceJpy": null,
+      "energy": 1,
+      "popularity": 1,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "variety",
+        "local",
+        "재방문"
+      ],
+      "summary": "1907년부터 리키시 옷 가게",
+      "why": "리키시를 위한 큰 옷을 1907년부터 만드는 가게입니다. 창문 안 거대한 옷을 보는 것만으로 재밌습니다.",
+      "practical": {
+        "duration": "약 10분",
+        "price": null,
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "akasaka-hie-shrine",
+      "wikidata": "Q702042",
+      "lat": 35.67472,
+      "lon": 139.73958,
+      "name": "히에 신사",
+      "nameEn": "Hie Shrine",
+      "nameLocal": "日枝神社",
+      "city": "akasaka",
+      "theme": "history",
+      "durationMin": 30,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 5,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "붉은 도리이 계단과 원숭이 상. 에스컬레이터",
+      "why": "에도 성을 지키던 신사로 붉은 도리이가 이어진 계단이 유명합니다. 원숭이 상을 쓰다듬으며 인연을 빌고, 에스컬레이터로도 오릅니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "akasaka-akasaka-sacas",
+      "wikidata": "Q864638",
+      "lat": 35.6727,
+      "lon": 139.736,
+      "name": "아카사카 사카스",
+      "nameEn": "Akasaka Sacas",
+      "nameLocal": "赤坂サカス",
+      "city": "akasaka",
+      "theme": "landmark",
+      "durationMin": 30,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "TBS 방송국의 광장과 극장",
+      "why": "TBS 방송국 앞 광장과 극장, 식당가입니다. 봄 벚꽃과 겨울 스케이트장 행사가 열립니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "akasaka-state-guest-house-akasaka-palace",
+      "wikidata": "Q555255",
+      "lat": 35.68,
+      "lon": 139.72861,
+      "name": "게이힌칸 아카사카 이궁",
+      "nameEn": "State Guest House Akasaka Palace",
+      "nameLocal": "迎賓館赤坂離宮",
+      "city": "akasaka",
+      "theme": "landmark",
+      "durationMin": 90,
+      "priceJpy": 1500,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "네오바로크 궁전. 국빈 접대 자리",
+      "why": "국빈을 맞는 궁전으로 일반 공개일에 안을 봅니다. 앞 정원만 보는 표도 있고 수요일은 닫습니다.",
+      "practical": {
+        "duration": "약 1시간 30분",
+        "price": "¥1,500",
+        "booking": "공개일 확인",
+        "busy": null,
+        "closed": "수요일 휴관",
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "akasaka-hotel-new-otani-japanese-garden",
+      "wikidata": null,
+      "lat": 35.67983,
+      "lon": 139.7341,
+      "name": "뉴오타니 일본 정원",
+      "nameEn": "Hotel New Otani Japanese Garden",
+      "nameLocal": "ホテルニューオータニ 日本庭園",
+      "city": "akasaka",
+      "theme": "nature",
+      "durationMin": 30,
+      "priceJpy": 0,
+      "energy": 3,
+      "popularity": 3,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "호텔 안 400년 된 정원. 무료",
+      "why": "호텔 안에 있는 400년 된 정원으로 폭포와 붉은 다리가 있습니다. 투숙객이 아니어도 무료로 걷습니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "akasaka-akasaka-tsutsui",
+      "wikidata": null,
+      "lat": 35.6687,
+      "lon": 139.73783,
+      "name": "아카사카 쓰쓰이",
+      "nameEn": "Akasaka Tsutsui",
+      "nameLocal": "赤坂 津つ井",
+      "city": "akasaka",
+      "theme": "food",
+      "durationMin": 60,
+      "priceJpy": 3000,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "comfort",
+        "재방문"
+      ],
+      "summary": "1948년부터의 일본식 비프스테이크 덮밥",
+      "why": "1948년에 문 연 양식당으로 간장 양념 비프스테이크 덮밥이 대표입니다. 점심 줄이 깁니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "¥3,000",
+        "booking": null,
+        "busy": "평일 점심 줄",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "akasaka-akasaka-misuji-dori",
+      "wikidata": null,
+      "lat": 35.67403,
+      "lon": 139.73746,
+      "name": "아카사카 미스지도리",
+      "nameEn": "Akasaka Misuji-dori",
+      "nameLocal": "赤坂みすじ通り",
+      "city": "akasaka",
+      "theme": "nightlife",
+      "durationMin": 90,
+      "priceJpy": 4000,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "evening",
+        "night"
+      ],
+      "indoor": true,
+      "tags": [
+        "izakaya",
+        "bar",
+        "street",
+        "재방문"
+      ],
+      "summary": "접대 골목. 노포와 한국 식당",
+      "why": "아카사카의 술집 골목으로 노포 요정과 한국 식당, 바가 섞여 있습니다. 늦게까지 열린 집이 많습니다.",
+      "practical": {
+        "duration": "약 1시간 30분",
+        "price": "¥4,000",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sugamo-sugamo-jizo-dori",
+      "wikidata": null,
+      "lat": 35.7388,
+      "lon": 139.73062,
+      "name": "스가모 지조도리 상점가",
+      "nameEn": "Sugamo Jizo-dori",
+      "nameLocal": "巣鴨地蔵通り商店街",
+      "city": "sugamo",
+      "theme": "shopping",
+      "durationMin": 60,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 4,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "street",
+        "local",
+        "재방문"
+      ],
+      "summary": "할머니들의 하라주쿠. 780m 상점가",
+      "why": "고간지로 이어지는 780m 상점가로 화과자·빨간 속옷·반찬 가게가 이어집니다. 4·14·24일에는 노점이 늘어납니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "무료",
+        "booking": null,
+        "busy": "4·14·24일 장날",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sugamo-kifukudo",
+      "wikidata": null,
+      "lat": 35.73561,
+      "lon": 139.73493,
+      "name": "기후쿠도",
+      "nameEn": "Kifukudo",
+      "nameLocal": "喜福堂",
+      "city": "sugamo",
+      "theme": "food",
+      "durationMin": 10,
+      "priceJpy": 200,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "street",
+        "local",
+        "재방문"
+      ],
+      "summary": "1916년부터의 단팥빵",
+      "why": "1916년부터 단팥빵을 굽는 빵집입니다. 미즈노 다음에 들르는 순서가 정해져 있습니다.",
+      "practical": {
+        "duration": "약 10분",
+        "price": "¥200",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sugamo-raijindo-sugamo",
+      "wikidata": null,
+      "lat": 35.73468,
+      "lon": 139.73661,
+      "name": "라이진도 스가모 본점",
+      "nameEn": "Raijindo Sugamo",
+      "nameLocal": "雷神堂 巣鴨本店",
+      "city": "sugamo",
+      "theme": "shopping",
+      "durationMin": 10,
+      "priceJpy": null,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": true,
+      "tags": [
+        "street",
+        "craft",
+        "재방문"
+      ],
+      "summary": "손으로 굽는 전병 가게",
+      "why": "전병을 하나씩 손으로 구워 파는 가게입니다. 맛이 수십 가지라 골라 담습니다.",
+      "practical": {
+        "duration": "약 10분",
+        "price": null,
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sugamo-shinsho-ji",
+      "wikidata": "Q3083875",
+      "lat": 35.78608,
+      "lon": 140.31831,
+      "name": "신쇼지",
+      "nameEn": "Shinsho-ji",
+      "nameLocal": "真性寺",
+      "city": "sugamo",
+      "theme": "history",
+      "durationMin": 10,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": true,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "에도 6지장의 하나. 상점가 입구",
+      "why": "에도의 여섯 길목을 지키던 지장보살 중 하나가 있는 절로 상점가 입구에 있습니다.",
+      "practical": {
+        "duration": "약 10분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sugamo-rikugien",
+      "wikidata": "Q124651836",
+      "lat": 35.73239,
+      "lon": 139.74575,
+      "name": "리쿠기엔",
+      "nameEn": "Rikugien",
+      "nameLocal": "六義園",
+      "city": "sugamo",
+      "theme": "nature",
+      "durationMin": 60,
+      "priceJpy": 300,
+      "energy": 3,
+      "popularity": 5,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": false,
+      "tags": [
+        "벚꽃",
+        "단풍",
+        "재방문"
+      ],
+      "summary": "에도 다이묘 정원. 수양벚나무와 단풍 조명",
+      "why": "와카의 경치를 본떠 만든 에도 다이묘 정원입니다. 3월 말 수양벚나무와 11월 단풍 야간 조명이 유명합니다.",
+      "practical": {
+        "duration": "약 1시간",
+        "price": "¥300",
+        "booking": null,
+        "busy": "벚꽃·단풍 조명 기간",
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sugamo-sugamo-tokiwa-shokudo",
+      "wikidata": null,
+      "lat": 35.73615,
+      "lon": 139.73405,
+      "name": "스가모 도키와 식당",
+      "nameEn": "Sugamo Tokiwa Shokudo",
+      "nameLocal": "巣鴨ときわ食堂",
+      "city": "sugamo",
+      "theme": "food",
+      "durationMin": 45,
+      "priceJpy": 1200,
+      "energy": 1,
+      "popularity": 3,
+      "bestSlots": [
+        "lunch",
+        "dinner"
+      ],
+      "indoor": true,
+      "tags": [
+        "comfort",
+        "local",
+        "재방문"
+      ],
+      "summary": "생선구이 정식의 동네 식당",
+      "why": "생선구이와 튀김 정식을 싸게 내는 동네 식당입니다. 스가모에 가게가 여럿이라 줄이 짧은 곳으로 갑니다.",
+      "practical": {
+        "duration": "약 45분",
+        "price": "¥1,200",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sugamo-koshinzuka-stop",
+      "wikidata": "Q11063262",
+      "lat": 35.73961,
+      "lon": 139.72975,
+      "name": "고신즈카 정류장",
+      "nameEn": "Koshinzuka Stop",
+      "nameLocal": "庚申塚停留場",
+      "city": "sugamo",
+      "theme": "landmark",
+      "durationMin": 20,
+      "priceJpy": 0,
+      "energy": 1,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon"
+      ],
+      "indoor": false,
+      "tags": [
+        "재방문"
+      ],
+      "summary": "도덴 아라카와선 노면전차. 상점가 끝",
+      "why": "상점가 끝에 있는 노면전차 정류장입니다. 여기서 도덴 아라카와선을 타고 오지·아라카와 방면으로 옛 동네를 지나갑니다.",
+      "practical": {
+        "duration": "약 20분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    },
+    {
+      "id": "sugamo-somei-cemetery",
+      "wikidata": "Q11533893",
+      "lat": 35.738,
+      "lon": 139.737,
+      "name": "소메이 영원",
+      "nameEn": "Somei Cemetery",
+      "nameLocal": "染井霊園",
+      "city": "sugamo",
+      "theme": "nature",
+      "durationMin": 30,
+      "priceJpy": 0,
+      "energy": 3,
+      "popularity": 2,
+      "bestSlots": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
+      "indoor": false,
+      "tags": [
+        "벚꽃",
+        "재방문"
+      ],
+      "summary": "소메이요시노 벚나무의 고향",
+      "why": "전국 벚꽃의 대부분인 소메이요시노 품종이 이 동네 정원사들에게서 나왔습니다. 봄에 벚꽃이 조용히 핍니다.",
+      "practical": {
+        "duration": "약 30분",
+        "price": "무료",
+        "booking": null,
+        "busy": null,
+        "closed": null,
+        "hours": null
+      },
+      "caution": null
+    }
+  ]
+}

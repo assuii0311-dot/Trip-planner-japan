@@ -67,18 +67,18 @@ export const EXTRAS = [
     caution: null,
   },
   {
-    id: 'ueno-yanaka-ginza', wikidata: null, lat: 35.72790, lon: 139.76560,
-    name: '야나카 긴자', nameEn: 'Yanaka Ginza', nameLocal: '谷中銀座', city: 'ueno',
+    id: 'nippori-yanaka-ginza', wikidata: null, lat: 35.72790, lon: 139.76560,
+    name: '야나카 긴자', nameEn: 'Yanaka Ginza', nameLocal: '谷中銀座', city: 'nippori',
     theme: 'shopping', durationMin: 60, priceJpy: 0, energy: 2, popularity: 4,
     bestSlots: ['afternoon', 'evening'], indoor: false, tags: ['골목', '먹거리', 'street'],
     summary: '전쟁을 피해 살아남은 옛 동네의 상점가. 고양이의 동네',
-    why: '닛포리역에서 내려오는 계단(유야케 단단) 아래로 170m 남짓 이어지는 상점가입니다. 크로켓·멘치카츠를 사 먹으며 걷는 곳이고, 골목마다 고양이 조형물이 있습니다. 우에노 공원에서 야나카 묘지를 지나 걸어오면 옛 도쿄의 결이 이어집니다.',
+    why: '닛포리역에서 내려오는 계단(유야케 단단) 아래로 170m 남짓 이어지는 상점가입니다. 크로켓·멘치카츠를 사 먹으며 걷는 곳이고, 골목마다 고양이 조형물이 있습니다. 우에노 공원에서 야나카 묘지를 지나 걸어와도 되고, 닛포리역에서 내려와도 됩니다.',
     practical: P('약 1시간', '무료', { busy: '주말 오후가 가장 붐빕니다. 가게는 대개 10~18시입니다.' }),
     caution: '좌표는 지도에서 직접 확인한 값입니다.',
   },
   {
-    id: 'ueno-nezu-shrine', wikidata: 'Q335612', lat: 35.72023, lon: 139.76072,
-    name: '네즈 신사', nameEn: 'Nezu Shrine', nameLocal: '根津神社', city: 'ueno',
+    id: 'nippori-nezu-shrine', wikidata: 'Q335612', lat: 35.72023, lon: 139.76072,
+    name: '네즈 신사', nameEn: 'Nezu Shrine', nameLocal: '根津神社', city: 'nippori',
     theme: 'history', durationMin: 45, priceJpy: 0, energy: 2, popularity: 3,
     bestSlots: ['morning', 'afternoon'], indoor: false, tags: ['무료', '철쭉'],
     summary: '붉은 도리이가 터널처럼 이어지는 1900년 된 신사',
@@ -610,6 +610,29 @@ export const EXTRAS = [
  * 뺄 것. Wikidata 근접 검색이 반경 안이라는 이유로 끌어온, 여행 대상이 아닌 것들.
  */
 export const DROP = new Set([
+  // ── 재방문 동네 2차 — 장소가 아니거나, 옆 동네가 이미 가진 것 ──
+  'nippori-wd-pine-trees',                  // 병풍 그림. 장소가 아니다
+  'nippori-wd-haniwa-armored-man',          // 하니와 유물
+  'koenji-koen-ji',                         // 동네 자체를 절로 적은 것
+  'koenji-wd-japanese-society-for-preservation-of-birds', // 단체
+  'akasaka-tokyo-midtown',                  // = roppongi-tokyo-midtown
+  'akasaka-21-21-design-sight',             // = roppongi-21-21-design-sight
+  'akasaka-suntory-museum-of-art',          // 미드타운 안. 롯폰기 것
+  'akasaka-fujifilm-square',                // 미드타운 안
+  'akasaka-preece-premium',                 // 슈퍼마켓
+  'akasaka-wd-new-otani-art-museum',        // 2014 폐관
+  'sugamo-sugamo',                          // 동네 자체
+  'tsukishima-ramen-cooking-tokyo',         // 요리 교실 광고
+  'atami-atami-hihokan',                    // 성인 박물관
+  'atami-maxvalu-express',                  // 슈퍼마켓
+  'kawasaki-wd-toshiba-science-museum',     // 2024 폐관
+  'kawasaki-hub-kawasaki',                  // 체인 펍
+  'asakusa-wd-japanese-sword-museum',
+  'nippori-wd-suda-hachiman-shrine-mirror', // 유물
+  'kuramae-wd-japan-sumo-association',      // 단체
+  'ryogoku-wd-japan-sumo-association',      // 단체
+  'sugamo-wd-great-fire-of-meireki',        // 사건
+       // 료고쿠 것(ryogoku-japanese-sword-museum)
   'marunouchi-wd-tokugawa-shogunate',       // 정권. 장소가 아니다
   'marunouchi-wd-eirin',                    // 영화 심의 기구
   'marunouchi-wd-mitsui-memorial-museum',   // = ginza-mitsui-memorial-museum

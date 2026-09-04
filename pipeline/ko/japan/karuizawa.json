@@ -1,0 +1,63 @@
+{
+  "karuizawa-sasakura": {
+    "name": "사사쿠라",
+    "summary": "동네 소바집",
+    "why": "가루이자와의 동네 소바집입니다. 신슈 소바를 튀김과 함께 먹습니다."
+  },
+  "karuizawa-oiwake-soba-house": {
+    "name": "오이와케 소바 찻집",
+    "summary": "옛 나카센도 역참의 소바집",
+    "why": "옛 역참 오이와케에 있는 소바집입니다. 메뉴가 다양하고 정원이 보입니다."
+  },
+  "karuizawa-karuizawa-shaw-memorial-church": {
+    "name": "쇼 기념 예배당",
+    "summary": "가루이자와 최초의 교회. 별장지의 시작",
+    "why": "선교사 쇼가 세운 가루이자와 첫 교회입니다. 그가 별장을 지으며 피서지 가루이자와가 시작됐습니다.",
+    "durationMin": 20
+  },
+  "karuizawa-kazakoshi-park-arena": {
+    "name": "가자코시 공원 아레나",
+    "summary": "1998년 올림픽 컬링 경기장",
+    "theme": "activity",
+    "why": "나가노 올림픽 컬링 경기가 열린 곳입니다. 지금은 컬링 체험을 합니다.",
+    "durationMin": 60
+  },
+  "karuizawa-shiraito-falls": {
+    "name": "시라이토 폭포",
+    "summary": "흰 실이 늘어진 듯한 낮은 폭포. 가을 단풍",
+    "why": "높이 3m, 폭 70m의 낮고 넓은 폭포입니다. 가을 단풍이 좋고 역에서 버스로 25분입니다.",
+    "durationMin": 40
+  },
+  "karuizawa-old-karuizawa-main-street": {
+    "name": "구 가루이자와 긴자",
+    "summary": "별장지의 상점가. 잼과 빵",
+    "why": "가루이자와 별장지의 옛 상점가입니다. 잼·소시지·빵 가게가 이어지고 여름에 붐빕니다.",
+    "busy": "여름 주말",
+    "durationMin": 75
+  },
+  "karuizawa-karuizawa-sengataki-onsen": {
+    "name": "센가타키 온천",
+    "summary": "숲속의 원천 온천. 밤하늘",
+    "why": "나카가루이자와 숲속의 원천 온천입니다. 정원이 있고 맑은 밤에는 노천에서 별이 보입니다.",
+    "durationMin": 90
+  },
+  "karuizawa-hoshino-onsen-tombo-no-yu": {
+    "name": "호시노 온천 돈보노유",
+    "summary": "호시노 리조트의 당일 온천. 하루니레 테라스 옆",
+    "why": "호시노 리조트가 하는 당일 온천으로 나무가 보이는 노천이 좋습니다. 옆 하루니레 테라스에서 식사합니다.",
+    "durationMin": 90
+  },
+  "karuizawa-wd-kumoba-pond": {
+    "name": "구모바 연못",
+    "summary": "백조의 호수라 불리는 산책 연못. 단풍",
+    "why": "둘레 20분의 연못으로 물에 비치는 단풍이 유명합니다. 역에서 걸어 20분입니다.",
+    "durationMin": 40
+  },
+  "karuizawa-wd-uchimura-kanzo-memorial-stone-church": {
+    "name": "우치무라 간조 기념 돌의 교회",
+    "summary": "돌과 유리가 겹치는 건축가 켈로그의 교회",
+    "why": "돌 아치와 유리가 번갈아 겹치는 유기 건축의 교회입니다. 예식이 있으면 안에 못 들어갑니다.",
+    "caution": "예식 중에는 내부 관람 불가",
+    "durationMin": 30
+  }
+}

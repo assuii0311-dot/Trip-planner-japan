@@ -1,0 +1,31 @@
+{
+  "kawasaki-jackie-gyozarou": {
+    "name": "재키 교자로",
+    "summary": "교자를 채운 닭날개 튀김",
+    "why": "미슐랭 빕구르망 교자집의 자매점입니다. 교자 소를 채운 닭날개가 대표입니다."
+  },
+  "kawasaki-kawasaki-daishi": {
+    "name": "가와사키 다이시",
+    "summary": "액막이 절. 새해 참배객 300만",
+    "why": "홍법대사를 모신 액막이 절로 새해 참배객이 일본에서 손꼽힙니다. 참배길의 기침 사탕과 구즈모치가 명물입니다.",
+    "durationMin": 60
+  },
+  "kawasaki-kawasaki-racecourse": {
+    "name": "가와사키 경마장",
+    "summary": "평일 야간 경마",
+    "why": "평일에 열리는 지방 경마장으로 3~12월 야간 경주가 있습니다. 도심에서 가장 가기 쉬운 경마장입니다.",
+    "durationMin": 120
+  },
+  "kawasaki-wd-lazona-kawasaki-plaza": {
+    "name": "라조나 가와사키",
+    "summary": "역 앞 대형 쇼핑몰",
+    "why": "가와사키 역에 붙은 큰 쇼핑몰입니다. 도쿄와 요코하마 사이에서 쇼핑을 몰아 하기 좋습니다.",
+    "durationMin": 90
+  },
+  "kawasaki-wd-mitsuike-park": {
+    "name": "미쓰이케 공원",
+    "summary": "연못 셋의 벚꽃 명소",
+    "why": "연못 세 개를 둘러싼 공원으로 벚꽃 명소 100선입니다. 봄 이외에는 조용한 동네 공원입니다.",
+    "durationMin": 45
+  }
+}

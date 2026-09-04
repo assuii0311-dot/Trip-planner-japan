@@ -1,0 +1,44 @@
+{
+  "odawara-harekonami": {
+    "name": "하레코나미",
+    "summary": "마나즈루 항 생선의 가이세키",
+    "why": "아침에 경매로 산 마나즈루 항 생선으로 가이세키를 내는 집입니다. 역에서 걸어 3분입니다.",
+    "booking": "예약 권장"
+  },
+  "odawara-daruma": {
+    "name": "다루마 료리텐",
+    "summary": "메이지 시대 창업 튀김집. 등록문화재 건물",
+    "why": "1893년 창업한 튀김·생선 요리집으로 건물이 등록문화재입니다. 점심 텐동이 대표입니다."
+  },
+  "odawara-kanagawa-prefectural-museum-of-natural-history": {
+    "name": "가나가와 현립 생명의 별·지구 박물관",
+    "summary": "큰 자연사 박물관. 하코네 가는 길",
+    "why": "공룡 뼈대와 가나가와의 자연을 보는 큰 자연사 박물관입니다. 하코네 등산철도 이리우다 역 앞입니다.",
+    "closed": "월요일 휴관",
+    "durationMin": 90
+  },
+  "odawara-chinriu-honten": {
+    "name": "진리우 본점",
+    "summary": "1871년부터 우메보시. 140년 된 통",
+    "why": "오다와라 매실 절임의 노포입니다. 가게 뒤에 140년 넘은 절임 통이 있습니다.",
+    "theme": "shopping",
+    "durationMin": 20
+  },
+  "odawara-7th-nest": {
+    "name": "세븐스 네스트",
+    "summary": "재즈 바",
+    "why": "오다와라의 재즈 바입니다. 하코네에서 내려와 한 잔 하기 좋습니다."
+  },
+  "odawara-wd-shofuku-ji-temple": {
+    "name": "쇼후쿠지",
+    "summary": "석가당의 큰 스님 상이 있는 절",
+    "why": "오다와라 시내의 절로 석가당이 등록문화재입니다.",
+    "durationMin": 15
+  },
+  "odawara-wd-hotoku-ninomiya-shrine": {
+    "name": "호토쿠 니노미야 신사",
+    "summary": "오다와라 성 옆, 니노미야 손토쿠의 신사",
+    "why": "오다와라 출신 사상가 니노미야 손토쿠를 모신 신사입니다. 성 바로 옆이라 함께 봅니다.",
+    "durationMin": 20
+  }
+}
