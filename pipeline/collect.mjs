@@ -25,17 +25,36 @@ const flag = (n) => { const i = rest.indexOf(`--${n}`); return i === -1 ? null :
 const has = (n) => rest.includes(`--${n}`);
 
 const registry = await import(`./registry/${countrySlug}.mjs`);
-const { COUNTRY, CITIES, ATTRIBUTION } = registry;
+const { COUNTRY, ATTRIBUTION } = registry;
+/**
+ * 손으로 적은 동네(pipeline/manual → import-manual.mjs → registry/<country>-manual.json).
+ * 등록부 뒤에 붙인다. 같은 slug 가 등록부에 있으면 등록부가 이긴다.
+ */
+const manual = JSON.parse(await readFile(new URL(`./registry/${countrySlug}-manual.json`, import.meta.url), 'utf8').catch(() => '{"districts":[],"items":[]}'));
+const manualCities = (manual.districts ?? [])
+  .filter((d) => !registry.CITIES.some((c) => c.slug === d.slug))
+  .map((d) => ({
+    slug: d.slug, name: d.name, nameEn: d.nameEn, tier: d.tier, within: d.within ?? undefined,
+    titles: d.titles ?? [], radiusKm: d.tier === 'district' ? 1.2 : undefined,
+    region: d.region, lat: d.lat, lon: d.lon, isHub: false, hub: d.tier === 'city' ? (d.within ?? 'tokyo') : undefined,
+    blurb: d.blurb, dayTrips: [],
+    transitGuide: { passes: [], apps: [{ name: 'Google Maps', note: '노선·플랫폼·요금까지 정확합니다.' }], tips: [] },
+    manualProfile: d,
+  }));
+const CITIES = [...registry.CITIES, ...manualCities];
 /**
  * 나라마다 다른 것들 — 없으면 스페인 방식이다.
  *   LINKS   지역 간 역~역 구간표 (일본)
  *   DINING  식당이 모자란 도시에 넣는 '구역' 안내를 만드는 함수
  */
-const LINKS = registry.LINKS ?? [];
+const LINKS = [
+  ...(registry.LINKS ?? []),
+  ...(manual.districts ?? []).flatMap((d) => (d.links ?? []).map((l) => ({ a: d.slug, b: l.to, minutes: l.minutes, mode: '지하철' }))),
+];
 const diningAreas = registry.DINING ?? null;
 /** 손으로 넣는 항목과 빼는 항목. 없는 나라는 빈 값이다. */
 const extrasMod = await import(`./registry/${countrySlug}-extras.mjs`).catch(() => ({}));
-const EXTRAS = extrasMod.EXTRAS ?? [];
+const EXTRAS = [...(extrasMod.EXTRAS ?? []), ...(manual.items ?? [])];
 const DROP = extrasMod.DROP ?? new Set();
 const isJpy = COUNTRY.currency === 'JPY';
 
@@ -554,7 +573,10 @@ for (const [i, city] of selected.entries()) {
     JSON.stringify(finalItems),
   );
 
-  const ch = CHARACTER[city.slug] ?? {};
+  const ch = CHARACTER[city.slug] ?? (city.manualProfile ? {
+    profile: city.manualProfile.profile, nights: [0, 0], firstTimer: !!city.manualProfile.firstTimer,
+    tagline: city.manualProfile.blurb, tags: city.manualProfile.tags ?? [],
+  } : {});
   outCities.push({
     slug: city.slug, name: city.name, nameEn: city.nameEn,
     region: city.region, macroRegion: macroOf(city.region),
