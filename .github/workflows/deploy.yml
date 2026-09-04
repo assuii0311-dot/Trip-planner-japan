@@ -19,6 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # Pages 를 켜 두지 않은 저장소에서도 배포가 되게 한다. 처음 한 번 사이트를 만든다.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/setup-node@v4
         with:
           node-version: 22
