@@ -94,9 +94,13 @@ export function rankParts(item: Item, city: City | undefined): RankParts {
    * 셋 다 '있으면 가산' 이다. 무료 개방 공간이 영업시간이 없다고 깎이지
    * 않아야 하고, 대량 수입된 미번역 항목은 한국어 이름이 없어 걸러진다
    * (미번역 132곳 중 130곳이 wikidata 수입분이다).
+   *
+   * 여행자 가이드 등재는 Wikivoyage 만이 아니다. 손으로 넣은 항목(manual)은
+   * 현지 산책·맛집 기사와 공식 사이트에서 이름을 고르고 사람이 설명을 쓴
+   * 것이라 같은 무게로 친다.
    */
   const named = /[가-힣]/.test(item.name) ? 0.4 : 0;
-  const guide = item.source === 'wikivoyage' ? 0.3 : 0;
+  const guide = item.source === 'wikivoyage' || item.source === 'manual' ? 0.3 : 0;
   const anyInfo = (item.url || item.hours || item.priceEur !== null || item.wikidata) ? 0.3 : 0;
   return {
     fame: (item.popularity - 1) / 4,
@@ -128,6 +132,35 @@ export function rankScore(item: Item, city: City | undefined): number {
  *   세고비아 0.9일 · 론다 0.5일 · 네르하 0.4일 → 반나절
  */
 export const RANK_FLOOR = 0.45;
+
+/**
+ * 기준선 아래지만 코스를 세울 만한 곳 — 도시가 얇을 때만 쓴다.
+ *
+ * 위키데이터 항목이 없는 곳은 명성을 못 재서 popularity 가 기본값 2 로
+ * 떨어진다(스페인 2,142곳 중 1,556곳, 일본 763곳 중 434곳). 그런 곳은 한국어
+ * 이름·가이드 등재·실무 정보를 다 갖춰도 0.40 이라 기준선 바로 아래다.
+ * 그 결과 산세바스티안·세고비아·론다·아사쿠사처럼 실제로는 볼 것이 많은
+ * 도시가 대표 세 곳짜리로 보였다 — 스페인 60곳 중 44곳이 볼거리 6곳 미만.
+ *
+ * 기준선을 내리면 반대로 넘친다. 명성을 모르는 곳을 전부 넣어 봤더니 론다가
+ * 4일치, 로그로뇨가 5일치가 되고 톨레도가 당일치기에서 숙박지로 바뀌었다.
+ * 그래서 기준선은 두고, 기준선을 넘는 곳이 여섯이 안 되는 도시에서만
+ * 0.40 이상인 곳을 순위대로 여섯이 될 때까지 더 넣는다. 얇은 도시는
+ * 반나절~하루 코스가 서고, 두터운 도시는 그대로다.
+ */
+export const RANK_SOFT = 0.40;
+export const MIN_SIGHTS = 6;
+
+/**
+ * 코스에 넣을 만한 것. 기준선을 넘는 것에, 도시가 얇으면 완충 구간을 더한다.
+ * @param cityRanked 한 도시의 아이템을 순위 순으로(미식은 미리 뺀 것).
+ */
+export function worthOf<T extends { score: number }>(cityRanked: T[]): T[] {
+  const firm = cityRanked.filter((r) => r.score >= RANK_FLOOR);
+  if (firm.length >= MIN_SIGHTS) return firm;
+  const soft = cityRanked.filter((r) => r.score < RANK_FLOOR && r.score >= RANK_SOFT);
+  return [...firm, ...soft.slice(0, MIN_SIGHTS - firm.length)];
+}
 
 export interface Ranked { item: Item; score: number; rank: number; must: boolean }
 
@@ -218,7 +251,7 @@ export function tiersOf(
    */
   scale = 1,
 ): Tier[] {
-  const pool = cityRanked.filter((r) => r.score >= RANK_FLOOR);
+  const pool = worthOf(cityRanked);
   if (pool.length === 0) return [];
 
   const full = take(pool, TIER_MAX_DAYS.full * scale);

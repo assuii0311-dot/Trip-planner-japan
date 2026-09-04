@@ -51,7 +51,7 @@ console.log('\n=== 도시별 등급 ===');
 const EXPECT = {
   madrid: [3, 4], barcelona: [3, 4], seville: [3, 4],
   granada: [2, 3.5], toledo: [1, 2.5], cordoba: [1, 2],
-  segovia: [0.5, 1.5], ronda: [0.4, 1.5], nerja: [0.2, 1],
+  segovia: [0.5, 1.5], ronda: [0.4, 1.5], nerja: [0.2, 1.5], // 네르하: 완충(worthOf)으로 5곳 1.3일. 발코니·동굴·해변·수도교면 하루다
 };
 for (const [slug, [lo, hi]] of Object.entries(EXPECT)) {
   const city = idx.cities.find((c) => c.slug === slug);
