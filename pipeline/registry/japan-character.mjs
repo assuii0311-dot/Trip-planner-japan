@@ -13,7 +13,7 @@
 
 export const MACRO_REGIONS = [
   { id: 'tokyo', name: '도쿄 시내 — 한 곳에 묵고 지하철로', regions: ['도쿄'] },
-  { id: 'kanto', name: '도쿄 근교 — 당일치기와 온천', regions: ['가나가와', '사이타마', '도치기', '야마나시', '군마'] },
+  { id: 'kanto', name: '도쿄 근교 — 당일치기와 온천', regions: ['가나가와', '사이타마', '도치기', '야마나시', '군마', '시즈오카', '나가노', '지바', '도쿄 서부'] },
 ];
 
 /** 일본에는 섬 단위 여행이 없다(이번에는). 비워 둔다. */
@@ -60,7 +60,7 @@ export const CHARACTER = {
   },
   ueno: {
     profile: p(2, 3, 1, 2, 2, 1, 0, 2, 0), nights: [0, 0], firstTimer: true,
-    tagline: '박물관이 모인 공원과 아메요코 시장',
+    tagline: '박물관이 모인 공원과 아메요코 시장, 동물원',
     suitedFor: '박물관을 하루 종일 돌아도 좋은 분',
     highlights: ['도쿄국립박물관', '우에노 공원', '아메요코'],
     season: { best: '3월 말~4월 초', note: '우에노 공원은 도쿄에서 벚꽃 사람이 가장 많은 곳입니다.' },
@@ -129,6 +129,105 @@ export const CHARACTER = {
     highlights: ['메구로강', '다이칸야마 T-SITE', '스타벅스 리저브 로스터리'],
     season: { best: '3월 말~4월 초', note: '메구로강 벚꽃은 도쿄에서 가장 사진이 많은 자리입니다. 주말 저녁은 통제됩니다.' },
     tags: ['재방문', '카페', '쇼핑'],
+  },
+
+  // ── 재방문 동네 (2차) ───────────────────────────────────────────────
+  nippori: {
+    profile: p(2, 1, 0, 1, 2, 1, 0, 2, 0), nights: [0, 0], firstTimer: false,
+    tagline: '야나카 긴자와 절 골목, 노을 계단', suitedFor: '두 번째 도쿄. 옛 동네를 천천히 걷고 싶은 분',
+    highlights: ['야나카 긴자', '유야케 단단', '야나카 묘지'], season: null, tags: ['재방문', '골목', '고양이'],
+  },
+  ebisu: {
+    profile: p(0, 1, 1, 0, 3, 3, 0, 2, 0), nights: [0, 0], firstTimer: false,
+    tagline: '도쿄 사람들이 저녁을 먹는 동네', suitedFor: '이자카야와 와인바로 저녁을 길게 보내고 싶은 분',
+    highlights: ['에비스 가든플레이스', '에비스 요코초', '에비스 맥주 기념관'], season: null, tags: ['재방문', '미식', '나이트라이프'],
+  },
+  koenji: {
+    profile: p(0, 1, 0, 0, 2, 3, 0, 3, 0), nights: [0, 0], firstTimer: false,
+    tagline: '빈티지와 라이브하우스, 아와오도리', suitedFor: '시모키타보다 거친 동네를 원하는 분',
+    highlights: ['빈티지 골목', '고엔지 아와오도리', '라이브하우스'], season: { best: '8월 마지막 주말', note: '아와오도리에 100만 명이 옵니다.' }, tags: ['재방문', '쇼핑', '나이트라이프'],
+  },
+  kuramae: {
+    profile: p(1, 1, 0, 1, 2, 1, 1, 3, 0), nights: [0, 0], firstTimer: false,
+    tagline: '공방과 강변 카페의 동네', suitedFor: '가죽·문구 공방을 돌고 커피를 마시고 싶은 분',
+    highlights: ['가키모리 문구점', '스미다강 테라스', '가죽 공방 거리'], season: null, tags: ['재방문', '공예', '카페'],
+  },
+  kiyosumi: {
+    profile: p(1, 3, 0, 2, 2, 1, 0, 2, 0), nights: [0, 0], firstTimer: false,
+    tagline: '커피 로스터리와 현대미술관', suitedFor: '커피와 현대미술로 오후를 채우고 싶은 분',
+    highlights: ['도쿄도 현대미술관', '기요스미 정원', '블루보틀 1호점'], season: null, tags: ['재방문', '카페', '예술'],
+  },
+  kagurazaka: {
+    profile: p(2, 1, 1, 0, 3, 2, 0, 2, 0), nights: [0, 0], firstTimer: false,
+    tagline: '돌계단 골목과 프랑스 식당', suitedFor: '골목 저녁을 좋아하는 분',
+    highlights: ['효고요코초', '젠코쿠지', '아카기 신사'], season: null, tags: ['재방문', '미식', '골목'],
+  },
+  jiyugaoka: {
+    profile: p(0, 0, 0, 1, 3, 1, 0, 3, 0), nights: [0, 0], firstTimer: false,
+    tagline: '디저트 거리와 잡화점', suitedFor: '케이크와 잡화로 반나절을 보내고 싶은 분',
+    highlights: ['몽생클레르', '구혼부쓰 강변', '라 비타'], season: null, tags: ['재방문', '카페', '쇼핑'],
+  },
+  sangenjaya: {
+    profile: p(0, 1, 1, 0, 2, 3, 0, 2, 0), nights: [0, 0], firstTimer: false,
+    tagline: '삼각지대 술집 골목', suitedFor: '동네 술집에서 밤을 보내고 싶은 분',
+    highlights: ['산카쿠치타이', '캐럿타워 전망대', '세타가야선'], season: null, tags: ['재방문', '나이트라이프'],
+  },
+  tsukishima: {
+    profile: p(0, 0, 0, 0, 3, 2, 0, 0, 0), nights: [0, 0], firstTimer: false,
+    tagline: '몬자야키 거리', suitedFor: '철판 앞에서 저녁을 먹고 싶은 분',
+    highlights: ['몬자 스트리트', '쓰쿠다 골목', '스미요시 신사'], season: null, tags: ['재방문', '미식'],
+  },
+  ryogoku: {
+    profile: p(2, 2, 1, 0, 2, 1, 2, 0, 0), nights: [0, 0], firstTimer: false,
+    tagline: '스모의 동네', suitedFor: '스모와 에도의 역사에 관심이 있는 분',
+    highlights: ['료고쿠 국기관', '에도도쿄 박물관', '스미다 호쿠사이 미술관'], season: { best: '1·5·9월 대회', note: '대회 중에는 오후에 상위 선수 경기를 봅니다.' }, tags: ['재방문', '역사'],
+  },
+  akasaka: {
+    profile: p(2, 0, 1, 0, 3, 2, 0, 1, 0), nights: [0, 0], firstTimer: false,
+    tagline: '히에 신사와 접대 골목의 노포', suitedFor: '노포에서 제대로 된 저녁을 먹고 싶은 분',
+    highlights: ['히에 신사', '아카사카 미쓰케 골목', '도요카와 이나리'], season: null, tags: ['재방문', '미식'],
+  },
+  sugamo: {
+    profile: p(1, 0, 0, 0, 2, 0, 0, 3, 0), nights: [0, 0], firstTimer: false,
+    tagline: '할머니들의 하라주쿠', suitedFor: '관광지가 아닌 도쿄의 일상을 보고 싶은 분',
+    highlights: ['지조도리 상점가', '도게누키 지장', '소금 대복'], season: null, tags: ['재방문', '상점가'],
+  },
+
+  // ── 근교 (2차) ─────────────────────────────────────────────────────
+  atami: {
+    profile: p(1, 2, 2, 3, 2, 1, 1, 1, 3), nights: [1, 1], firstTimer: false,
+    tagline: '신칸센 45분의 온천 도시', suitedFor: '온천에서 하룻밤, 바다와 불꽃놀이',
+    highlights: ['아타미 온천', 'MOA 미술관', '아타미 불꽃놀이'], season: { best: '연중 · 불꽃놀이 날', note: '주말은 료칸이 비쌉니다.' }, tags: ['온천', '리조트', '재방문'],
+  },
+  karuizawa: {
+    profile: p(1, 2, 1, 3, 2, 0, 3, 3, 1), nights: [0, 1], firstTimer: false,
+    tagline: '별장 마을과 아울렛', suitedFor: '자전거로 숲길을 돌고 아울렛에 들르고 싶은 분',
+    highlights: ['구 가루이자와 긴자', '시라이토 폭포', '가루이자와 프린스 아울렛'], season: { best: '6~10월', note: '여름 피서지라 8월 주말은 붐빕니다.' }, tags: ['자연', '쇼핑', '재방문'],
+  },
+  chichibu: {
+    profile: p(3, 0, 1, 3, 1, 0, 3, 0, 1), nights: [0, 1], firstTimer: false,
+    tagline: '신사와 강 뱃놀이, 시바자쿠라', suitedFor: '산과 강을 하루에 보고 싶은 분',
+    highlights: ['지치부 신사', '나가토로 뱃놀이', '히쓰지야마 공원 시바자쿠라'], season: { best: '4월 중순~5월 초', note: '시바자쿠라 철 주말은 특급이 매진됩니다.' }, tags: ['자연', '당일치기', '재방문'],
+  },
+  odawara: {
+    profile: p(3, 0, 2, 1, 2, 0, 0, 1, 0), nights: [0, 0], firstTimer: false,
+    tagline: '성과 어시장, 하코네의 현관', suitedFor: '하코네 가는 길에 두 시간',
+    highlights: ['오다와라성', '오다와라 어시장', '가마보코 거리'], season: null, tags: ['당일치기', '역사'],
+  },
+  takao: {
+    profile: p(2, 0, 2, 3, 1, 0, 3, 0, 1), nights: [0, 0], firstTimer: false,
+    tagline: '신주쿠에서 50분의 산', suitedFor: '가볍게 등산하고 온천으로 마무리하고 싶은 분',
+    highlights: ['다카오산 야쿠오인', '케이블카', '교쿠로쿠 온천'], season: { best: '11월 중순(단풍)', note: '단풍 철 주말은 케이블카 대기 한 시간.' }, tags: ['자연', '당일치기', '등산'],
+  },
+  kawasaki: {
+    profile: p(2, 1, 2, 0, 2, 1, 2, 2, 0), nights: [0, 0], firstTimer: false,
+    tagline: '다이시와 공장 야경', suitedFor: '공장 야경 크루즈 같은 색다른 것을 찾는 분',
+    highlights: ['가와사키 다이시', '공장 야경 크루즈', '라조나 가와사키'], season: null, tags: ['당일치기', '재방문'],
+  },
+  sawara: {
+    profile: p(3, 0, 2, 2, 1, 0, 1, 1, 0), nights: [0, 1], firstTimer: false,
+    tagline: '에도 시대 창고가 남은 물의 마을', suitedFor: '나리타 공항 근처에서 첫날·마지막 날을 쓰고 싶은 분',
+    highlights: ['오노강 물길', '이노 다다타카 옛집', '사팟파 배'], season: { best: '6월(창포) · 10월(가을 축제)', note: '' }, tags: ['역사', '당일치기'],
   },
   kichijoji: {
     profile: p(0, 2, 0, 3, 2, 1, 1, 2, 0), nights: [0, 0],

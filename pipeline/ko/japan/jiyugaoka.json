@@ -1,0 +1,63 @@
+{
+  "jiyugaoka-shutters": {
+    "name": "셔터스",
+    "summary": "스페어립과 애플파이의 조합으로 유명",
+    "why": "지유가오카에서 오래된 양식당입니다. 여러 소스의 스페어립 뒤에 애플파이 아라모드를 먹는 것이 정해진 순서입니다."
+  },
+  "jiyugaoka-mangetsu-korean-cuisine": {
+    "name": "만게쓰",
+    "summary": "작은 한국 요리집. 지짐이",
+    "why": "한국 사람이 하는 작은 가게입니다. 여행 중 한식이 그리울 때 갑니다."
+  },
+  "jiyugaoka-nana-s-green-tea": {
+    "name": "나나즈 그린티",
+    "summary": "말차 디저트 카페",
+    "why": "말차와 팥으로 만든 파르페·라떼가 많은 카페입니다. 디저트 거리 지유가오카의 하나입니다.",
+    "durationMin": 30
+  },
+  "jiyugaoka-kochoo": {
+    "name": "고추",
+    "summary": "순두부찌개 전문. 반찬 무한",
+    "why": "순두부찌개 전문 한식당으로 반찬을 계속 채워 줍니다. 일본에서는 드문 방식입니다."
+  },
+  "jiyugaoka-hara-donut": {
+    "name": "하라 도넛",
+    "summary": "두유로 만든 담백한 도넛",
+    "why": "두유와 비지로 만들어 기름이 덜한 도넛 가게입니다. 걷다가 하나 사서 들고 먹습니다.",
+    "durationMin": 10
+  },
+  "jiyugaoka-jiyugaoka-burger": {
+    "name": "지유가오카 버거",
+    "summary": "국산 재료의 두꺼운 수제 버거. 테라스",
+    "why": "국산 소고기와 유기농 채소로 만드는 수제 버거집입니다. 나무가 많은 테라스 자리가 좋습니다."
+  },
+  "jiyugaoka-kumano-shrine": {
+    "name": "구마노 신사",
+    "summary": "800년 된 동네 신사. 나무가 많고 조용하다",
+    "why": "지유가오카 역 옆인데 나무가 우거져 조용합니다. 액막이 기도로 오는 동네 사람이 많습니다.",
+    "durationMin": 15
+  },
+  "jiyugaoka-kuhonbutsu-river-green-street": {
+    "name": "구혼부쓰가와 녹도",
+    "summary": "벚나무 산책로. 지유가오카에서 구혼부쓰까지",
+    "why": "복개한 개천 위의 산책로로 벤치와 카페가 이어집니다. 봄 벚꽃이 좋고, 끝의 구혼부쓰 조신지까지 20분입니다.",
+    "durationMin": 40
+  },
+  "jiyugaoka-jiyugaoka-sweets-forest": {
+    "name": "지유가오카 스위츠 포레스트",
+    "summary": "디저트 가게를 모은 작은 푸드파크",
+    "why": "여러 디저트 가게를 한 건물에 모아 놓은 곳입니다. 가게 구성이 자주 바뀌니 가기 전 확인합니다.",
+    "durationMin": 40
+  },
+  "jiyugaoka-speyside-way": {
+    "name": "스페이사이드 웨이",
+    "summary": "위스키 수백 병의 바",
+    "why": "벽을 가득 채운 위스키가 수백 병입니다. 스카치 중심이고 일본 위스키도 있어 2차로 좋습니다."
+  },
+  "jiyugaoka-kameyamannendo": {
+    "name": "가메야 만넨도",
+    "summary": "1938년 창업 화과자. 나보나",
+    "why": "지유가오카에서 시작한 화과자 가게로 부드러운 카스텔라 과자 '나보나'가 대표입니다. 선물로 가볍습니다.",
+    "durationMin": 10
+  }
+}

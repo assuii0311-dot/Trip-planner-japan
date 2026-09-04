@@ -6,6 +6,8 @@
  *
  * - districts.csv → 동네(지역·근교). 좌표가 비었으면 Wikidata 에서 찾는다.
  * - items.csv     → 장소. 좌표가 비었으면 Wikidata 에서 찾고, 못 찾으면 빼고 알린다.
+ * - 좌표 찾는 순서: Wikidata(영문 → 일문) → OpenStreetMap Nominatim(일문 → 영문).
+ *   명소는 Wikidata 에, 식당·술집·가게는 OSM 에 있다. 둘 다 ODbL/CC0 라 저장할 수 있다.
  * - 결과는 registry/<country>-manual.json. collect.mjs 가 읽어 합친다.
  * - 찾은 좌표는 CSV 에 다시 써 둔다. 다음 실행에서는 조회하지 않는다.
  */
@@ -68,7 +70,30 @@ async function locate(name, lang = 'en') {
   return null;
 }
 
+/**
+ * OpenStreetMap Nominatim — 이름으로 가게·장소를 찾는다.
+ *
+ * 식당과 술집은 Wikidata 에 없다. OSM 에는 대개 있다(도쿄는 특히 촘촘하다).
+ * 이용 정책: 초당 1회, 식별 가능한 User-Agent. 도쿄권(간토) 안으로 좁혀
+ * 같은 이름의 다른 도시 가게를 잡지 않게 한다.
+ */
+async function nominatim(name, near) {
+  if (!name) return null;
+  const box = near ? `${near.lon - 0.05},${near.lat + 0.04},${near.lon + 0.05},${near.lat - 0.04}` : '137.5,37.5,141.5,34.0';
+  const url = `https://nominatim.openstreetmap.org/search?${new URLSearchParams({
+    q: name, format: 'jsonv2', limit: '3', countrycodes: 'jp', viewbox: box, bounded: near ? '1' : '0',
+  })}`;
+  await sleep(1100);
+  const res = await fetch(url, { headers: { 'User-Agent': UA, 'Accept-Language': 'ja,en' } });
+  if (!res.ok) return null;
+  const list = await res.json();
+  const hit = list[0];
+  if (!hit) return null;
+  return { lat: +Number(hit.lat).toFixed(5), lon: +Number(hit.lon).toFixed(5), osm: `${hit.osm_type}/${hit.osm_id}`, label: hit.display_name };
+}
+
 const read = async (f) => parseCsv(await readFile(new URL(f, dir), 'utf8').catch(() => ''));
+const registry = await import(`./registry/${country}.mjs`).catch(() => ({ CITIES: [] }));
 const districtsRaw = await read('districts.csv');
 const itemsRaw = await read('items.csv');
 const problems = [];
@@ -117,7 +142,16 @@ for (const r of itemsRaw) {
       r.lat = String(hit.lat); r.lon = String(hit.lon); r.wikidata = r.wikidata || hit.qid;
       if (!r.popularity) r.popularity = String(hit.sitelinks >= 18 ? 4 : hit.sitelinks >= 7 ? 3 : 2);
       console.log(`  ${r.name}: 좌표 ← Wikidata ${hit.qid}`);
-    } else { problems.push(`장소 ${r.name}: 좌표를 못 찾았습니다. 지도에서 lat/lon 을 읽어 적어 주세요`); continue; }
+    } else {
+      // 가게는 Wikidata 에 없다. OSM 에서 동네 중심 근처로 좁혀 찾는다.
+      const home = districts.find((d) => d.slug === r.city) ?? registry.CITIES.find((c) => c.slug === r.city) ?? null;
+      const osm = (await nominatim(r.nameLocal, home)) ?? (await nominatim(r.nameEn, home))
+        ?? (await nominatim(r.nameLocal ? `${r.nameLocal} 東京` : '', null));
+      if (osm) {
+        r.lat = String(osm.lat); r.lon = String(osm.lon);
+        console.log(`  ${r.name}: 좌표 ← OSM ${osm.osm} (${osm.label.slice(0, 40)})`);
+      } else { problems.push(`장소 ${r.name}: Wikidata·OSM 어디에도 없습니다. 지도에서 lat/lon 을 읽어 적어 주세요`); continue; }
+    }
     await sleep(400);
   }
   const dur = Number(r.durationMin) || 60;

@@ -1,0 +1,56 @@
+{
+  "atami-cafe-roca": {
+    "name": "카페 로카",
+    "summary": "북유럽 요리를 내는 작은 카페",
+    "why": "북유럽식 요리와 커피를 내는 작은 카페입니다. 온천 마을 안내를 얻기 좋습니다.",
+    "durationMin": 45
+  },
+  "atami-mon": {
+    "name": "몬",
+    "summary": "동네 이탈리아 식당",
+    "why": "피자와 파스타를 내는 동네 이탈리아 식당입니다. 온천 여관 식사가 아닌 저녁으로 갑니다."
+  },
+  "atami-atami-castle": {
+    "name": "아타미 성",
+    "summary": "1959년에 지은 전망용 성. 바다 전망",
+    "why": "역사 유적은 아니고 전망을 위해 지은 성입니다. 꼭대기에서 아타미 만이 다 보이고 여름 불꽃놀이 자리로 좋습니다.",
+    "durationMin": 60
+  },
+  "atami-moa-museum-of-art": {
+    "name": "MOA 미술관",
+    "summary": "언덕 위 미술관. 오가타 고린의 홍백매도",
+    "why": "긴 에스컬레이터로 오르는 언덕 위 미술관입니다. 국보 홍백매도(2월 공개)와 바다가 보이는 창이 유명합니다.",
+    "closed": "목요일 휴관",
+    "durationMin": 90
+  },
+  "atami-atami-marine-spa": {
+    "name": "마린 스파 아타미",
+    "summary": "수영복 입고 들어가는 온천 풀",
+    "why": "수영복으로 들어가는 온천 풀장이라 가족과 함께 갑니다. 바다 쪽 노천이 있습니다.",
+    "durationMin": 120
+  },
+  "atami-ekimae-onsen-yokujo": {
+    "name": "에키마에 온천 욕장",
+    "summary": "역 앞 동네 온천탕. 싸다",
+    "why": "역 앞의 작고 낡은 공동탕입니다. 여관에 묵지 않아도 ¥500 남짓에 아타미 온천에 몸을 담급니다.",
+    "durationMin": 45
+  },
+  "atami-public-foot-bath": {
+    "name": "이에야스노유 족탕",
+    "summary": "역 앞 무료 족탕",
+    "why": "역 앞 광장의 무료 족탕입니다. 기차 기다리며 발을 담급니다.",
+    "durationMin": 15
+  },
+  "atami-wd-izusan-shrine": {
+    "name": "이즈산 신사",
+    "summary": "미나모토노 요리토모가 기도한 절벽 위 신사",
+    "why": "요리토모와 마사코가 만난 곳으로 전해지는 신사입니다. 긴 계단 위에서 바다가 보입니다.",
+    "durationMin": 30
+  },
+  "atami-wd-kinomiya-shrine": {
+    "name": "기노미야 신사",
+    "summary": "2000년 된 녹나무. 한 바퀴 돌면 수명이 는다",
+    "why": "둘레 24m의 거대한 녹나무가 있는 신사입니다. 나무를 한 바퀴 돌면 수명이 1년 는다는 말이 있습니다.",
+    "durationMin": 30
+  }
+}

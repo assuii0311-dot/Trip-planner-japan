@@ -275,6 +275,11 @@ const elsewhere = await (async () => {
   return {
     names: (slug) => siblings(slug).flatMap((c) => [...(own.get(c.slug)?.names ?? [])]),
     qids: (slug) => siblings(slug).flatMap((c) => [...(own.get(c.slug)?.qids ?? [])]),
+    /** 이 리스팅을 자기 문서에도 갖고 있는 옆 지역들. */
+    holders: (slug, it) => siblings(slug).filter((c) => {
+      const o = own.get(c.slug);
+      return o && (o.names.has(it.name) || (it.wikidata && o.qids.has(it.wikidata)));
+    }),
   };
 })();
 
@@ -299,7 +304,8 @@ for (const [i, city] of selected.entries()) {
    * 자리인 곳. 그런 도시는 아무것도 긁지 않고 아이템 0개로 둔다.
    */
   const titles = city.titles ?? (city.title ? [city.title] : []);
-  const shell = titles.length === 0;
+  // 껍데기 = 지역이 딸린 도시(도쿄). 문서가 없는 동네(닛포리)는 껍데기가 아니라 Wikidata 로 채운다.
+  const shell = CITIES.some((c) => c.within === city.slug);
   if (!items && shell) { items = []; popularity = {}; }
   if (!items) {
     items = [];
@@ -345,8 +351,34 @@ for (const [i, city] of selected.entries()) {
       + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lon - a.lon) * r) / 2) ** 2;
     return 2 * 6371 * Math.asin(Math.sqrt(h));
   };
-  const inRange = (it) => !city.radiusKm || it.lat === null || km(city, it) <= city.radiusKm * 2;
-  const places = items.filter((it) => !EVENT_RE.test(`${it.name} ${it.descEn}`) && isVisitable(it) && inRange(it));
+  /*
+   * 좌표가 없는 리스팅은 원래 남겼다 — 어디인지 모르면 빼지 않는다는 원칙.
+   * 그런데 구 문서를 나눠 쓰는 작은 동네(가구라자카 ← 신주쿠 구)는 좌표 없는
+   * 리스팅이 대부분 역 앞 것이라 동네와 무관하다. 등록부에 match 낱말이
+   * 있는 동네는 좌표 없는 리스팅을 이름·주소·설명에 그 낱말이 있을 때만
+   * 남긴다(야나카·Yanaka → 닛포리).
+   */
+  const matchWords = (city.match ?? []).map((w) => w.toLowerCase());
+  const mentions = (it) => {
+    if (!matchWords.length) return true;
+    const text = `${it.name} ${it.nameLocal ?? ''} ${it.address ?? ''} ${it.descEn ?? ''}`.toLowerCase();
+    return matchWords.some((w) => text.includes(w));
+  };
+  const inRange = (it) => !city.radiusKm || (it.lat === null ? mentions(it) : km(city, it) <= city.radiusKm * 2);
+  /*
+   * 같은 것을 두 지역이 갖고 있으면 가까운 쪽이 가져간다.
+   *
+   * 에비스는 시부야 구 문서를, 스가모는 도시마 구 문서를 쓴다. 그대로 두면
+   * 하치코가 시부야와 에비스에 두 번 들어간다. 문서를 나눠 쓰지 않아도
+   * 겹친다 — 아카사카 문서와 롯폰기 문서 둘 다 미드타운을 적는다. 좌표가
+   * 있는 리스팅은, 같은 문서를 쓰거나 같은 리스팅을 가진 옆 지역 중 중심에
+   * 더 가까운 곳이 있으면 그쪽 것이다.
+   */
+  const siblingsSharing = CITIES.filter((c) => c.slug !== city.slug && c.within && c.within === city.within
+    && (c.titles ?? []).some((t) => titles.includes(t)));
+  const owned = (it) => it.lat === null
+    || ![...siblingsSharing, ...elsewhere.holders(city.slug, it)].some((c) => km(c, it) < km(city, it));
+  const places = items.filter((it) => !EVENT_RE.test(`${it.name} ${it.descEn}`) && isVisitable(it) && inRange(it) && owned(it));
   const enriched = selectBalanced(places.map((it) => enrichItem(it, popularity)), cap, city.isHub)
     .map((it) => {
       const override = ko[it.id] ?? {};
