@@ -44,7 +44,8 @@ node pipeline/collect.mjs japan       # 데이터 생성 (수동 항목이 합�
 | why | 왜 가는가. 두세 문장 |
 | caution / booking / busy / closed / hours | 있을 때만 |
 | tags | 2단계 취향과 맞추는 태그. 음식: sushi noodle izakaya comfort fine street cafe bar local seafood vegetarian · 쇼핑: department variety otaku select craft street · 그 밖에 자유(재방문, 벚꽃 …) |
-| lat / lon | 비우면 nameEn(없으면 nameLocal)으로 Wikidata 에서 찾는다. **못 찾으면 넣지 않고 알려 준다** — 좌표를 지어내지 않는다 |
+| address | 이름으로 못 찾을 때 쓰는 주소(東京都台東区蔵前4-20-4). 공식 사이트·안내 기사의 주소를 옮겨 적는다 |
+| lat / lon | 비우면 nameEn(없으면 nameLocal)으로 Wikidata 에서, 그다음 OSM 에서 이름으로, 그다음 address 로 国土地理院 주소 검색에서 찾는다(番地까지). **못 찾으면 넣지 않고 알려 준다** — 좌표를 지어내지 않는다 |
 | wikidata | 알면 QID. 비우면 찾는다 |
 | popularity | 1(숨은 곳)~5(누구나 아는 곳). 비우면 3 |
 

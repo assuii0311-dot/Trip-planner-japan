@@ -78,7 +78,8 @@ async function locate(name, lang = 'en') {
  * 같은 이름의 다른 도시 가게를 잡지 않게 한다.
  */
 const norm = (v) => String(v ?? '').toLowerCase().replace(/[\s　・･'’"]/g, '').replace(/髙/g, '高');
-const PLACE_WORDS = ['蔵前', '恵比寿', '高円寺', '神楽坂', '清澄白河', '自由が丘', '三軒茶屋', '月島', '両国', '赤坂', '巣鴨', '谷中', '根津', '駒形', '広尾', '東京', 'tokyo', 'ebisu', 'kuramae', 'kagurazaka', 'jiyugaoka', 'koenji', 'sangenjaya', 'ryogoku', 'akasaka', 'sugamo', 'tsukishima', 'kiyosumi-shirakawa', 'kiyosumi', 'nezu', 'yanaka', 'hiroo', 'komagata'];
+const PLACE_WORDS = ['蔵前', '恵比寿', '高円寺', '神楽坂', '清澄白河', '自由が丘', '三軒茶屋', '月島', '両国', '赤坂', '巣鴨', '谷中', '根津', '駒形', '広尾', '東京', 'tokyo', 'ebisu', 'kuramae', 'kagurazaka', 'jiyugaoka', 'koenji', 'sangenjaya', 'ryogoku', 'akasaka', 'sugamo', 'tsukishima', 'kiyosumi-shirakawa', 'kiyosumi', 'nezu', 'yanaka', 'hiroo', 'komagata',
+  '軽井沢', '中軽井沢', '熱海', '秩父', '長瀞', '小田原', '高尾', '高尾山', '川崎', '佐原', 'karuizawa', 'atami', 'chichibu', 'nagatoro', 'odawara', 'takao', 'kawasaki', 'sawara'];
 const GENERIC = new Set(['もんじゃ', 'monja', 'ちゃんこ', 'chanko', 'カフェ', 'cafe', 'café', 'coffee', '珈琲', '神社', '公園', '商店街', '寺', '横丁', 'bar', 'バー', '本店', '支店', '店', 'shop', 'store', 'house', 'tokyo']);
 const stripShop = (v) => v.replace(/(本店|支店|店)$/u, '');
 /** 이 낱말만으로는 어느 가게인지 모른다 — 동네 이름, 업종 이름. */
@@ -123,18 +124,39 @@ const km = (a, b) => {
  *
  * 지역은 반경 안이면 받고, 반경의 두 배까지는 주소에 동네 이름(match 낱말)이
  * 있을 때만 받는다 — 같은 이름의 다른 지점(だるま 新川)을 거르기 위해서다.
- * 근교 도시는 6km.
+ * 근교 도시는 반경의 두 배(최소 6km).
  */
 function nearEnough(home, hit) {
   if (!home || !Number.isFinite(+home.lat)) return true;
   const d = km({ lat: +home.lat, lon: +home.lon }, hit);
-  if (!home.within) return d <= 6;
+  if (!home.within) return d <= Math.max(2 * (home.radiusKm ?? 3), 6);
   const r = home.radiusKm ?? 1;
   if (d <= r) return true;
   if (d > 2 * r) return false;
   const words = (home.match ?? []).map((w) => w.toLowerCase());
   const label = (hit.label ?? '').toLowerCase();
   return !hit.label || words.some((w) => label.includes(w));
+}
+
+/**
+ * 国土地理院 주소 검색 — 번지까지 있는 일본 주소를 좌표로.
+ *
+ * Nominatim 은 도쿄 주소를 丁目까지만 푼다(蔵前4-20-4 → 蔵前四丁目 한가운데).
+ * 지리원 API 는 番地·号까지 풀어 준다. 출처 표기 조건으로 쓸 수 있다
+ * (国土地理院 地理院地図 API, 政府標準利用規約).
+ */
+async function gsi(address) {
+  if (!address) return null;
+  const url = `https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodeURIComponent(address)}`;
+  await sleep(500);
+  const res = await fetch(url, { headers: { 'User-Agent': UA } }).catch(() => null);
+  if (!res?.ok) return null;
+  const list = await res.json().catch(() => []);
+  // 丁目 뒤에 番까지 풀린 것만 받는다. 동네 이름만 맞춘 결과는 정확하지 않다.
+  const hit = list.find((f) => /番/.test(f.properties?.title ?? '') && f.geometry?.coordinates);
+  if (!hit) return null;
+  const [lon, lat] = hit.geometry.coordinates;
+  return { lat: +lat.toFixed(5), lon: +lon.toFixed(5), osm: 'gsi', label: hit.properties.title };
 }
 
 async function nominatimOnce(q, near) {
@@ -211,7 +233,7 @@ for (const r of districtsRaw) {
 }
 
 // ── 장소 ────────────────────────────────────────────────────────────
-const I_HEAD = ['city', 'name', 'nameEn', 'nameLocal', 'theme', 'durationMin', 'priceJpy', 'summary', 'why', 'caution', 'booking', 'busy', 'closed', 'hours', 'tags', 'lat', 'lon', 'wikidata', 'popularity'];
+const I_HEAD = ['city', 'name', 'nameEn', 'nameLocal', 'theme', 'durationMin', 'priceJpy', 'summary', 'why', 'caution', 'booking', 'busy', 'closed', 'hours', 'tags', 'address', 'lat', 'lon', 'wikidata', 'popularity'];
 const slugify = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 48);
 const items = [];
 for (const r of itemsRaw) {
@@ -227,11 +249,24 @@ for (const r of itemsRaw) {
       console.log(`  ${r.name}: 좌표 ← Wikidata ${hit.qid}`);
     } else {
       // 가게는 Wikidata 에 없다. OSM 에서 동네 중심 근처로 좁혀 찾는다.
-      const osm = await nominatim([r.nameLocal, r.nameEn].filter(Boolean), home);
+      let osm = await nominatim([r.nameLocal, r.nameEn].filter(Boolean), home);
+      if (osm) console.log(`  ${r.name}: 좌표 ← OSM ${osm.osm} (${osm.label.slice(0, 40)})`);
+      /*
+       * 이름으로 못 찾으면 주소로 찾는다. 가게 이름은 OSM 에 없어도 번지는
+       * 있다. 주소는 사실이라 공식 사이트·안내 기사에서 옮겨 적어도 된다.
+       * 이름 확인은 건너뛰고 동네 안인지만 본다.
+       */
+      if (!osm && r.address) {
+        const g = await gsi(r.address);
+        // Nominatim 은 주소를 丁目까지만 푼다. 걸어 도는 도쿄 지역에서는 그 정도로도
+        // 쓸 만하지만(몇백 m), 근교 도시에서는 大字 한가운데가 되어 버려 받지 않는다.
+        osm = (g && nearEnough(home, g) ? g : null)
+          ?? (home?.within ? (await nominatimOnce(r.address, home)).find((h) => nearEnough(home, h)) : null) ?? null;
+        if (osm) console.log(`  ${r.name}: 좌표 ← 주소 ${r.address} → ${osm.osm === 'gsi' ? '地理院' : `OSM ${osm.osm}`} (${osm.label.slice(0, 40)})`);
+      }
       if (osm) {
         r.lat = String(osm.lat); r.lon = String(osm.lon);
-        console.log(`  ${r.name}: 좌표 ← OSM ${osm.osm} (${osm.label.slice(0, 40)})`);
-      } else { problems.push(`장소 ${r.name}: Wikidata·OSM 어디에도 없습니다. 지도에서 lat/lon 을 읽어 적어 주세요`); continue; }
+      } else { problems.push(`장소 ${r.name}: Wikidata·OSM 어디에도 없습니다. address 열에 주소를 적거나 지도에서 lat/lon 을 읽어 적어 주세요`); continue; }
     }
     await sleep(400);
   }
