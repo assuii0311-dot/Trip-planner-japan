@@ -627,7 +627,12 @@ export const DROP = new Set([
   'atami-maxvalu-express',                  // 슈퍼마켓
   'kawasaki-wd-toshiba-science-museum',     // 2024 폐관
   'kawasaki-hub-kawasaki',                  // 체인 펍
-  'asakusa-wd-japanese-sword-museum',       // 료고쿠 것(ryogoku-japanese-sword-museum)
+  'asakusa-wd-japanese-sword-museum',
+  'nippori-wd-suda-hachiman-shrine-mirror', // 유물
+  'kuramae-wd-japan-sumo-association',      // 단체
+  'ryogoku-wd-japan-sumo-association',      // 단체
+  'sugamo-wd-great-fire-of-meireki',        // 사건
+       // 료고쿠 것(ryogoku-japanese-sword-museum)
   'marunouchi-wd-tokugawa-shogunate',       // 정권. 장소가 아니다
   'marunouchi-wd-eirin',                    // 영화 심의 기구
   'marunouchi-wd-mitsui-memorial-museum',   // = ginza-mitsui-memorial-museum

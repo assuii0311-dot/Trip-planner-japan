@@ -77,19 +77,100 @@ async function locate(name, lang = 'en') {
  * 이용 정책: 초당 1회, 식별 가능한 User-Agent. 도쿄권(간토) 안으로 좁혀
  * 같은 이름의 다른 도시 가게를 잡지 않게 한다.
  */
-async function nominatim(name, near) {
-  if (!name) return null;
+const norm = (v) => String(v ?? '').toLowerCase().replace(/[\s　・･'’"]/g, '').replace(/髙/g, '高');
+const PLACE_WORDS = ['蔵前', '恵比寿', '高円寺', '神楽坂', '清澄白河', '自由が丘', '三軒茶屋', '月島', '両国', '赤坂', '巣鴨', '谷中', '根津', '駒形', '広尾', '東京', 'tokyo', 'ebisu', 'kuramae', 'kagurazaka', 'jiyugaoka', 'koenji', 'sangenjaya', 'ryogoku', 'akasaka', 'sugamo', 'tsukishima', 'kiyosumi-shirakawa', 'kiyosumi', 'nezu', 'yanaka', 'hiroo', 'komagata'];
+const GENERIC = new Set(['もんじゃ', 'monja', 'ちゃんこ', 'chanko', 'カフェ', 'cafe', 'café', 'coffee', '珈琲', '神社', '公園', '商店街', '寺', '横丁', 'bar', 'バー', '本店', '支店', '店', 'shop', 'store', 'house', 'tokyo']);
+const stripShop = (v) => v.replace(/(本店|支店|店)$/u, '');
+/** 이 낱말만으로는 어느 가게인지 모른다 — 동네 이름, 업종 이름. */
+const vague = (v) => { const n = norm(stripShop(v)); return !n || n.length < 2 || GENERIC.has(n) || PLACE_WORDS.includes(n); };
+/** 동네 이름·지점 표시를 뗀 이름 변형들. "大将 本店" → 大将, "AFURI 恵比寿" → afuri. */
+function variants(name) {
+  if (!name) return [];
+  const PLACE = `(${PLACE_WORDS.join('|')})`;
+  const base = name.replace(/\s*(本店|支店|[^\s]*店|フラッグシップカフェ|ファクトリー＆カフェ.*|in la kagu)\s*$/u, '').trim();
+  const out = new Set([name, base]);
+  for (const b of [name, base]) {
+    out.add(b.replace(new RegExp(`^${PLACE}\\s+`, 'iu'), '').replace(new RegExp(`\\s+${PLACE}$`, 'iu'), '').trim());
+    const toks = b.split(/\s+/).filter(Boolean);
+    if (toks.length > 1) {
+      out.add(toks.slice(0, 2).join(' '));
+      const latin = /^[\x00-\x7f]+$/.test(b);
+      if ((latin && toks[0].length >= 4) || (!latin && toks[0].length >= 3)) out.add(toks[0]);
+      const last = toks[toks.length - 1];
+      if ((latin && last.length >= 4) || (!latin && last.length >= 2)) out.add(last);
+    }
+  }
+  return [...out].filter((v) => !vague(v));
+}
+/** OSM 결과의 이름이 찾던 이름과 같은 가게인지. 앞뒤가 붙은 정도는 허용, 딴 가게는 거른다. */
+function sameName(label, names) {
+  const ln = norm(label.split(',')[0]);
+  if (!ln || vague(ln)) return false;
+  for (const v of names.flatMap(variants).map(norm)) {
+    if (ln.includes(v)) return true;
+    if (v.includes(ln)) return true;
+  }
+  return false;
+}
+const km = (a, b) => {
+  const r = Math.PI / 180;
+  const h = Math.sin(((b.lat - a.lat) * r) / 2) ** 2
+    + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lon - a.lon) * r) / 2) ** 2;
+  return 2 * 6371 * Math.asin(Math.sqrt(h));
+};
+/**
+ * 동네 중심에서 너무 멀면 딴 곳이다.
+ *
+ * 지역은 반경 안이면 받고, 반경의 두 배까지는 주소에 동네 이름(match 낱말)이
+ * 있을 때만 받는다 — 같은 이름의 다른 지점(だるま 新川)을 거르기 위해서다.
+ * 근교 도시는 6km.
+ */
+function nearEnough(home, hit) {
+  if (!home || !Number.isFinite(+home.lat)) return true;
+  const d = km({ lat: +home.lat, lon: +home.lon }, hit);
+  if (!home.within) return d <= 6;
+  const r = home.radiusKm ?? 1;
+  if (d <= r) return true;
+  if (d > 2 * r) return false;
+  const words = (home.match ?? []).map((w) => w.toLowerCase());
+  const label = (hit.label ?? '').toLowerCase();
+  return !hit.label || words.some((w) => label.includes(w));
+}
+
+async function nominatimOnce(q, near) {
   const box = near ? `${near.lon - 0.05},${near.lat + 0.04},${near.lon + 0.05},${near.lat - 0.04}` : '137.5,37.5,141.5,34.0';
   const url = `https://nominatim.openstreetmap.org/search?${new URLSearchParams({
-    q: name, format: 'jsonv2', limit: '3', countrycodes: 'jp', viewbox: box, bounded: near ? '1' : '0',
+    q, format: 'jsonv2', limit: '5', countrycodes: 'jp', viewbox: box, bounded: near ? '1' : '0',
   })}`;
   await sleep(1100);
   const res = await fetch(url, { headers: { 'User-Agent': UA, 'Accept-Language': 'ja,en' } });
-  if (!res.ok) return null;
-  const list = await res.json();
-  const hit = list[0];
-  if (!hit) return null;
-  return { lat: +Number(hit.lat).toFixed(5), lon: +Number(hit.lon).toFixed(5), osm: `${hit.osm_type}/${hit.osm_id}`, label: hit.display_name };
+  if (!res.ok) return [];
+  return (await res.json()).map((hit) => ({
+    lat: +Number(hit.lat).toFixed(5), lon: +Number(hit.lon).toFixed(5), osm: `${hit.osm_type}/${hit.osm_id}`, label: hit.display_name,
+  }));
+}
+/**
+ * OpenStreetMap Nominatim — 이름으로 가게·장소를 찾는다.
+ *
+ * 식당과 술집은 Wikidata 에 없다. OSM 에는 대개 있다(도쿄는 특히 촘촘하다).
+ * 이용 정책: 초당 1회, 식별 가능한 User-Agent. 동네 중심 근처로 좁히고,
+ * 이름을 여러 모양(지점 표시를 뗀 것, 앞 두 낱말 …)으로 물어본다.
+ * Nominatim 은 비슷한 이름을 아무거나 돌려주므로(大将 → 大醤, three →
+ * スリーエフ) 이름이 같은 가게인지, 동네 안인지 확인한 것만 받는다.
+ */
+async function nominatim(names, near) {
+  const qs = [...new Set(names.flatMap(variants))];
+  for (const q of qs) {
+    for (const hit of await nominatimOnce(q, near)) {
+      if (sameName(hit.label, names) && nearEnough(near, hit)) return hit;
+    }
+  }
+  if (names[0]) {
+    for (const hit of await nominatimOnce(`${names[0]} 東京`, null)) {
+      if (sameName(hit.label, names) && nearEnough(near, hit)) return hit;
+    }
+  }
+  return null;
 }
 
 const read = async (f) => parseCsv(await readFile(new URL(f, dir), 'utf8').catch(() => ''));
@@ -137,16 +218,16 @@ for (const r of itemsRaw) {
   if (!r.city || !r.name) continue;
   if (!THEME_ORDER.includes(r.theme)) { problems.push(`장소 ${r.name}: theme 이 잘못됐습니다 (${r.theme})`); continue; }
   if (!r.lat || !r.lon) {
-    const hit = (await locate(r.nameEn)) ?? (await locate(r.nameLocal, 'ja'));
+    const home = districts.find((d) => d.slug === r.city) ?? registry.CITIES.find((c) => c.slug === r.city) ?? null;
+    let hit = (await locate(r.nameEn)) ?? (await locate(r.nameLocal, 'ja'));
+    if (hit && !nearEnough(home, hit)) { console.log(`  ${r.name}: Wikidata ${hit.qid} 는 동네 밖(${km({ lat: +home.lat, lon: +home.lon }, hit).toFixed(1)}km) — 버림`); hit = null; }
     if (hit) {
       r.lat = String(hit.lat); r.lon = String(hit.lon); r.wikidata = r.wikidata || hit.qid;
       if (!r.popularity) r.popularity = String(hit.sitelinks >= 18 ? 4 : hit.sitelinks >= 7 ? 3 : 2);
       console.log(`  ${r.name}: 좌표 ← Wikidata ${hit.qid}`);
     } else {
       // 가게는 Wikidata 에 없다. OSM 에서 동네 중심 근처로 좁혀 찾는다.
-      const home = districts.find((d) => d.slug === r.city) ?? registry.CITIES.find((c) => c.slug === r.city) ?? null;
-      const osm = (await nominatim(r.nameLocal, home)) ?? (await nominatim(r.nameEn, home))
-        ?? (await nominatim(r.nameLocal ? `${r.nameLocal} 東京` : '', null));
+      const osm = await nominatim([r.nameLocal, r.nameEn].filter(Boolean), home);
       if (osm) {
         r.lat = String(osm.lat); r.lon = String(osm.lon);
         console.log(`  ${r.name}: 좌표 ← OSM ${osm.osm} (${osm.label.slice(0, 40)})`);
