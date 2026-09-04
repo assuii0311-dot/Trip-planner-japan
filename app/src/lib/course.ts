@@ -2,7 +2,7 @@ import type { City, CourseId, Item, Preferences, ThemeId } from '../types';
 import { THEME_LABEL } from './themes';
 import { scoreItem } from './scoring';
 import { estimateDays, isMeal } from './capacity';
-import { rankAll, tiersOf, mustSeeOf, RANK_FLOOR, TIER_MAX_DAYS, type Ranked } from './rank';
+import { rankAll, tiersOf, mustSeeOf, worthOf, TIER_MAX_DAYS, type Ranked } from './rank';
 
 /**
  * 도시별 추천 코스.
@@ -88,7 +88,7 @@ export function coursesFor(
 ): Course[] {
   if (cityItems.length < 2) return [];
   const ranked = rankedFor(city, cityItems, prefs, cities);
-  const worth = ranked.filter((r) => r.score >= RANK_FLOOR);
+  const worth = worthOf(ranked);
   // 지역은 도시의 4분의 1 크기다 — 꽉찬 1일, 보통 반나절.
   const scale = city.tier === 'district' ? 0.25 : 1;
   const daysText = (d: number) => (d < 1 ? '반나절' : `${d}일`);
@@ -125,7 +125,7 @@ export function itemsForDays(
   city: City, cityItems: Item[], prefs: Preferences, days: number,
   _keep: CourseId | undefined, cities: City[] = [city],
 ): Item[] {
-  const ranked = rankedFor(city, cityItems, prefs, cities).filter((r) => r.score >= RANK_FLOOR);
+  const ranked = worthOf(rankedFor(city, cityItems, prefs, cities));
   const out: Item[] = [];
   let min = 0;
   for (const r of ranked) {
@@ -146,7 +146,7 @@ export function itemsForDays(
 export function cityWorthDays(
   city: City, cityItems: Item[], prefs: Preferences, cities: City[] = [city],
 ): number {
-  const worth = rankedFor(city, cityItems, prefs, cities).filter((r) => r.score >= RANK_FLOOR);
+  const worth = worthOf(rankedFor(city, cityItems, prefs, cities));
   return Math.round((worth.reduce((a, r) => a + r.item.durationMin + 18, 0) / 504) * 10) / 10;
 }
 

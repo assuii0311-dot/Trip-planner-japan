@@ -18,6 +18,7 @@ import { collectCity, EVENT_RE, parsePrice, parseYen, yenToEur } from './src/ext
 import { enrichItem, popularityByWikidata } from './src/enrich.mjs';
 import { fetchNearby } from './src/wdnearby.mjs';
 import { selectBalanced } from './src/select.mjs';
+import { fillWikidata, bucketOf } from './src/wdfill.mjs';
 import { describe } from './src/practical.mjs';
 
 const [, , countrySlug = 'spain', ...rest] = process.argv;
@@ -323,6 +324,31 @@ for (const [i, city] of selected.entries()) {
     popularity = await popularityByWikidata(ids);
     await mkdir(new URL('./out/raw/', import.meta.url), { recursive: true });
     await writeFile(cachePath, JSON.stringify({ items, popularity }));
+  }
+
+  /*
+   * 위키데이터 항목이 비어 있는 볼거리에 이름으로 항목을 붙인다(src/wdfill.mjs).
+   * 결과는 따로 캐시한다 — 원문 캐시는 건드리지 않아야 다시 크롤링하지 않는다.
+   * 붙은 것은 언어판 수로 popularity 를 다시 재고, 좌표가 없던 것은 좌표도 얻는다.
+   */
+  if (!shell && items.length) {
+    const fillWdPath = new URL(`./out/raw/${city.slug}-wdfill.json`, import.meta.url);
+    let found;
+    if (!has('refresh')) {
+      try { found = JSON.parse(await readFile(fillWdPath, 'utf8')); } catch { /* 캐시 없음 */ }
+    }
+    if (!found) {
+      found = await fillWikidata(items, city);
+      await mkdir(new URL('./out/raw/', import.meta.url), { recursive: true });
+      await writeFile(fillWdPath, JSON.stringify(found));
+    }
+    for (const it of items) {
+      const f = found[it.id];
+      if (!f || it.wikidata) continue;
+      it.wikidata = f.qid;
+      popularity[f.qid] = bucketOf(f.sitelinks);
+      if (it.lat === null) { it.lat = f.lat; it.lon = f.lon; }
+    }
   }
 
   // 가격은 캐시에 이미 파싱된 값이 들어 있다. 파서를 고쳐도 다시 크롤링하지

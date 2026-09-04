@@ -218,13 +218,14 @@ console.log('\n■ 근교 — 온천을 담으면 숙박, 아니면 당일치기
     // 앱과 같게: 후보는 불러온 아이템 전부, 담은 것(별)은 보통 코스.
     const picked = [];
     const all = [];
+    let contentDays = 0; // 담은 코스의 일수 합 — 일정이 이보다 하루 넘게 길면 왕복이 부푼 것이다
     for (const c of sel) {
       if (c.itemCount === 0) continue;
       const items = JSON.parse(await readFile(new URL(`cities/${c.slug}.json`, root), 'utf8'));
       all.push(...items);
       const cs = coursesFor(c, items, p, sel);
       const course = cs.find((x) => x.id === 'normal') ?? cs[0];
-      if (course) picked.push(...course.items);
+      if (course) { picked.push(...course.items); contentDays += course.days; }
     }
     check(picked.length > 20, '보통 코스로 담긴 것이 있다', `${picked.length}곳`);
     const it = buildItinerary(sel, picked, p, 'tokyo', 'tokyo', idx.cities);
@@ -244,7 +245,13 @@ console.log('\n■ 근교 — 온천을 담으면 숙박, 아니면 당일치기
       const names = d.entries.map((e) => `${e.startMin >= 0 ? '' : ''}${e.item.name}`).slice(0, 6).join(', ');
       console.log(`    ${d.dayIndex}일 [${segs || d.city}] 🛏${R(d.sleepAt ?? '')?.name ?? '-'} · ${d.entries.length}곳: ${names}`);
     }
-    check(needDays <= 6, '4박 5일이 6일로 부풀지 않는다', `일정 ${needDays}일 · 넘침 ${overflow.length}`);
+    /*
+     * 담은 만큼보다 하루 넘게 길어지지 않는다. 예전에는 '6일 이하' 로 봤는데,
+     * 그것은 담은 내용이 아니라 왕복이 부푸는지를 보려는 것이었다. 얇던
+     * 지역이 채워지면(아사쿠사 4곳 → 6곳) 담는 것이 늘어 일정도 늘어야 맞다.
+     */
+    const limit = Math.ceil(contentDays) + 1;
+    check(needDays <= limit, `일정이 담은 만큼(${contentDays.toFixed(1)}일)보다 하루 넘게 길지 않다`, `일정 ${needDays}일 · 허용 ${limit}일 · 넘침 ${overflow.length}`);
     const multi = plan.days.filter((d) => new Set((d.segments ?? []).map((s) => s.city)).size >= 2).length;
     check(multi >= 1, '한 날에 지역 둘 이상이 들어간다', `${multi}일`);
     check(plan.days.every((d) => d.entries.length > 0), '빈 날이 없다');
