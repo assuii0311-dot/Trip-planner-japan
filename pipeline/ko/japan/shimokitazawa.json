@@ -1,0 +1,83 @@
+{
+  "shimokitazawa-village-vanguard-diner": {
+    "name": "빌리지 뱅가드 다이너",
+    "summary": "서점 빌리지 뱅가드가 하는 수제 버거"
+  },
+  "shimokitazawa-shiro-hige-s-cream-puff-factory": {
+    "name": "시로히게 슈크림 공방",
+    "summary": "세상에서 유일한 토토로 모양 슈크림",
+    "why": "지브리가 공식으로 허락한 유일한 토토로 슈크림 가게입니다. 시모키타자와역에서 걸어 10분의 주택가에 있고, 2층 카페에서 앉아 먹을 수 있습니다. 주말은 오후면 품절입니다.",
+    "busy": "주말은 정오 전에 가야 남아 있습니다"
+  },
+  "shimokitazawa-universal-bakes": {
+    "name": "유니버설 베이크스",
+    "summary": "비건 빵과 도넛"
+  },
+  "shimokitazawa-kochoo": {
+    "name": "코추",
+    "summary": "순두부찌개 전문. 한국식이 그리울 때"
+  },
+  "shimokitazawa-la-befana": {
+    "name": "라 베파나",
+    "summary": "장작 화덕 피자"
+  },
+  "shimokitazawa-gotokuji-temple": {
+    "name": "고토쿠지",
+    "summary": "마네키네코(복고양이)의 발원지. 고양이 상 천 개",
+    "why": "손을 든 복고양이 인형이 여기서 시작됐습니다. 경내 한쪽에 봉납된 고양이 상이 천 개 넘게 늘어서 있고, 삼층탑에도 고양이가 숨어 있습니다. 시모키타자와에서 오다큐선 두 정거장이고 관광객이 적습니다.",
+    "durationMin": 45
+  },
+  "shimokitazawa-carrot-tower": {
+    "name": "캐럿타워 전망대",
+    "summary": "산겐자야의 26층 무료 전망대. 서쪽 도쿄와 후지산",
+    "why": "산겐자야역 위 26층의 무료 전망 로비입니다. 도심 전망대와 반대편인 서쪽 도쿄가 보이고 맑은 날 후지산이 정면입니다. 시모키타자와에서 버스나 도보 20분입니다.",
+    "durationMin": 30
+  },
+  "shimokitazawa-saitama-s-apartment": {
+    "name": "원펀맨 사이타마의 아파트",
+    "summary": "만화 원펀맨 주인공 집의 모델이 된 아파트",
+    "durationMin": 15,
+    "caution": "실제 주민이 사는 집입니다. 밖에서만 보세요."
+  },
+  "shimokitazawa-bear-pond-espresso": {
+    "name": "베어 폰드 에스프레소",
+    "summary": "세계적으로 알려진 진한 에스프레소. 사진 금지",
+    "theme": "food",
+    "why": "극단적으로 진한 에스프레소로 세계 커피 애호가에게 알려진 작은 가게입니다. 에스프레소는 오후 이른 시간까지만 뽑고 실내 사진은 금지입니다.",
+    "caution": "사진 금지. 에스프레소는 오후 이른 시간까지만."
+  },
+  "shimokitazawa-setagaya-park": {
+    "name": "세타가야 공원",
+    "summary": "미니 증기기관차가 달리는 동네 공원",
+    "durationMin": 30
+  },
+  "shimokitazawa-hanegi-park": {
+    "name": "하네기 공원",
+    "summary": "매화 650그루의 공원. 2월 매화 축제",
+    "durationMin": 30
+  },
+  "shimokitazawa-tollywood": {
+    "name": "톨리우드",
+    "summary": "46석 단편 영화 전용 극장",
+    "durationMin": 90
+  },
+  "shimokitazawa-mother": {
+    "name": "마더",
+    "summary": "동굴 같은 실내의 바. 수입 맥주",
+    "why": "나무와 흙벽으로 동굴처럼 꾸민 시모키타자와의 오래된 바입니다. 수입 맥주와 다국적 안주가 있고 새벽까지 엽니다."
+  },
+  "shimokitazawa-ushi-tora": {
+    "name": "우시토라",
+    "summary": "크래프트 비어 탭 30개. 두 가게가 마주 본다",
+    "why": "시모키타자와의 크래프트 비어 성지로 길 양쪽에 두 가게가 마주 있습니다. 일본 소규모 양조장 맥주가 30탭이고 자체 양조도 합니다."
+  },
+  "shimokitazawa-ex": {
+    "name": "엑스(Ex)",
+    "summary": "디자인 소품과 엽서 가게",
+    "durationMin": 15
+  },
+  "shimokitazawa-kua-aina": {
+    "name": "쿠아아이나",
+    "summary": "하와이 버거 체인"
+  }
+}

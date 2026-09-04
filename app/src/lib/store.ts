@@ -64,6 +64,7 @@ export function defaultState(): TripState {
     walkTolerance: 3,
     companion: 'couple',
     foodStyles: [],
+    shopStyles: [],
     mobility: 'normal',
     photo: 2,
     transport: ['walk', 'metro'],

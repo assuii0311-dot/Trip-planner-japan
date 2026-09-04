@@ -9,7 +9,7 @@ import { fmtDur, fmtHm } from '../lib/routing';
 import { mapsPlaceUrl } from '../lib/deeplinks';
 import { ItemDetail } from '../components/ItemDetail';
 import { ItemPhoto } from '../components/ItemPhoto';
-import { formatTime, SLOT_LABEL } from '../lib/planner';
+import { formatTime, slotLabelOf } from '../lib/planner';
 import { alternativesForDay } from '../lib/alternatives';
 import type { Alternative } from '../lib/alternatives';
 import { THEME_ICON, THEME_LABEL } from '../lib/themes';
@@ -337,7 +337,7 @@ function Day({
                 <div className="entry" key={`${e.item.id}-${i}`}>
                   <div>
                     <div className="time">{formatTime(e.startMin)}</div>
-                    <div className="slot">{SLOT_LABEL[e.slot]}</div>
+                    <div className="slot">{slotLabelOf(day.entries, i)}</div>
                   </div>
                   <div>
                     {e.returnLeg && (

@@ -51,6 +51,11 @@ export function scoreItem(item: Item, prefs: Preferences, priorities: Priorities
     const hits = prefs.foodStyles.filter((s) => item.tags.includes(s)).length;
     score += hits * 9;
   }
+  // 쇼핑도 같은 방식이다. 백화점을 고른 사람에게 피규어 가게가 앞에 오면 안 된다.
+  if (item.theme === 'shopping') {
+    const hits = (prefs.shopStyles ?? []).filter((s) => item.tags.includes(s)).length;
+    score += hits * 9;
+  }
 
   return score;
 }

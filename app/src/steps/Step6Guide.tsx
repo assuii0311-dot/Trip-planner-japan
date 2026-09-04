@@ -2,7 +2,7 @@ import type { City, Item, Plan } from '../types';
 import { ItemDetail } from '../components/ItemDetail';
 import { bookingLinks, directionsUrl, intercityLinks, mapsPlaceUrl } from '../lib/deeplinks';
 import { COUNTRY_TIPS, COUNTRY_TIP_TITLE } from '../lib/guide';
-import { formatTime, SLOT_LABEL } from '../lib/planner';
+import { formatTime, slotLabelOf } from '../lib/planner';
 import { MapExport } from '../components/MapExport';
 import { TripMap, TripMapLegend, mapDataOf } from '../components/TripMap';
 
@@ -111,7 +111,7 @@ export default function Step6Guide({
                 <summary>
                   {formatTime(e.startMin)} · {e.item.name}
                   <div style={{ fontSize: 12, color: 'var(--muted)', fontWeight: 400 }}>
-                    {SLOT_LABEL[e.slot]} · {e.item.durationMin}분{e.travelMin > 0 ? ` · 이동 ${e.travelMin}분` : ''}
+                    {slotLabelOf(day.entries, i)} · {e.item.durationMin}분{e.travelMin > 0 ? ` · 이동 ${e.travelMin}분` : ''}
                   </div>
                 </summary>
                 <div className="inner">

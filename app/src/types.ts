@@ -208,6 +208,12 @@ export interface Preferences {
   walkTolerance: number;
   companion: Companion;
   foodStyles: string[];
+  /**
+   * 쇼핑 취향. 일본 여행의 특색이 음식과 쇼핑이라 따로 묻는다 — 백화점
+   * 지하 식품관을 도는 사람과 아키하바라 피규어를 사는 사람은 담을 것이
+   * 다르다. 아이템의 tags 와 맞춘다. 스페인에서는 비어 있어도 된다.
+   */
+  shopStyles: string[];
   mobility: 'normal' | 'limited';
   photo: number;
   transport: string[];

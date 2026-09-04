@@ -312,7 +312,22 @@ for (const [i, city] of selected.entries()) {
   }
 
   const cap = city.isHub ? CAP.hub : CAP.satellite;
-  const places = items.filter((it) => !EVENT_RE.test(`${it.name} ${it.descEn}`) && isVisitable(it));
+  /*
+   * 지역은 중심에서 반경 안의 리스팅만 남긴다.
+   *
+   * Wikivoyage 도쿄 문서는 구(區) 단위다. '시모키타자와' 에 Tokyo/Setagaya 를
+   * 쓰면 5km 떨어진 도도로키 계곡과 후타코타마가와 쇼핑몰까지 들어온다.
+   * 지역은 걸어서 도는 단위이므로 반경(radiusKm)의 두 배 밖은 뺀다.
+   * 좌표가 없는 것은 남긴다 — 어디인지 모르면 빼지 않는다.
+   */
+  const km = (a, b) => {
+    const r = Math.PI / 180;
+    const h = Math.sin(((b.lat - a.lat) * r) / 2) ** 2
+      + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lon - a.lon) * r) / 2) ** 2;
+    return 2 * 6371 * Math.asin(Math.sqrt(h));
+  };
+  const inRange = (it) => !city.radiusKm || it.lat === null || km(city, it) <= city.radiusKm * 2;
+  const places = items.filter((it) => !EVENT_RE.test(`${it.name} ${it.descEn}`) && isVisitable(it) && inRange(it));
   const enriched = selectBalanced(places.map((it) => enrichItem(it, popularity)), cap, city.isHub)
     .map((it) => {
       const override = ko[it.id] ?? {};
@@ -626,6 +641,7 @@ await writeFile(
     // 나라마다 다른 것 — 문앞~문앞 오버헤드, 식사 시간, 지역 간 구간표, 통화.
     ...(COUNTRY.transfer ? { transfer: COUNTRY.transfer } : {}),
     ...(COUNTRY.meals ? { meals: COUNTRY.meals } : {}),
+    ...(COUNTRY.nightRounds ? { nightRounds: COUNTRY.nightRounds } : {}),
     ...(COUNTRY.currency ? { currency: COUNTRY.currency } : {}),
     ...(LINKS.length ? { links: LINKS } : {}),
     cities,

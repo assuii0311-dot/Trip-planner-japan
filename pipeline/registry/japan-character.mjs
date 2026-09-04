@@ -114,6 +114,22 @@ export const CHARACTER = {
     season: null,
     tags: ['쇼핑'],
   },
+  shimokitazawa: {
+    profile: p(0, 1, 0, 0, 2, 2, 0, 3, 0), nights: [0, 0], firstTimer: false,
+    tagline: '빈티지와 작은 극장, 카레의 동네',
+    suitedFor: '두 번째 도쿄. 관광지가 아니라 동네를 걷고 싶은 분',
+    highlights: ['빈티지 골목', '카레 페스티벌', '라이브 하우스'],
+    season: null,
+    tags: ['재방문', '쇼핑', '골목'],
+  },
+  nakameguro: {
+    profile: p(0, 2, 1, 2, 3, 2, 0, 3, 0), nights: [0, 0], firstTimer: false,
+    tagline: '메구로강 벚꽃길과 편집숍, 다이칸야마 츠타야',
+    suitedFor: '두 번째 도쿄. 카페와 편집숍에서 오후를 보내고 싶은 분',
+    highlights: ['메구로강', '다이칸야마 T-SITE', '스타벅스 리저브 로스터리'],
+    season: { best: '3월 말~4월 초', note: '메구로강 벚꽃은 도쿄에서 가장 사진이 많은 자리입니다. 주말 저녁은 통제됩니다.' },
+    tags: ['재방문', '카페', '쇼핑'],
+  },
   kichijoji: {
     profile: p(0, 2, 0, 3, 2, 1, 1, 2, 0), nights: [0, 0],
     tagline: '이노카시라 공원과 지브리 미술관',

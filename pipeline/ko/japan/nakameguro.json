@@ -1,0 +1,71 @@
+{
+  "nakameguro-junkadelic": {
+    "name": "준카델릭",
+    "summary": "멕시코 요리와 마르가리타"
+  },
+  "nakameguro-shutters": {
+    "name": "셔터스",
+    "summary": "애플파이 아라모드와 립. 다이칸야마의 오래된 양식당"
+  },
+  "nakameguro-nana-s-green-tea": {
+    "name": "나나즈 그린티",
+    "summary": "말차 파르페와 라테 체인"
+  },
+  "nakameguro-potager": {
+    "name": "파티스리 포타제",
+    "summary": "채소로 만든 케이크"
+  },
+  "nakameguro-hara-donut": {
+    "name": "하라도넛",
+    "summary": "두부와 두유로 만든 담백한 도넛"
+  },
+  "nakameguro-meguro-parasitological-museum": {
+    "name": "메구로 기생충관",
+    "summary": "세계 유일의 기생충 박물관. 8.8m 촌충. 무료",
+    "why": "세계에서 하나뿐인 기생충 전문 박물관입니다. 8.8m 길이의 촌충 표본이 대표이고 데이트 코스로 묘하게 인기가 있습니다. 무료이고 30분이면 봅니다. 메구로역에서 걸어 12분입니다.",
+    "closed": "월·화요일 휴관",
+    "durationMin": 30
+  },
+  "nakameguro-japan-folk-crafts-museum": {
+    "name": "일본민예관",
+    "summary": "야나기 무네요시가 세운 민예 박물관. 조선 도자기가 많다",
+    "why": "민예 운동을 이끈 야나기 무네요시가 1936년 세운 박물관입니다. 조선 백자와 민화를 아꼈던 사람이라 한국 유물이 상당하고, 건물 자체가 민가 양식입니다. 고마바토다이마에역에서 걸어 7분입니다.",
+    "closed": "월요일 휴관",
+    "durationMin": 60
+  },
+  "nakameguro-gohyakurakanji": {
+    "name": "고햐쿠라칸지",
+    "summary": "표정이 다 다른 나한상 300여 기",
+    "theme": "history",
+    "durationMin": 30
+  },
+  "nakameguro-meguro-gajoen": {
+    "name": "호텔 가조엔 도쿄(옛 메구로 가조엔)",
+    "summary": "쇼와 초기 장식의 결혼식장·호텔. 백단계단",
+    "why": "1931년의 요정을 이어받은 호텔로 옻칠과 조각으로 덮인 '백단 계단'(百段階段)이 도쿄도 지정 문화재입니다. 기획전 기간에만 계단에 들어갈 수 있고, 로비와 화장실만 봐도 볼 만합니다.",
+    "durationMin": 45
+  },
+  "nakameguro-speyside-way": {
+    "name": "스페이사이드 웨이",
+    "summary": "위스키 수백 병의 바. 나카메구로",
+    "why": "벽 전체가 위스키인 나카메구로의 위스키 바입니다. 일본 위스키와 스코틀랜드 싱글몰트가 수백 종이고 주인이 취향에 맞춰 골라 줍니다. 저녁을 먹고 2차로 가는 자리입니다."
+  },
+  "nakameguro-rakuya": {
+    "name": "라쿠야",
+    "summary": "라이브 음악이 있는 레스토랑 바"
+  },
+  "nakameguro-wara": {
+    "name": "와라",
+    "summary": "전국의 기모노를 모은 가게",
+    "durationMin": 20
+  },
+  "nakameguro-kameyamannendo": {
+    "name": "가메야 만넨도",
+    "summary": "1938년 창업의 화과자점. 나보나",
+    "why": "1938년 창업한 화과자점으로 부드러운 카스텔라 사이에 크림을 넣은 '나보나' 가 대표입니다. 도쿄 선물 과자의 고전입니다."
+  },
+  "nakameguro-clann": {
+    "name": "클랜",
+    "summary": "라이브 음악이 있는 아이리시 펍"
+  }
+}

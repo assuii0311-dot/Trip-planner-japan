@@ -1,18 +1,69 @@
 import type { City, Companion, Preferences, ThemeId } from '../types';
 import { Block, Chips, Field, Scale, Segmented } from '../components/Controls';
-import { themesFor } from '../lib/themes';
+import { hintFor, themesFor } from '../lib/themes';
 import { describeTaste } from '../lib/taste';
 
-const FOOD_STYLES = [
-  { value: 'local', label: '현지 가정식' },
-  { value: 'tapas', label: '타파스·바 순례' },
-  { value: 'fine', label: '파인다이닝' },
-  { value: 'street', label: '시장·길거리' },
-  { value: 'seafood', label: '해산물' },
-  { value: 'vegetarian', label: '채식 가능' },
-  { value: 'cafe', label: '카페·디저트' },
-  { value: 'wine', label: '와이너리·와인바' },
-];
+/**
+ * 음식·쇼핑 취향은 나라마다 다르다.
+ *
+ * 스페인의 타파스·와이너리를 일본 화면에 그대로 두면 없는 것을 묻는 셈이다.
+ * 값(value)은 아이템의 tags 와 맞추는 열쇠라 나라가 달라도 겹치는 것은
+ * 같은 값을 쓴다(local·fine·street·seafood·vegetarian·cafe).
+ */
+const FOOD_STYLES: Record<string, { value: string; label: string }[]> = {
+  spain: [
+    { value: 'local', label: '현지 가정식' },
+    { value: 'tapas', label: '타파스·바 순례' },
+    { value: 'fine', label: '파인다이닝' },
+    { value: 'street', label: '시장·길거리' },
+    { value: 'seafood', label: '해산물' },
+    { value: 'vegetarian', label: '채식 가능' },
+    { value: 'cafe', label: '카페·디저트' },
+    { value: 'wine', label: '와이너리·와인바' },
+  ],
+  japan: [
+    { value: 'sushi', label: '스시·해산물' },
+    { value: 'noodle', label: '라멘·소바·우동' },
+    { value: 'izakaya', label: '이자카야·꼬치' },
+    { value: 'comfort', label: '돈카츠·야키니쿠·정식' },
+    { value: 'fine', label: '가이세키·오마카세' },
+    { value: 'street', label: '시장·요코초·데파치카' },
+    { value: 'cafe', label: '카페·디저트·말차' },
+    { value: 'bar', label: '사케·위스키·크래프트 비어' },
+    { value: 'local', label: '노포(老舗)' },
+    { value: 'vegetarian', label: '채식 가능' },
+  ],
+};
+
+/** 쇼핑 취향. 일본 여행의 절반은 쇼핑이라 따로 묻는다. 스페인은 묻지 않는다. */
+const SHOP_STYLES: Record<string, { value: string; label: string }[]> = {
+  japan: [
+    { value: 'department', label: '백화점·복합몰' },
+    { value: 'variety', label: '드럭스토어·돈키호테·100엔' },
+    { value: 'otaku', label: '애니·피규어·게임·전자' },
+    { value: 'select', label: '편집숍·빈티지·패션' },
+    { value: 'craft', label: '공예·문구·주방도구' },
+    { value: 'street', label: '상점가·시장 골목' },
+  ],
+};
+
+/** 나라마다 다른 문구. */
+const COPY: Record<string, {
+  city: string; budget: [string, string, string]; nightHelp: string; nightHints: string[];
+}> = {
+  spain: {
+    city: '바르셀로나',
+    budget: ['알뜰 (~15€)', '보통 (~40€)', '넉넉 (제한 없음)'],
+    nightHelp: '스페인은 저녁 식사가 21시에 시작해 밤이 깁니다.',
+    nightHints: ['숙소에서 쉼', '가볍게 한잔', '적극적으로', '밤이 본편'],
+  },
+  japan: {
+    city: '도쿄',
+    budget: ['알뜰 (~¥2,500)', '보통 (~¥6,500)', '넉넉 (제한 없음)'],
+    nightHelp: '일본의 저녁은 가게 하나가 아닙니다. 이자카야에서 먹고 바로 옮겨 한 잔, 라멘으로 마무리하는 n차가 보통입니다. \'밤이 본편\' 이면 3차 자리까지 둡니다.',
+    nightHints: ['숙소에서 쉼', '저녁만', '2차까지', '3차까지 (밤이 본편)'],
+  },
+};
 
 /**
  * 2단계 — 도시 선택에서 읽어낸 취향을 확인하고, 읽어낼 수 없는 것만 묻는다.
@@ -22,16 +73,21 @@ const FOOD_STYLES = [
  * 강도·예산·동행·음식 제한·밤은 도시 선택에 담기지 않으므로 직접 묻는다.
  */
 export default function Step2Preferences({
-  prefs, selectedCities, inferred, onChange,
+  prefs, selectedCities, inferred, onChange, country = 'spain',
 }: {
   prefs: Preferences;
   selectedCities: City[];
   inferred: Record<ThemeId, number>;
   onChange: (patch: Partial<Preferences>) => void;
+  /** 나라 slug. 음식·쇼핑 선택지와 문구가 나라마다 다르다. */
+  country?: string;
 }) {
+  const copy = COPY[country] ?? COPY.spain;
+  const foodStyles = FOOD_STYLES[country] ?? FOOD_STYLES.spain;
+  const shopStyles = SHOP_STYLES[country] ?? [];
   const setTheme = (id: ThemeId, v: number) => onChange({ themes: { ...prefs.themes, [id]: v } });
-  const toggle = (key: 'foodStyles' | 'transport', v: string) => {
-    const cur = prefs[key];
+  const toggle = (key: 'foodStyles' | 'shopStyles' | 'transport', v: string) => {
+    const cur = prefs[key] ?? [];
     onChange({ [key]: cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v] } as Partial<Preferences>);
   };
   // 온천처럼 나라에 따라 있고 없는 테마는 고른 도시에 실제로 있을 때만 묻는다.
@@ -67,7 +123,7 @@ export default function Step2Preferences({
                     >{n}</button>
                   ))}
                 </div>
-                <div className="hint">{t.hint}</div>
+                <div className="hint">{hintFor(t, country)}</div>
               </div>
             );
           })}
@@ -83,7 +139,7 @@ export default function Step2Preferences({
 
       <h3 style={{ marginTop: 28, marginBottom: 4 }}>도시 선택으로는 알 수 없는 것</h3>
       <p className="help" style={{ marginBottom: 18 }}>
-        같은 바르셀로나라도 빡빡하게 다닐지 여유롭게 다닐지는 사람마다 다릅니다. 다섯 가지만 여쭙겠습니다.
+        같은 {copy.city}라도 빡빡하게 다닐지 여유롭게 다닐지는 사람마다 다릅니다. {shopStyles.length ? '여섯' : '다섯'} 가지만 여쭙겠습니다.
       </p>
 
       <Block title="1. 하루 강도">
@@ -96,9 +152,9 @@ export default function Step2Preferences({
         <Segmented
           value={prefs.budget}
           options={[
-            { value: 'low', label: '알뜰 (~15€)' },
-            { value: 'mid', label: '보통 (~40€)' },
-            { value: 'high', label: '넉넉 (제한 없음)' },
+            { value: 'low', label: copy.budget[0] },
+            { value: 'mid', label: copy.budget[1] },
+            { value: 'high', label: copy.budget[2] },
           ]}
           onChange={(v) => onChange({ budget: v })}
         />
@@ -129,12 +185,18 @@ export default function Step2Preferences({
         </div>
       </Block>
 
-      <Block title="4. 음식" help="여러 개 고를 수 있습니다. 제한이 있으면 꼭 표시해 주세요.">
-        <Chips values={prefs.foodStyles} options={FOOD_STYLES} onToggle={(v) => toggle('foodStyles', v)} />
+      <Block title="4. 음식" help="여러 개 고를 수 있습니다. 고른 것과 맞는 식당·술집이 앞에 옵니다. 제한이 있으면 꼭 표시해 주세요.">
+        <Chips values={prefs.foodStyles} options={foodStyles} onToggle={(v) => toggle('foodStyles', v)} />
       </Block>
 
-      <Block title="5. 밤 시간" help="스페인은 저녁 식사가 21시에 시작해 밤이 깁니다.">
-        <Field label="야간 일정 선호" hint={['숙소에서 쉼', '가볍게 한잔', '적극적으로', '밤이 본편'][prefs.nightlife]}>
+      {shopStyles.length > 0 && (
+        <Block title="5. 쇼핑" help="여러 개 고를 수 있습니다. 고른 것과 맞는 가게가 코스 후보에 앞서 옵니다.">
+          <Chips values={prefs.shopStyles ?? []} options={shopStyles} onToggle={(v) => toggle('shopStyles', v)} />
+        </Block>
+      )}
+
+      <Block title={`${shopStyles.length ? 6 : 5}. 밤 시간`} help={copy.nightHelp}>
+        <Field label="야간 일정 선호" hint={copy.nightHints[prefs.nightlife]}>
           <Scale value={prefs.nightlife} min={0} max={3} low="일찍 마무리" high="밤이 좋다" onChange={(v) => onChange({ nightlife: v })} />
         </Field>
       </Block>
