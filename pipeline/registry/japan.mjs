@@ -365,7 +365,7 @@ export const CITIES = [
     transitGuide: { passes: [], apps: [{ name: 'Google Maps', note: '' }], tips: ['신주쿠에서 게이오선 특급 50분입니다.', '11월 단풍 철 주말은 케이블카 대기가 한 시간입니다.'] },
   },
   {
-    slug: 'kawasaki', name: '가와사키', nameEn: 'Kawasaki', titles: ['Kawasaki'], radiusKm: 4,
+    slug: 'kawasaki', name: '가와사키', nameEn: 'Kawasaki', titles: ['Kawasaki'], radiusKm: 8, // 후지코 뮤지엄·이쿠타 녹지(노보리토)까지
     region: '가나가와', lat: 35.5309, lon: 139.7030, isHub: false, hub: 'tokyo',
     blurb: '가와사키 다이시와 공장 야경 크루즈, 라조나.',
     transitGuide: inTokyo(['도쿄에서 JR 18분입니다.']),
@@ -455,4 +455,5 @@ export const ATTRIBUTION = [
   'Wikivoyage (CC BY-SA 4.0)',
   'Wikidata (CC0)',
   'OpenStreetMap contributors (ODbL)',
+  '国土地理院 地理院地図 API (주소 → 좌표)',
 ];
