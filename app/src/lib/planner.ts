@@ -36,9 +36,33 @@ const hhmm = (s: string | undefined, fallback: number) => {
   const m = s?.match(/^(\d{1,2}):(\d{2})$/);
   return m ? Number(m[1]) * 60 + Number(m[2]) : fallback;
 };
-export function setMealTimes(meals: { lunch?: string; dinner?: string }): void {
+/**
+ * 저녁 뒤의 밤 자리 수.
+ *
+ * 스페인은 저녁 뒤 한 자리(바 또는 플라멩코)다. 일본의 저녁은 가게 하나가
+ * 아니다 — 이자카야에서 먹고, 바로 옮겨 한 잔 하고, 라멘으로 끝내는 n차가
+ * 보통이다. 나라 데이터의 `nightRounds` 가 2 이면 밤 취향이 '밤이 본편'
+ * 인 사람에게 3차 자리를 하나 더 둔다.
+ */
+const RHYTHM = { nightRounds: 1 };
+export function setDayRhythm(meals: { lunch?: string; dinner?: string }, nightRounds = 1): void {
   MEAL_SHIFT.lunch = hhmm(meals.lunch, SPAIN_MEALS.lunch) - SPAIN_MEALS.lunch;
   MEAL_SHIFT.dinner = hhmm(meals.dinner, SPAIN_MEALS.dinner) - SPAIN_MEALS.dinner;
+  RHYTHM.nightRounds = Math.max(1, nightRounds);
+}
+/** 예전 이름. 검사 스크립트가 쓴다. */
+export const setMealTimes = (meals: { lunch?: string; dinner?: string }): void => setDayRhythm(meals, RHYTHM.nightRounds);
+
+/**
+ * 밤 자리를 취향과 나라에 맞춰 늘린다.
+ *
+ * 밤 취향 3(밤이 본편)이고 나라가 n차를 하는 곳이면, 마지막 밤 자리 뒤에
+ * 90분 간격으로 한 자리를 더 붙인다. 여유형에는 밤 자리가 없으니 그대로다.
+ */
+function withNightRounds(specs: SlotSpec[], prefs: Preferences): SlotSpec[] {
+  const last = [...specs].reverse().find((s) => s.slot === 'night');
+  if (!last || RHYTHM.nightRounds < 2 || prefs.nightlife < 3) return specs;
+  return [...specs, { slot: 'night', earliest: last.earliest + 90, latest: last.latest + 90 }];
 }
 /** 나라의 식사 시간에 맞춰 자리 하나를 옮긴다. 오전은 그대로다. */
 function shiftSpec(s: SlotSpec): SlotSpec {
@@ -238,8 +262,7 @@ function buildDay(
     + (segments[0].isDayTrip && !tripArrive ? (segments[0].district ? segments[0].inboundMin : 75) : 0);
   const start = Math.max(base, arrival ?? 0, tripArrive ?? 0, startAtMin ?? 0);
 
-  const specs = spec.slots(start)
-    .map(shiftSpec)
+  const specs = withNightRounds(spec.slots(start).map(shiftSpec), prefs)
     // 장거리 비행으로 내린 날은 밤 일정을 넣지 않는다.
     .filter((s) => !(longHaulArrival && s.slot === 'night'));
 
@@ -282,7 +305,14 @@ function buildDay(
      * 지금 있는 자리에 가까운 곳을 앞세운다. 스페인처럼 지역이 없는 나라에서는
      * 거점의 저녁 후보에 거리 가중을 두지 않는다 — 예전과 같다.
      */
-    const weight = (item: Item, city: string) => (city === seg.city ? proximity(item)
+    /*
+     * 2차 뒤의 3차는 앞 자리와 다른 종류로 — 이자카야 뒤에 이자카야가 아니라
+     * 바나 라멘이다. 그리고 앞 자리에서 가까운 곳이어야 n차가 성립한다.
+     */
+    const rounds = entries.filter((e) => e.slot === 'night').length;
+    const nthRound = (item: Item) => (s !== 'night' || rounds === 0 ? 1
+      : (item.tags.includes('bar') || item.theme === 'onsen' ? 1.3 : 0.8) * (0.5 + near(item)));
+    const weight = (item: Item, city: string) => nthRound(item) * (city === seg.city ? proximity(item)
       : atHome && withinOf.size ? near(item) : 1);
     const pickFrom = (city: string) => free(city)
       .filter((p) => fitsSlot(p.item, s))
@@ -793,3 +823,15 @@ export function formatTime(min: number): string {
 export const SLOT_LABEL: Record<Slot, string> = {
   morning: '오전', lunch: '점심', afternoon: '오후', evening: '저녁 무렵', dinner: '저녁 식사', night: '밤',
 };
+
+/**
+ * 그날 i 번째 일정의 자리 이름. 밤 자리가 둘 이상이면 2차·3차로 부른다 —
+ * 저녁 식사가 1차다. 밤이 하나뿐인 날(스페인)은 그냥 '밤' 이다.
+ */
+export function slotLabelOf(entries: PlanEntry[], i: number): string {
+  const e = entries[i];
+  if (e.slot !== 'night') return SLOT_LABEL[e.slot];
+  const nights = entries.filter((x) => x.slot === 'night');
+  if (nights.length < 2) return SLOT_LABEL.night;
+  return `밤 · ${nights.indexOf(e) + 2}차`;
+}

@@ -673,6 +673,7 @@ export default function App() {
           <Step2Preferences
             prefs={state.prefs} selectedCities={selectedCities}
             inferred={inferred} onChange={patchPrefs}
+            country={state.basics.country}
           />
         )}
         {state.step === 3 && (

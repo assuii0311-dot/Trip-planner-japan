@@ -76,7 +76,7 @@ export function inferHints(selected: City[]): Partial<Preferences> {
   if (tags.has('나이트라이프')) hints.nightlife = 2;
   if (tags.has('리조트') || tags.has('휴양')) hints.pace = 2;
   if (tags.has('도보많음') || tags.has('트레킹') || tags.has('등산')) hints.walkTolerance = 4;
-  if (tags.has('미식') || tags.has('미슐랭')) hints.foodStyles = ['local', 'tapas'];
+  if (tags.has('미식') || tags.has('미슐랭')) hints.foodStyles = ['local'];
 
   // 소도시만 골랐다면 붐비는 곳을 피하려는 성향으로 본다.
   const allSmall = selected.every((c) => !c.isHub);

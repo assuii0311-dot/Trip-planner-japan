@@ -59,6 +59,19 @@ console.log('■ 2단계');
 await page.waitForSelector('.theme-row');
 const rows = await page.locator('.theme-row .name').allInnerTexts();
 check(rows.some((r) => /온천/.test(r)), '하코네를 골랐으니 온천 관심도를 묻는다', rows.map((r) => r.trim()).join(', '));
+const step2 = await page.locator('main').innerText();
+check(/스시·해산물|이자카야/.test(step2) && !/타파스|와이너리/.test(step2), '음식 선택지가 일본 것이다(타파스·와이너리 없음)');
+check(/쇼핑/.test(step2) && /드럭스토어|백화점/.test(step2), '쇼핑 취향을 묻는다');
+check(/¥/.test(step2) && !/€/.test(step2), '예산이 엔으로 적혀 있다');
+check(/2차|3차/.test(step2), '밤 시간 문구가 n차를 말한다');
+// 밤 취향을 '3차까지' 로 올린다 — 4단계에서 밤 자리가 둘이 되는지 보려고.
+await page.locator('.field', { hasText: '야간 일정 선호' }).locator('input[type=range]').evaluate((el) => {
+  const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+  set.call(el, '3');
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  el.dispatchEvent(new Event('change', { bubbles: true }));
+});
+await page.waitForTimeout(300);
 await shot('step2');
 await next(3);
 
@@ -88,6 +101,8 @@ check(!routes.some((r) => /(아사쿠사|우에노|신주쿠)/.test(r)), '지역
 check(routes.some((r) => /하코네/.test(r)), '도쿄→하코네에는 이동 블록이 있다');
 const meta = (await page.locator('.travel-meta').allInnerTexts()).join(' ');
 check(!/Renfe/.test(meta), '일본 화면에 Renfe 가 없다');
+const nightLabels = await page.locator('.entry .slot', { hasText: /차$/ }).allInnerTexts();
+check(nightLabels.some((l) => /3차/.test(l)), "밤 취향 '3차까지' 면 3차 자리가 생긴다", [...new Set(nightLabels)].join(', ') || '없음');
 const dinners = await page.locator('.entry .slot', { hasText: '저녁 식사' }).count();
 check(dinners > 0, '저녁 식사가 있다', `${dinners}끼`);
 const times = await page.locator('.entry').filter({ has: page.locator('.slot', { hasText: '저녁 식사' }) }).locator('.time').allInnerTexts();

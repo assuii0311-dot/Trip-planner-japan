@@ -35,6 +35,11 @@ export const COUNTRY = {
   transfer: { city: 37, district: 20 },
   /** 식사 시간. 스페인(점심 14시·저녁 21시)보다 두 시간 가까이 이르다. */
   meals: { lunch: '12:00', dinner: '19:00' },
+  /**
+   * 저녁 뒤의 밤 자리 수. 일본의 저녁은 가게 하나가 아니라 이자카야 → 바 →
+   * 라멘으로 이어지는 n차다. 밤 취향이 '적극적으로' 이상이면 2차·3차 자리를 둔다.
+   */
+  nightRounds: 2,
   currency: 'JPY',
 };
 
@@ -155,6 +160,24 @@ export const CITIES = [
     blurb: '선샤인시티와 오토메로드, 서민적인 먹자골목.',
     transitGuide: inTokyo(['가와고에로 가는 도부 도조선이 여기서 출발합니다.']),
   },
+  /*
+   * 재방문자를 위한 동네. 센소지·시부야를 이미 본 사람이 두 번째, 세 번째
+   * 도쿄에서 가는 곳이다. 1단계의 '처음이라면 이곳부터' 를 끄면 보인다.
+   */
+  {
+    slug: 'shimokitazawa', name: '시모키타자와', nameEn: 'Shimokitazawa', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Setagaya'], radiusKm: 1.2,
+    region: '도쿄', lat: 35.6614, lon: 139.6682,
+    blurb: '빈티지 옷가게와 작은 극장, 카레 골목. 시부야에서 급행 5분.',
+    transitGuide: inTokyo(['가게는 대개 12시에 엽니다. 오후와 저녁이 맞습니다.', '시부야에서 게이오 이노카시라선 급행 두 정거장입니다.']),
+  },
+  {
+    slug: 'nakameguro', name: '나카메구로·다이칸야마', nameEn: 'Nakameguro', tier: 'district', within: 'tokyo',
+    titles: ['Tokyo/Meguro'], radiusKm: 1.3,
+    region: '도쿄', lat: 35.6441, lon: 139.6987,
+    blurb: '메구로강 벚꽃길과 편집숍, 다이칸야마 츠타야. 조용한 오후.',
+    transitGuide: inTokyo(['시부야에서 도큐 도요코선 한 정거장(4분)입니다.', '3월 말 메구로강 벚꽃 철에는 강변이 인파로 막힙니다.']),
+  },
   {
     slug: 'kichijoji', name: '기치조지·지브리', nameEn: 'Kichijoji', tier: 'district', within: 'tokyo',
     titles: ['Kichijoji'], radiusKm: 1.5,
@@ -234,6 +257,10 @@ export const LINKS = [
   L('shinjuku', 'kichijoji', 15, 'JR 주오선 쾌속'), L('shinjuku', 'odaiba', 35),
   L('shibuya', 'roppongi', 15), L('shibuya', 'kichijoji', 17, '게이오 이노카시라선 급행'), L('shibuya', 'ikebukuro', 12, '후쿠토신선'),
   L('shibuya', 'odaiba', 30), L('roppongi', 'odaiba', 25), L('ikebukuro', 'kichijoji', 25),
+  L('shibuya', 'shimokitazawa', 5, '게이오 이노카시라선 급행'), L('shibuya', 'nakameguro', 4, '도큐 도요코선'),
+  L('shimokitazawa', 'kichijoji', 12, '게이오 이노카시라선 급행'), L('shimokitazawa', 'shinjuku', 10, '오다큐선'),
+  L('shimokitazawa', 'nakameguro', 15), L('nakameguro', 'roppongi', 12, '히비야선'), L('nakameguro', 'ginza', 22, '히비야선'),
+  L('tokyo', 'shimokitazawa', 30), L('tokyo', 'nakameguro', 28),
 ];
 
 /**

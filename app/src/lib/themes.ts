@@ -36,6 +36,24 @@ export const THEMES: ThemeDef[] = [
 export const THEME_LABEL = Object.fromEntries(THEMES.map((t) => [t.id, t.label])) as Record<ThemeId, string>;
 export const THEME_ICON = Object.fromEntries(THEMES.map((t) => [t.id, t.icon])) as Record<ThemeId, string>;
 
+/**
+ * 테마 힌트는 나라마다 다르다. 기본(스페인) 힌트에 '타파스·플라멩코' 가
+ * 있어 일본 화면에서는 없는 것을 예로 드는 셈이 된다.
+ */
+const HINTS: Record<string, Partial<Record<ThemeId, string>>> = {
+  japan: {
+    history: '신사, 절, 성, 옛 거리',
+    art: '미술관, 박물관, 공연, 애니메이션',
+    landmark: '전망대, 타워, 교차로, 다리',
+    nature: '공원, 정원, 호수, 벚꽃',
+    food: '스시, 라멘, 이자카야, 데파치카',
+    nightlife: '이자카야, 바, 요코초, 클럽',
+    activity: '테마파크, 체험, 스모, 야구',
+    shopping: '백화점, 드럭스토어, 애니메이션, 편집숍',
+  },
+};
+export const hintFor = (t: ThemeDef, country: string): string => HINTS[country]?.[t.id] ?? t.hint;
+
 /** 그 자리에서 자야 하는 테마들. */
 export const STAY_THEMES = new Set<ThemeId>(THEMES.filter((t) => t.stay).map((t) => t.id));
 

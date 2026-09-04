@@ -75,13 +75,28 @@ function tagsFor(item, text) {
   const add = (re, tag) => { if (re.test(text)) tags.push(tag); };
   if (item.theme === 'food' || item.theme === 'nightlife') {
     add(/\btapas|pintxo/i, 'tapas');
-    add(/\bmichelin|fine dining|tasting menu|gourmet/i, 'fine');
-    add(/\bmarket|mercado|street food|stall/i, 'street');
-    add(/\bseafood|fish|marisco|paella|pescado/i, 'seafood');
-    add(/\bvegetarian|vegan|veggie/i, 'vegetarian');
-    add(/\bcafe|café|coffee|churros|pastry|bakery|dessert|ice cream|helad/i, 'cafe');
+    add(/\bmichelin|fine dining|tasting menu|gourmet|kaiseki|omakase|three.?star|two.?star/i, 'fine');
+    add(/\bmarket|mercado|street food|stall|depachika|food hall|yokocho|alley/i, 'street');
+    add(/\bseafood|fish|marisco|paella|pescado|sushi|sashimi|tuna|unagi|eel|kaisen|oyster/i, 'seafood');
+    add(/\bvegetarian|vegan|veggie|shojin/i, 'vegetarian');
+    add(/\bcafe|café|coffee|churros|pastry|bakery|dessert|ice cream|helad|matcha|wagashi|parfait|pancake|kissaten/i, 'cafe');
     add(/\bwine|bodega|vineyard|winery|cava|sherry|vermouth/i, 'wine');
-    add(/\btraditional|home.?cooked|local cuisine|casera|typical/i, 'local');
+    add(/\btraditional|home.?cooked|local cuisine|casera|typical|since 1[6-9]\d\d|founded in 1[6-9]\d\d|oldest|century/i, 'local');
+    // 일본 — 2단계 음식·술 취향과 맞춘다.
+    add(/\bsushi|sashimi|omakase/i, 'sushi');
+    add(/\bramen|tsukemen|soba|udon|noodle/i, 'noodle');
+    add(/\bizakaya|yakitori|skewer|kushi|robata|standing bar|tachinomi|oden/i, 'izakaya');
+    add(/\byakiniku|wagyu|beef|steak|shabu|sukiyaki|tonkatsu|katsu|gyoza|curry|okonomiyaki|monja|tempura|donburi|teishoku|set meal/i, 'comfort');
+    add(/\bsake|nihonshu|shochu|whisk(e)?y|highball|craft beer|brewery|brewpub|taproom|jazz|cocktail|listening bar|wine bar/i, 'bar');
+  }
+  if (item.theme === 'shopping') {
+    // 일본 — 2단계 쇼핑 취향과 맞춘다.
+    add(/\bdepartment store|depato|isetan|takashimaya|mitsukoshi|daimaru|seibu|tobu|marui|parco|ginza six|hills|midtown|mall|complex/i, 'department');
+    add(/\bdrug ?store|discount|don quijote|donki|100.?yen|daiso|matsumoto|variety|loft|hands|muji|souvenir/i, 'variety');
+    add(/\banime|manga|figure|otaku|otome|game|arcade|gachapon|doujin|idol|trading card|hobby|model kit|electronics|camera|yodobashi|bic/i, 'otaku');
+    add(/\bvintage|second.?hand|used|select shop|boutique|streetwear|fashion|thrift|record|vinyl|antique/i, 'select');
+    add(/\bcraft|artisan|pottery|ceramic|knife|paper|washi|stationery|incense|kimono|yukata|tea|folk|traditional|kitchenware/i, 'craft');
+    add(/\bmarket|bazaar|arcade|shotengai|shopping street|stalls|flea/i, 'street');
   }
   add(/\bunesco|world heritage/i, 'unesco');
   add(/\bfree\b|no charge|gratis/i, 'free');
